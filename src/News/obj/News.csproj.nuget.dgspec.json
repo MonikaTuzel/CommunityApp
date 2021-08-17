@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\PC\\Desktop\\UCZELNIA\\DYPLOM\\CommunityApp\\src\\News\\News.csproj": {}
+    "C:\\Users\\PC\\Desktop\\UCZELNIA\\DYPLOM\\CommunityApp\\CommunityApp\\src\\News\\News.csproj": {}
   },
   "projects": {
-    "C:\\Users\\PC\\Desktop\\UCZELNIA\\DYPLOM\\CommunityApp\\src\\News\\News.csproj": {
+    "C:\\Users\\PC\\Desktop\\UCZELNIA\\DYPLOM\\CommunityApp\\CommunityApp\\src\\News\\News.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PC\\Desktop\\UCZELNIA\\DYPLOM\\CommunityApp\\src\\News\\News.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Desktop\\UCZELNIA\\DYPLOM\\CommunityApp\\CommunityApp\\src\\News\\News.csproj",
         "projectName": "News",
-        "projectPath": "C:\\Users\\PC\\Desktop\\UCZELNIA\\DYPLOM\\CommunityApp\\src\\News\\News.csproj",
+        "projectPath": "C:\\Users\\PC\\Desktop\\UCZELNIA\\DYPLOM\\CommunityApp\\CommunityApp\\src\\News\\News.csproj",
         "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PC\\Desktop\\UCZELNIA\\DYPLOM\\CommunityApp\\src\\News\\obj\\",
+        "outputPath": "C:\\Users\\PC\\Desktop\\UCZELNIA\\DYPLOM\\CommunityApp\\CommunityApp\\src\\News\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -60,7 +60,7 @@
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[5.6.3, )"
+              "version": "[6.1.5, )"
             }
           },
           "imports": [

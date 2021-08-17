@@ -44,9 +44,11 @@ namespace Users.Controllers
 
         public async Task<User> PostNewUser([FromBody]CreateUserDto userDto)
         {
-            await _userservice.AddUser(userDto);
+            await _userservice.AddUser(userDto.RoleId, userDto.ShortName, userDto.FullName,
+                userDto.StudentScore, userDto.Phone, userDto.Email, userDto.Password);
 
-            return await _userservice.GetUserByName(userDto.Email);
+            return await _userservice.GetUserByName(userDto.ShortName);
+
         }
 
         [HttpPut("{userId}")]

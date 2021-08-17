@@ -7,7 +7,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Users.DataBase;
 using Users.IServices;
-using Users.Mappers;
 using Users.Service;
 
 namespace Users
@@ -27,17 +26,16 @@ namespace Users
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("Community", new OpenApiInfo { Title = "Community_Users" });
+                //c.SwaggerDoc("Community", new OpenApiInfo { Title = "Community" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Users", Version = "v1" });
+
             });
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("CommunityContext")));
 
             services.AddScoped<IUserService, UserService>();
-            services.AddSingleton(AutoMapperConfig.Initialize());
-
         }
-
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

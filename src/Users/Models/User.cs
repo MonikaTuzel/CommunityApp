@@ -17,6 +17,7 @@ namespace Users.Models
         public User(int roleId, string shortName, string fullName,
             int studentScore, int phone, string email, string password)
         {
+            
             RoleId = roleId;
             ShortName = shortName;
             FullName = fullName;
