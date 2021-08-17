@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rverfBAElIVt8ISiPtoKNme6FgGZ8JXtoGBcXhzBqADLMUfZF9T2gAbPvije+6BGl/hXR5/SxUSjoziDpoht1w==",
+  "dgSpecHash": "B7gwhrU/zG97taH21sXWEFIGfkLTIO1+akS+AvaJtzkIuKvMad9+e5FLtaJqAWE4ZX6355mvDdozae53sCE2dg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\PC\\Desktop\\UCZELNIA\\DYPLOM\\CommunityApp\\CommunityApp\\src\\Delivery\\Delivery.csproj",
+  "projectFilePath": "C:\\Users\\PC\\Desktop\\UCZELNIA\\DYPLOM\\CommunityApp\\CommunityApp\\src\\Deliveries\\Deliveries.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PC\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
