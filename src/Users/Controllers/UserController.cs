@@ -32,6 +32,18 @@ namespace Users.Controllers
             return Json(users);
         }
 
+
+        [HttpGet("[action]/{id}")]
+
+        public async Task<IActionResult> GetAdressById(int id)
+        {
+            var adresses = await _userservice.GetAsdressById(id);
+            return Json(adresses);
+        }
+
+
+
+
         [HttpGet("[action]")]
         public async Task<IActionResult> GetByName(string name)
         {

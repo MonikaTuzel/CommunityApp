@@ -14,8 +14,10 @@ namespace Users.Models
         public int Code { get; set; }
         public string Street { get; set; }
         public int Number { get; set; }
+
         public int UserId { get; set; }
-        
+        public virtual User User { get; set; }
+
         public Adress(int idAdress, int townId, int code, string street,
             int number, int userId)
         {

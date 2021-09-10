@@ -26,6 +26,10 @@ namespace Users.Service
         public async Task<User> GetUserById(int id)
             => await Task.FromResult(_dbContext.User.SingleOrDefault(x => x.Id == id));
 
+
+        public async Task<Adress> GetAsdressById(int id)
+          => await Task.FromResult(_dbContext.Adress.SingleOrDefault(x => x.IdAdress == id));
+
         public async Task<User> GetUserByName(string name)
             => await Task.FromResult(_dbContext.User.SingleOrDefault(x => x.ShortName == name));
 

@@ -85,7 +85,6 @@ C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\bin\Debu
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\bin\Debug\net5.0\Microsoft.OpenApi.dll
-C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -122,3 +121,4 @@ C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\obj\Debu
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\obj\Debug\net5.0\ref\Users.dll
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\obj\Debug\net5.0\Users.pdb
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\obj\Debug\net5.0\Users.genruntimeconfig.cache
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

@@ -28,12 +28,12 @@ namespace Deliveries.Controllers
         }
 
 
-        //// GET api/<DeliveryController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        // GET api/<DeliveryController>/1
+        [HttpGet("{status}")]
+        public async Task<IEnumerable<Delivery>> GetByStatus(int status)
+        {
+          return await _deliveryService.GetDeliveryByStatus(status);
+        }
 
         // POST api/<DeliveryController>
         [HttpPost]

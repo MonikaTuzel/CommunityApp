@@ -18,10 +18,13 @@ namespace Deliveries.Service
             _dbContext = dbContext;
         }
         public async Task<IEnumerable<Delivery>> BrowseAllDeliveries()
-       => await Task.FromResult(_dbContext.Delivery);
+            => await Task.FromResult(_dbContext.Delivery);
 
-        public async Task<Delivery> GetDeliveryByStatus(int status)
-            => await Task.FromResult(_dbContext.Delivery.SingleOrDefault(x => x.StatusId == status));
+        public async Task<IEnumerable<Delivery>> GetDeliveryByStatus(int status)
+        {
+            var deliveries = _dbContext.Delivery.Where(x => x.StatusId == status);
+            return await Task.FromResult(deliveries);
+        }
 
         public async Task<Delivery> GetDeliveryByUserId(int userId)
             => await Task.FromResult(_dbContext.Delivery.SingleOrDefault(x => x.UserId == userId));

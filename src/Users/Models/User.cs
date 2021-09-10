@@ -10,12 +10,14 @@ namespace Users.Models
         public string ShortName { get; set; }
         public string FullName { get; set; }
         public int StudentScore { get; set; }
-        public int Phone { get; set; }
+        public int? Phone { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
 
+       public virtual Adress Adress { get; set; }
+
         public User(int roleId, string shortName, string fullName,
-            int studentScore, int phone, string email, string password)
+            int studentScore, int? phone, string email, string password)
         {
             
             RoleId = roleId;
