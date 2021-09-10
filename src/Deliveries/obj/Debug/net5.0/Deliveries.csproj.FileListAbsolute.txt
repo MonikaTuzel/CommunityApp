@@ -134,3 +134,4 @@ C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Deliveries\obj
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Deliveries\obj\Debug\net5.0\ref\Deliveries.dll
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Deliveries\obj\Debug\net5.0\Deliveries.pdb
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Deliveries\obj\Debug\net5.0\Deliveries.genruntimeconfig.cache
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Deliveries\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

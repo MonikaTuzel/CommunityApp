@@ -14,8 +14,6 @@ namespace Users.Models
         public string Email { get; set; }
         public string Password { get; set; }
 
-       public virtual Adress Adress { get; set; }
-
         public User(int roleId, string shortName, string fullName,
             int studentScore, int? phone, string email, string password)
         {
