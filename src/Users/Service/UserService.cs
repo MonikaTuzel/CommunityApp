@@ -49,23 +49,6 @@ namespace Users.Service
             await Task.FromResult("");
         }
 
-        public async Task AddUser(int roleId, string shortName, string fullName, 
-            int studentScore, int phone, string email, string password)
-        {
-            var user = await Task.FromResult(_dbContext.User.SingleOrDefault(x => x.Email == email));
-            if (user != null)
-            {
-                throw new Exception($"Adres e-mail: '{email}' już istnieje");
-            }
-
-            user = new User(roleId, shortName, fullName, studentScore, phone, email, password);
-
-            _dbContext.User.Add(user);
-            _dbContext.SaveChanges();
-            await Task.FromResult("");
-
-        }
-
         public async Task DeleteUser(int id)
         {
             var user =  _dbContext.User.FirstOrDefault(x => x.Id == id);

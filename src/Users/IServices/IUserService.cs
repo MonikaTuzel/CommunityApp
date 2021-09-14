@@ -10,7 +10,6 @@ namespace Users.IServices
         Task<IEnumerable<User>> BrowseAllUsers();
         Task<User> GetUserById(int id);
         Task<User> GetUserByName(string name);
-        Task AddUser(int roleId, string shortName, string fullName,  int studentScore, int phone, string email, string password);
         Task UpdateUser(int userId, string fullName, int studentScore, int phone);
         Task DeleteUser(int id);
     }
