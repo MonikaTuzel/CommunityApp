@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Users.Exceptions;
 using Users.Exeptions;
 
 namespace Users.Middleware
@@ -26,6 +27,11 @@ namespace Users.Middleware
             {
                 context.Response.StatusCode = 404;
                 await context.Response.WriteAsync(notFoundException.Message);
+            }
+            catch(LoginUserException loginUserException)
+            {
+                context.Response.StatusCode = 400;
+                await context.Response.WriteAsync(loginUserException.Message);
             }
             catch (Exception e)
             {

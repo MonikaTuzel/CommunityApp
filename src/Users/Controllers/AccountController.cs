@@ -25,6 +25,13 @@ namespace Users.Controllers
             _accountService.RegisterUser(dto);
             return Ok();
         }
+
+        [HttpPost("login")]
+        public ActionResult GenerateJwt([FromBody]LoginUserDto loginDto )
+        {
+            string token = _accountService.GenerateJwt(loginDto);
+            return Ok(token);
+        }
         
 
     }
