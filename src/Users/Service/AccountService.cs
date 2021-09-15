@@ -35,6 +35,7 @@ namespace Users.Service
         public void RegisterUser(RegisterUserDto dto)
         {
             _logger.LogWarning($"Wywołano funkcję rejestracji nowego użytkownika");
+
             var newUser = new User()
             {
                 RoleId = dto.RoleId,
@@ -75,6 +76,28 @@ namespace Users.Service
                 claims, expires: expire, signingCredentials: cred);
             var tokenHandler = new JwtSecurityTokenHandler();
             return tokenHandler.WriteToken(token);
+        }
+
+        public void ChangePassword(int userId, ChangePasswordDto dto)
+        {
+            _logger.LogWarning($"Próba zmiany hasła dla użytkonika nr: {userId}");
+
+            var user = _dbContext.User.FirstOrDefault(x => x.Id == userId);
+
+            var passwordHash = _passwordHasher.VerifyHashedPassword(user, user.Password, dto.CurrentPassword);
+            if (passwordHash == PasswordVerificationResult.Failed)
+                throw new LoginUserException($"Podano błędne hasło");
+
+            var newPassword = dto.NewPassword;
+            var newPasswordRepeat = dto.NewPasswordRepeat;
+            if (newPassword != newPasswordRepeat)
+                throw new LoginUserException($"Hasła nie są identyczne");
+
+            var newPasswordHash = _passwordHasher.HashPassword(user, dto.NewPassword);
+            user.Password = newPasswordHash;
+            _dbContext.Update(user);
+            _dbContext.SaveChanges();
+
         }
     }
 }

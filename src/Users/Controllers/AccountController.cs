@@ -27,12 +27,19 @@ namespace Users.Controllers
         }
 
         [HttpPost("login")]
-        public ActionResult GenerateJwt([FromBody]LoginUserDto loginDto )
+        public ActionResult GenerateJwt([FromBody]LoginUserDto dto )
         {
-            string token = _accountService.GenerateJwt(loginDto);
+            string token = _accountService.GenerateJwt(dto);
             return Ok(token);
         }
         
+        [HttpPut("{userId}/change")]
+
+        public ActionResult ChangeUserPassword([FromBody]ChangePasswordDto dto, [FromRoute]int userId)
+        {
+            _accountService.ChangePassword(userId, dto);
+            return Ok();
+        }
 
     }
 }

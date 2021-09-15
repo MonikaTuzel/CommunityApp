@@ -10,5 +10,6 @@ namespace Users.IServices
     {
         void RegisterUser(RegisterUserDto dto);
         string GenerateJwt(LoginUserDto dto);
+        void ChangePassword(int userId, ChangePasswordDto dto);
     }
 }
