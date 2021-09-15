@@ -39,11 +39,8 @@ namespace Users.Service
 
             var user = await Task.FromResult(_dbContext.User.SingleOrDefault(x => x.Id == userId));
             if (user is null)
-                throw new NotFoundException($"Użytkownik o numerze id =  '{userId}' nie istnieje!");
+                throw new NotFoundException($"Użytkownik o numerze id: '{userId}' nie istnieje!");
             
-
-            await Task.FromResult(_dbContext.User.SingleOrDefault(x => x.Id == userId));
-
             user.FullName = userDto.FullName;
             user.StudentScore = userDto.StudentScore;
             user.Phone = userDto.Phone;
@@ -53,15 +50,16 @@ namespace Users.Service
             await Task.FromResult("");
         }
 
-        public async Task DeleteUser(int id)
+        public void DeleteUser(int id)
         {
             _logger.LogWarning($"Wywołano akcję usunięcia użytwkonika o id =  {id} ");
+
             var user =  _dbContext.User.FirstOrDefault(x => x.Id == id);
+            if (user is null)
+                throw new NotFoundException($"Użytkownik o numerze id: {id} nie istnieje");
+
             _dbContext.User.Remove(user);
-
             _dbContext.SaveChanges();
-            await Task.CompletedTask;
-
         }
 
     }

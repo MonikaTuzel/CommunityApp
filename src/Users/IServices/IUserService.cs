@@ -11,6 +11,6 @@ namespace Users.IServices
         Task<User> GetUserById(int id);
         Task<User> GetUserByName(string name);
         Task UpdateUser(int userId, UpdateUserDto userDto);
-        Task DeleteUser(int id);
+        void DeleteUser(int id);
     }
 }

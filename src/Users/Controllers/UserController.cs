@@ -8,7 +8,8 @@ using Users.Models;
 namespace Users.Controllers
 {
     [Route("[controller]")]
-    public class UserController : Controller
+    [ApiController]
+    public class UserController : ControllerBase
     {
         private readonly IUserService _userservice;
 
@@ -29,14 +30,14 @@ namespace Users.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var users = await _userservice.GetUserById(id);
-            return Json(users);
+            return Ok(users);
         }
 
         [HttpGet("[action]")]
         public async Task<IActionResult> GetByName(string name)
         {
             var user = await _userservice.GetUserByName(name);
-            return Json(user);
+            return Ok(user);
         }
 
         [HttpPut("{userId}")]
@@ -49,9 +50,9 @@ namespace Users.Controllers
 
         [HttpDelete("{userId}")]
 
-        public async Task<IActionResult> Delete(int userId)
+        public ActionResult Delete(int userId)
         {
-            await _userservice.DeleteUser(userId);
+            _userservice.DeleteUser(userId);
             return NoContent();
         }
 
