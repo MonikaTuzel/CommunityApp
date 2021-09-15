@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,12 @@ namespace Users.Service
     public class UserService : IUserService
     {
         private readonly AppDbContext _dbContext;
+        private readonly ILogger<UserService> _logger;
 
-        public UserService(AppDbContext dbContext )
+        public UserService(AppDbContext dbContext, ILogger<UserService> logger )
         {
             _dbContext = dbContext;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<User>> BrowseAllUsers()
@@ -31,6 +34,7 @@ namespace Users.Service
 
         public async Task UpdateUser(int userId, string fullName, int studentScore, int phone)
         {
+            _logger.LogWarning($"Wywołano funkcję edycji danych użytkonika o id={userId}");
             var user = await Task.FromResult(_dbContext.User.SingleOrDefault(x => x.Id == userId));
             if(user == null)
             {
@@ -51,6 +55,7 @@ namespace Users.Service
 
         public async Task DeleteUser(int id)
         {
+            _logger.LogWarning($"Wywołano akcję usunięcia użytwkonika o id =  {id} ");
             var user =  _dbContext.User.FirstOrDefault(x => x.Id == id);
             _dbContext.User.Remove(user);
 

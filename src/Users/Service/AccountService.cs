@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using Users.DataBase;
 using Users.DTO;
 using Users.IServices;
@@ -10,15 +11,18 @@ namespace Users.Service
     {
         private readonly AppDbContext _dbContext;
         private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly ILogger _logger;
 
-        public AccountService(AppDbContext dbContext, IPasswordHasher<User> passwordHasher)
+        public AccountService(AppDbContext dbContext, IPasswordHasher<User> passwordHasher, ILogger<AccountService> logger)
         {
             _dbContext = dbContext;
             _passwordHasher = passwordHasher;
+            _logger = logger;
         }
 
         public void RegisterUser(RegisterUserDto dto)
         {
+            _logger.LogWarning($"Wywołano funkcję rejestracji nowego użytkownika");
             var newUser = new User()
             {
                 RoleId = dto.RoleId,
