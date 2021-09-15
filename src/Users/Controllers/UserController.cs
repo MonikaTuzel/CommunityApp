@@ -41,9 +41,9 @@ namespace Users.Controllers
 
         [HttpPut("{userId}")]
 
-        public async Task<User> PutUser(int userId,[FromBody] UpdateUserDto userDto )
+        public async Task<User> PutUser([FromBody] UpdateUserDto userDto, [FromRoute] int userId)
         {
-            await _userservice.UpdateUser(userId, userDto.FullName, userDto.StudentScore, userDto.Phone);
+            await _userservice.UpdateUser(userId, userDto);
             return await _userservice.GetUserById(userId);
         }
 

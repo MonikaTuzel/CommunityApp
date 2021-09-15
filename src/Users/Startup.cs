@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using Users.DataBase;
 using Users.DTO;
 using Users.IServices;
+using Users.Middleware;
 using Users.Models;
 using Users.Service;
 using Users.Validation;
@@ -44,6 +45,7 @@ namespace Users
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidation>();
+            services.AddScoped<ErrorHandingMiddleware>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -55,6 +57,7 @@ namespace Users
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Users v1"));
             }
 
+            app.UseMiddleware<ErrorHandingMiddleware>();
             app.UseHttpsRedirection();
 
             app.UseRouting();

@@ -29,18 +29,7 @@ namespace Users.Models
         //    Password = password;
         //    ConfirmPassword = confirmPassword;
         //}
-        public void SetFullName(string fullName)
-        {
-            FullName = fullName;
-        }
-        public void SetStudentScore(int studenctScore)
-        {
-            StudentScore = studenctScore;
-        }
-        public void SetPhone(int phone)
-        {
-            Phone = phone;
-        }
+        
     }
      
 }

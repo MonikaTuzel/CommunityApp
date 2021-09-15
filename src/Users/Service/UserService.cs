@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Users.DataBase;
 using Users.DTO;
+using Users.Exeptions;
 using Users.IServices;
 using Users.Models;
 
@@ -32,23 +33,22 @@ namespace Users.Service
         public async Task<User> GetUserByName(string name)
             => await Task.FromResult(_dbContext.User.SingleOrDefault(x => x.ShortName == name));
 
-        public async Task UpdateUser(int userId, string fullName, int studentScore, int phone)
+        public async Task UpdateUser(int userId, UpdateUserDto userDto)
         {
             _logger.LogWarning($"Wywołano funkcję edycji danych użytkonika o id={userId}");
+
             var user = await Task.FromResult(_dbContext.User.SingleOrDefault(x => x.Id == userId));
-            if(user == null)
-            {
-                throw new Exception($"Użytkownik o numerze id =  '{userId}' nie istnieje!");
-            };
+            if (user is null)
+                throw new NotFoundException($"Użytkownik o numerze id =  '{userId}' nie istnieje!");
+            
 
-           await Task.FromResult(_dbContext.User.SingleOrDefault(x => x.Id == userId));
+            await Task.FromResult(_dbContext.User.SingleOrDefault(x => x.Id == userId));
 
-            user.SetFullName(fullName);
-            user.SetPhone(phone);
-            user.SetStudentScore(studentScore);
+            user.FullName = userDto.FullName;
+            user.StudentScore = userDto.StudentScore;
+            user.Phone = userDto.Phone;
 
             _dbContext.User.Update(user);
-            await Task.CompletedTask;
             _dbContext.SaveChanges();
             await Task.FromResult("");
         }
