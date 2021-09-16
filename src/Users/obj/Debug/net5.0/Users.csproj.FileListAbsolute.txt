@@ -129,3 +129,5 @@ C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\bin\Debu
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\bin\Debug\net5.0\NLog.dll
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\bin\Debug\net5.0\NLog.Extensions.Logging.dll
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\bin\Debug\net5.0\Users.xml
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Users\obj\Debug\net5.0\Users.xml

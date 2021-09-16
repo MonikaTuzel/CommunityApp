@@ -71,7 +71,7 @@ namespace Users.Service
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expire = DateTime.Now.AddMinutes(_authenticationSettings.JwtExpireMinutes);
+            var expire = DateTime.Now.AddDays(_authenticationSettings.JwtExpireDays);
             var token = new JwtSecurityToken(_authenticationSettings.JwtIssuer, _authenticationSettings.JwtIssuer,
                 claims, expires: expire, signingCredentials: cred);
             var tokenHandler = new JwtSecurityTokenHandler();

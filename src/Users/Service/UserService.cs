@@ -25,7 +25,7 @@ namespace Users.Service
         }
 
         public async Task<IEnumerable<User>> BrowseAllUsers()
-            => await Task.FromResult(_dbContext.User);
+            => await Task.FromResult(_dbContext.User.Include(u=>u.Role));
 
         public async Task<User> GetUserById(int id)
             => await Task.FromResult(_dbContext.User.SingleOrDefault(x => x.Id == id));
