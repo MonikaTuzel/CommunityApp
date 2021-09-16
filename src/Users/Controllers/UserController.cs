@@ -20,13 +20,19 @@ namespace Users.Controllers
             _userservice = userservice;
         }
 
+        /// <summary>
+        /// Pobieranie listy wszystkich użytkowników
+        /// </summary>
         [HttpGet]
-
+        [Authorize(Roles = "Admin")]
         public async Task<IEnumerable<User>> GetUsers()
         {
             return await _userservice.BrowseAllUsers();
         }
 
+        /// <summary>
+        /// Pobieranie użytkownika po numerze id
+        /// </summary>
         [HttpGet("/{id}")]
 
         public async Task<IActionResult> GetById(int id)
@@ -35,13 +41,20 @@ namespace Users.Controllers
             return Ok(users);
         }
 
+        /// <summary>
+        /// Pobieranie użytkownika po nazwie
+        /// </summary>
         [HttpGet("[action]")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetByName(string name)
         {
             var user = await _userservice.GetUserByName(name);
             return Ok(user);
         }
 
+        /// <summary>
+        /// Aktualnienie danych użytkownika
+        /// </summary>
         [HttpPut("{userId}")]
 
         public async Task<User> PutUser([FromBody] UpdateUserDto userDto, [FromRoute] int userId)
@@ -50,7 +63,11 @@ namespace Users.Controllers
             return await _userservice.GetUserById(userId);
         }
 
+        /// <summary>
+        /// Usuwanie użytkownika
+        /// </summary>
         [HttpDelete("{userId}")]
+        [Authorize(Roles = "Admin")]
 
         public ActionResult Delete(int userId)
         {

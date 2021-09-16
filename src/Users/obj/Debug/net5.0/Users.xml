@@ -19,5 +19,30 @@
             Zmiana hasła użytwkonika
             </summary>
         </member>
+        <member name="M:Users.Controllers.UserController.GetUsers">
+            <summary>
+            Pobieranie listy wszystkich użytkowników
+            </summary>
+        </member>
+        <member name="M:Users.Controllers.UserController.GetById(System.Int32)">
+            <summary>
+            Pobieranie użytkownika po numerze id
+            </summary>
+        </member>
+        <member name="M:Users.Controllers.UserController.GetByName(System.String)">
+            <summary>
+            Pobieranie użytkownika po nazwie
+            </summary>
+        </member>
+        <member name="M:Users.Controllers.UserController.PutUser(Users.DTO.UpdateUserDto,System.Int32)">
+            <summary>
+            Aktualnienie danych użytkownika
+            </summary>
+        </member>
+        <member name="M:Users.Controllers.UserController.Delete(System.Int32)">
+            <summary>
+            Usuwanie użytkownika
+            </summary>
+        </member>
     </members>
 </doc>

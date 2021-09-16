@@ -135,3 +135,9 @@ C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Deliveries\obj
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Deliveries\obj\Debug\net5.0\Deliveries.pdb
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Deliveries\obj\Debug\net5.0\Deliveries.genruntimeconfig.cache
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Deliveries\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Deliveries\bin\Debug\net5.0\FluentValidation.dll
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Deliveries\bin\Debug\net5.0\FluentValidation.AspNetCore.dll
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Deliveries\bin\Debug\net5.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Deliveries\bin\Debug\net5.0\NLog.dll
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Deliveries\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Deliveries\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
