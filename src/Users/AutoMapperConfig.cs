@@ -12,7 +12,7 @@ namespace Users
     {
         public AutoMapperConfig()
         {
-            CreateMap<User, UserDto>()
+            CreateMap<User, UserInformationDto>()
                 .ForMember(c => c.RoleName, c => c.MapFrom(e => e.Role.Name));
         }
     }

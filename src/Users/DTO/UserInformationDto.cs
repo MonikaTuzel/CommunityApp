@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Users.DTO
 {
-    public class UserDto
+    public class UserInformationDto
     {
         public string ShortName { get; set; }
         public string FullName { get; set; }

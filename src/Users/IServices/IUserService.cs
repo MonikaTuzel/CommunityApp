@@ -7,7 +7,7 @@ namespace Users.IServices
 {
     public interface IUserService
     {
-        IEnumerable<UserDto> BrowseAllUsers();
+        IEnumerable<UserInformationDto> BrowseAllUsers();
         Task<User> GetUserById(int id);
         Task<User> GetUserByName(string name);
         Task UpdateUser(int userId, UpdateUserDto userDto);

@@ -24,7 +24,7 @@
             Pobieranie listy wszystkich użytkowników
             </summary>
         </member>
-        <member name="M:Users.Controllers.UserController.GetById">
+        <member name="M:Users.Controllers.UserController.GetById(System.Int32)">
             <summary>
             Pobieranie użytkownika po numerze id
             </summary>

@@ -26,10 +26,10 @@ namespace Users.Service
             _logger = logger;
         }
 
-        public IEnumerable<UserDto> BrowseAllUsers()
+        public IEnumerable<UserInformationDto> BrowseAllUsers()
         {
             var users = _dbContext.User.Include(u=>u.Role).ToList();
-            var usersDto = _mapper.Map<List<UserDto>>(users);
+            var usersDto = _mapper.Map<List<UserInformationDto>>(users);
 
             return usersDto;
         }

@@ -27,7 +27,7 @@ namespace Users.Controllers
         /// </summary>
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult<IEnumerable<UserDto>> GetUsers()
+        public ActionResult<IEnumerable<UserInformationDto>> GetUsers()
         {
             var users = _userservice.BrowseAllUsers();
             return Ok(users);
@@ -36,13 +36,11 @@ namespace Users.Controllers
         /// <summary>
         /// Pobieranie użytkownika po numerze id
         /// </summary>
-        [HttpGet("[action]")]
+        [HttpGet("{userId}")]
+        [AllowAnonymous]
 
-        public async Task<IActionResult> GetById()
+        public async Task<IActionResult> GetById(int userId)
         {
-            var userId = int.Parse(User.FindFirst(c =>
-            c.Type == ClaimTypes.NameIdentifier).Value);
-
             var users = await _userservice.GetUserById(userId);
             return Ok(users);
         }
