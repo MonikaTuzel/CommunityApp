@@ -16,16 +16,23 @@ namespace Users.Service
     public class UserService : IUserService
     {
         private readonly AppDbContext _dbContext;
+        private readonly IMapper _mapper;
         private readonly ILogger<UserService> _logger;
 
-        public UserService(AppDbContext dbContext, ILogger<UserService> logger )
+        public UserService(AppDbContext dbContext, IMapper mapper ,ILogger<UserService> logger )
         {
             _dbContext = dbContext;
+            _mapper = mapper;
             _logger = logger;
         }
 
-        public async Task<IEnumerable<User>> BrowseAllUsers()
-            => await Task.FromResult(_dbContext.User.Include(u=>u.Role));
+        public IEnumerable<UserDto> BrowseAllUsers()
+        {
+            var users = _dbContext.User.Include(u=>u.Role).ToList();
+            var usersDto = _mapper.Map<List<UserDto>>(users);
+
+            return usersDto;
+        }
 
         public async Task<User> GetUserById(int id)
             => await Task.FromResult(_dbContext.User.SingleOrDefault(x => x.Id == id));

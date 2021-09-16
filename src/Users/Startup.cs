@@ -20,6 +20,7 @@ using Users.Middleware;
 using Users.Models;
 using Users.Service;
 using Users.Validation;
+using AutoMapper;
 
 namespace Users
 {
@@ -93,7 +94,8 @@ namespace Users
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("CommunityContext")));
-
+            
+            services.AddAutoMapper(this.GetType().Assembly);
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();

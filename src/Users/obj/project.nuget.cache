@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "0/i5QibiirpRZSWh/xR2b/UrqBygT4Ci14NjyBIG8ld+MD0R3IUwU66gTXyuqqsywZir8sGXaV7Q8Ejfh8jHPA==",
+  "dgSpecHash": "pEZi1CCzNcoOPDrZEFPoMCJOvEUE/LOaCDlkusHhVdAgaaQtRK/3NBHWL204ZS4+JHp9QTGnYakc+N2PyfyK+A==",
   "success": true,
   "projectFilePath": "C:\\Users\\PC\\Desktop\\UCZELNIA\\DYPLOM\\CommunityApp\\CommunityApp\\src\\Users\\Users.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PC\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\fluentvalidation\\10.3.3\\fluentvalidation.10.3.3.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\fluentvalidation.aspnetcore\\10.3.3\\fluentvalidation.aspnetcore.10.3.3.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\10.3.3\\fluentvalidation.dependencyinjectionextensions.10.3.3.nupkg.sha512",

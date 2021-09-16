@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,20 +15,24 @@ namespace Users.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userservice;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserService userservice)
+        public UserController(IUserService userservice, IMapper mapper)
         {
             _userservice = userservice;
+            _mapper = mapper;
         }
 
         /// <summary>
         /// Pobieranie listy wszystkich użytkowników
         /// </summary>
         [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public async Task<IEnumerable<User>> GetUsers()
+        [AllowAnonymous]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult<IEnumerable<UserDto>> GetUsers()
         {
-            return await _userservice.BrowseAllUsers();
+            var users = _userservice.BrowseAllUsers();
+            return Ok(users);
         }
 
         /// <summary>
