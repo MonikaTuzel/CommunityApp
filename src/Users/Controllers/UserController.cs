@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Users.DTO;
 using Users.IServices;
@@ -15,20 +16,17 @@ namespace Users.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userservice;
-        private readonly IMapper _mapper;
 
-        public UserController(IUserService userservice, IMapper mapper)
+        public UserController(IUserService userservice)
         {
             _userservice = userservice;
-            _mapper = mapper;
         }
 
         /// <summary>
         /// Pobieranie listy wszystkich użytkowników
         /// </summary>
         [HttpGet]
-        [AllowAnonymous]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<IEnumerable<UserDto>> GetUsers()
         {
             var users = _userservice.BrowseAllUsers();
@@ -38,11 +36,14 @@ namespace Users.Controllers
         /// <summary>
         /// Pobieranie użytkownika po numerze id
         /// </summary>
-        [HttpGet("/{id}")]
+        [HttpGet("[action]")]
 
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById()
         {
-            var users = await _userservice.GetUserById(id);
+            var userId = int.Parse(User.FindFirst(c =>
+            c.Type == ClaimTypes.NameIdentifier).Value);
+
+            var users = await _userservice.GetUserById(userId);
             return Ok(users);
         }
 
