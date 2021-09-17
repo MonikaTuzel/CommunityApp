@@ -89,7 +89,7 @@ namespace Users.Service
                 throw new LoginUserException($"Podano błędne hasło");
 
             var newPassword = dto.NewPassword;
-            var newPasswordRepeat = dto.NewPasswordRepeat;
+            var newPasswordRepeat = dto.ConfirmNewPassword;
             if (newPassword != newPasswordRepeat)
                 throw new LoginUserException($"Hasła nie są identyczne");
 

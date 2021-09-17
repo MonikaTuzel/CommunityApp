@@ -16,7 +16,7 @@
         </member>
         <member name="M:Users.Controllers.AccountController.ChangeUserPassword(Users.DTO.ChangePasswordDto,System.Int32)">
             <summary>
-            Zmiana hasła użytwkonika
+            Zmiana hasła użytkownika
             </summary>
         </member>
         <member name="M:Users.Controllers.UserController.GetUsers">

@@ -61,7 +61,7 @@ namespace Users
                 c.SwaggerDoc("v1", new OpenApiInfo { 
                     Title = "CommunityApp", 
                     Version = "v1", 
-                    Description = "Aplikacja wymaga autoryzacji u¿ytkonika" });
+                    Description = "Aplikacja wymaga autoryzacji u¿ytkownika" });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);

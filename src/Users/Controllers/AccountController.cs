@@ -11,7 +11,6 @@ namespace Users.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
@@ -36,7 +35,6 @@ namespace Users.Controllers
         /// Logowanie użytkownika - generowanie tokena
         /// </summary>
         [HttpPost("login")]
-        [AllowAnonymous]
         public ActionResult GenerateJwt([FromBody]LoginUserDto dto )
         {
             string token = _accountService.GenerateJwt(dto);
@@ -45,9 +43,10 @@ namespace Users.Controllers
 
 
         /// <summary>
-        /// Zmiana hasła użytwkonika
+        /// Zmiana hasła użytkownika
         /// </summary>
         [HttpPut("{userId}/change")]
+        [Authorize]
 
         public ActionResult ChangeUserPassword([FromBody]ChangePasswordDto dto, [FromRoute]int userId)
         {
