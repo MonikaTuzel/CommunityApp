@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messages", "..\Messages\Messages.csproj", "{D73CFE9A-D753-453B-8BBB-D8D629FCB810}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "News", "..\News\News.csproj", "{8B1B44FE-6FDD-4423-9EBA-81028A24F568}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contacts", "..\News\Contacts.csproj", "{8B1B44FE-6FDD-4423-9EBA-81028A24F568}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reports", "..\Reports\Reports.csproj", "{3B27946A-DE01-4CA8-AB27-3EC2A91D632D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Files", "..\Reports\Files.csproj", "{3B27946A-DE01-4CA8-AB27-3EC2A91D632D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Users", "..\Users\Users.csproj", "{753241FC-74F0-4118-A5B3-A33A3EBDE424}"
 EndProject
