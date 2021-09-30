@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IcpKdJuoFHidnMyxo2Y3lBZ8riS8EQn7lvFmRrhCyFGGzouXj+rYnyerOTuBpkGyAg/3LS3rorp6fPxQmRXvVA==",
+  "dgSpecHash": "W73aO1eh/p0pUZ+YBJT3nDEePd+51X+drIBcxeJjgjRigrMvsZg/zanBFEkEPL/zyNw5xAfhlNvzTDa3/MiNrQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\PC\\Desktop\\UCZELNIA\\DYPLOM\\CommunityApp\\CommunityApp\\src\\News\\News.csproj",
+  "projectFilePath": "C:\\Users\\PC\\Desktop\\UCZELNIA\\DYPLOM\\CommunityApp\\CommunityApp\\src\\News\\Contacts.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PC\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
