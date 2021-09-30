@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Deliveries</name>
+    </assembly>
+    <members>
+        <member name="M:Deliveries.Controllers.DeliveryController.GetAllDelivery">
+            <summary>
+            Pobieranie listy wszystkich dostaw
+            </summary>
+        </member>
+        <member name="M:Deliveries.Controllers.DeliveryController.GetByUser(System.Int32)">
+            <summary>
+            Pobieranie listy dostaw użytkownika o numerze id
+            </summary>
+        </member>
+        <member name="M:Deliveries.Controllers.DeliveryController.AddNewDelivery(Deliveries.DTO.CreatDeliveryDto)">
+            <summary>
+            Dodawanie nowej dostawy
+            </summary>
+        </member>
+        <member name="M:Deliveries.Controllers.DeliveryController.Put(Deliveries.DTO.UpdateDeliveryDTO,System.Int32)">
+            <summary>
+            Aktualnienie danych dostawy
+            </summary>
+        </member>
+        <member name="M:Deliveries.Controllers.DeliveryController.DeleteDelivery(System.Int32)">
+            <summary>
+            Usuwanie dostawy
+            </summary>
+        </member>
+    </members>
+</doc>

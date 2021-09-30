@@ -5,14 +5,15 @@ using System.Threading.Tasks;
 
 namespace Deliveries.DTO
 {
-    public class AddDeliveryDTO
+    public class CreatDeliveryDto
     {
-        public int UserId { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime DeliveryDate { get; set; }
         public string Year { get; set; }
         public int Semestr { get; set; }
         public int Week { get; set; }
-        public string Description { get; set; }
-        public int StatusId { get; set; }
+        public string? Description { get; set; }
+        public string StatusName { get; set; } = "Oczekuje";
+        public string UserShortName { get; set; }
+
     }
 }

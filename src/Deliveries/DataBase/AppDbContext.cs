@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Users.Models;
 
 namespace Deliveries.DataBase
 {
@@ -15,6 +16,9 @@ namespace Deliveries.DataBase
         }
 
         public DbSet<Delivery> Delivery { get; set; }
+        public DbSet<Status> Status { get; set; }
+        public DbSet<User> User { get; set; }
+
 
     }
 }

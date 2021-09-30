@@ -2,65 +2,146 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Deliveries.DataBase;
 using Deliveries.DTO;
+using Deliveries.Exceptions;
 using Deliveries.IServices;
 using Deliveries.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Deliveries.Service
 {
     public class DeliveryService : IDeliveryService
     {
         private readonly AppDbContext _dbContext;
+        private readonly IMapper _mapper;
+        private readonly ILogger<DeliveryService> _logger;
 
-        public DeliveryService(AppDbContext dbContext)
+        public DeliveryService(AppDbContext dbContext, IMapper mapper, ILogger<DeliveryService> logger)
         {
             _dbContext = dbContext;
-        }
-        public async Task<IEnumerable<Delivery>> BrowseAllDeliveries()
-            => await Task.FromResult(_dbContext.Delivery);
-
-        public async Task<IEnumerable<Delivery>> GetDeliveryByStatus(int status)
-        {
-            var deliveries = _dbContext.Delivery.Where(x => x.StatusId == status);
-            return await Task.FromResult(deliveries);
+            _mapper = mapper;
+            _logger = logger;
         }
 
-        public async Task<Delivery> GetDeliveryByUserId(int userId)
-            => await Task.FromResult(_dbContext.Delivery.SingleOrDefault(x => x.UserId == userId));
-
-        public async Task<Delivery> GetDeliveryByWeeks(int week)
-            => await Task.FromResult(_dbContext.Delivery.SingleOrDefault(x => x.Week == week));
-
-        public async Task<Delivery> GetDeliveryByDeliveryId(int deliveryId)
-            => await Task.FromResult(_dbContext.Delivery.SingleOrDefault(x => x.Id == deliveryId));
-
-
-        public async Task AddDelivery(int userId, DateTime date, string year, int semestr, int week,
-            string description, int statusId)
+        public IEnumerable<DeliveryInformationDto> BrowseAllDeliveries()
         {
-            var delivery = new Delivery(userId, date, year, semestr, week, description, statusId);
+           var deliveries = _dbContext.Delivery
+                .Include(x=>x.Status)
+                .Include(x => x.User)
+                .ToList();
 
-            _dbContext.Delivery.Add(delivery);
+           var deliveriesDto = _mapper.Map<List<DeliveryInformationDto>>(deliveries);
+
+           return deliveriesDto;
+        }
+
+        public IEnumerable<DeliveryInformationDto> GetDeliveryByStatus(int status)
+        {
+            var deliveries = _dbContext.Delivery
+                .Include(x => x.Status)
+                .Include(x => x.User)
+                .Where(x => x.StatusId == status)
+                .ToList();
+
+            var deliveriesDto = _mapper.Map<List<DeliveryInformationDto>>(deliveries);
+
+            return deliveriesDto;
+        }
+
+        public IEnumerable<DeliveryInformationDto> GetDeliveryByUserId(int userId)
+        {
+            var deliveries = _dbContext.Delivery
+                .Include(x => x.Status)
+                .Include(x => x.User)
+                .Where(x => x.UserId == userId)
+                .ToList();
+
+            var deliveriesDto = _mapper.Map<List<DeliveryInformationDto>>(deliveries);
+
+            return deliveriesDto;
+        }
+
+        public void AddNewDelivery(CreatDeliveryDto creatDeliveryDto)
+        {
+            _logger.LogInformation($"Wywołano metodę utworzenia nowej dostawy");
+
+            var status = _dbContext.Status
+                .SingleOrDefault(x => x.Name == creatDeliveryDto.StatusName);
+
+            var user = _dbContext.User
+                .SingleOrDefault(x => x.ShortName == creatDeliveryDto.UserShortName);
+
+            if (user is null)
+                throw new NotFoundException($"Nie można przypisać nowej dostawy do użytkownika, który nie istnieje");
+
+            var newDeliver = new Delivery()
+            {
+                DeliveryDate = creatDeliveryDto.DeliveryDate,
+                Year = creatDeliveryDto.Year,
+                Semestr = creatDeliveryDto.Semestr,
+                Week = creatDeliveryDto.Week,
+                Description = creatDeliveryDto.Description,
+                StatusId = status.Id,
+                UserId = user.Id
+            };
+
+            _dbContext.Delivery.Add(newDeliver);
             _dbContext.SaveChanges();
 
-            await Task.FromResult("");
+            var deliveryId = newDeliver.Id;
+
         }
 
-        public async Task UpdateDelivery(int deliveryId, string description, int statusId)
+        public async Task<DeliveryInformationDto> GetDeliveryById(int deliveryId)
         {
-            var delivery = await Task.FromResult(_dbContext.Delivery.SingleOrDefault(x => x.Id == deliveryId));
-            if(delivery==null)
+            var delivery = await Task.FromResult(_dbContext.Delivery
+                .Include(x=>x.Status)
+                .SingleOrDefault(x => x.Id == deliveryId));
+            var deliveryDto = _mapper.Map<DeliveryInformationDto>(delivery);
+            return deliveryDto;
+        }
+
+        public void UpdateDelivery(UpdateDeliveryDTO deliveryDto, int deliveryId)
+        {
+            var delivery = _dbContext.Delivery
+                .Include(x=>x.Status)
+                .SingleOrDefault(x => x.Id == deliveryId);
+
+            if(delivery is null)
             {
-                throw new Exception($"Takie zamówienie nie istnieje!");
+                throw new NotFoundException($"Zamówienie o numerze id = {deliveryId} nie istnieje!");
             }
-            delivery.SetDescription(description);
-            delivery.SetStatus(statusId);
+
+            delivery.Description = deliveryDto.Description;
+
+            if (deliveryDto.StatusName == "Oczekuje")
+                delivery.StatusId = 1;
+            else if (deliveryDto.StatusName == "Zrealizowano")
+                delivery.StatusId = 2;
+            else
+                throw new NotFoundException($"Niepoprawny status zamówienia");
+
+            delivery.UpdateDate = DateTime.Now;
 
             _dbContext.Update(delivery);
             _dbContext.SaveChanges();
-
-            await Task.CompletedTask;
         }
+
+        public void DeleteDelivery(int deliveryId)
+        {
+            _logger.LogWarning($"Wywołano metodę usunięcia dostawy");
+
+            var delivery = _dbContext.Delivery.FirstOrDefault(x => x.Id == deliveryId);
+
+            if (delivery is null)
+                throw new NotFoundException($"Dostawa o podanym numerze id = {deliveryId} nie istnieje");
+
+            _dbContext.Remove(delivery);
+            _dbContext.SaveChanges();
+        }
+
     }
 }

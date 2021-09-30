@@ -45,7 +45,7 @@ namespace Users.Controllers
         /// <summary>
         /// Zmiana hasła użytkownika
         /// </summary>
-        [HttpPut("{userId}/change")]
+        [HttpPut("change/{userId}")]
         [Authorize]
 
         public ActionResult ChangeUserPassword([FromBody]ChangePasswordDto dto, [FromRoute]int userId)

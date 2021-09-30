@@ -14,22 +14,7 @@ namespace Users.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public virtual Role Role { get; set; }
-
-
-        //public User(int roleId, string shortName, string fullName,
-        //    int studentScore, int? phone, string email, string password, string confirmPassword)
-        //{
-            
-        //    RoleId = roleId;
-        //    ShortName = shortName;
-        //    FullName = fullName;
-        //    StudentScore = studentScore;
-        //    Phone = phone;
-        //    Email = email;
-        //    Password = password;
-        //    ConfirmPassword = confirmPassword;
-        //}
-        
+ 
     }
      
 }

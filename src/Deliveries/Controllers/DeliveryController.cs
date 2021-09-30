@@ -1,6 +1,7 @@
 ﻿using Deliveries.DTO;
 using Deliveries.IServices;
 using Deliveries.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Deliveries.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class DeliveryController : Controller
     {
         private readonly IDeliveryService _deliveryService;
@@ -21,39 +23,58 @@ namespace Deliveries.Controllers
             _deliveryService = deliveryService;
         }
 
+        /// <summary>
+        /// Pobieranie listy wszystkich dostaw
+        /// </summary>
         [HttpGet]
-        public async Task<IEnumerable<Delivery>> GetAllDelivery()
+        [Authorize(Roles = "Admin")]
+        public IEnumerable<DeliveryInformationDto> GetAllDelivery()
         {
-            return await _deliveryService.BrowseAllDeliveries();
+            return _deliveryService.BrowseAllDeliveries();
         }
 
-
-        // GET api/<DeliveryController>/1
-        [HttpGet("{status}")]
-        public async Task<IEnumerable<Delivery>> GetByStatus(int status)
+        /// <summary>
+        /// Pobieranie listy dostaw użytkownika o numerze id
+        /// </summary>
+        [HttpGet("{userId}")]
+        
+        public IEnumerable<DeliveryInformationDto> GetByUser([FromRoute] int userId)
         {
-          return await _deliveryService.GetDeliveryByStatus(status);
+            return _deliveryService.GetDeliveryByUserId(userId);
         }
 
-        // POST api/<DeliveryController>
-        [HttpPost]
-        [Route("[action]")]
-        public async Task<Delivery> PostNewDelivery([FromBody]AddDeliveryDTO  addDTO)
-        {
-            
-            await _deliveryService.AddDelivery(addDTO.UserId, addDTO.Date, addDTO.Year, addDTO.Semestr,
-                addDTO.Week, addDTO.Description, addDTO.StatusId);
+        /// <summary>
+        /// Dodawanie nowej dostawy
+        /// </summary>
+        [HttpPost("create")]
+        [Authorize(Roles = "Admin")]
 
-            return await _deliveryService.GetDeliveryByUserId(addDTO.UserId);
+        public void AddNewDelivery([FromBody] CreatDeliveryDto creatDeliveryDto)
+        {
+            _deliveryService.AddNewDelivery(creatDeliveryDto);
+
         }
 
-        // PUT api/<DeliveryController>/5
+        /// <summary>
+        /// Aktualnienie danych dostawy
+        /// </summary>
         [HttpPut("{deliveryId}")]
-        public async Task<Delivery> Put(int deliveryId, [FromBody] UpdateDeliveryDTO updateDTO)
+        public Task<DeliveryInformationDto> Put([FromBody] UpdateDeliveryDTO updateDTO, [FromRoute] int deliveryId)
         {
-            await _deliveryService.UpdateDelivery(deliveryId, updateDTO.Description, updateDTO.StatusId);
+             _deliveryService.UpdateDelivery(updateDTO, deliveryId);
+            var delivery = _deliveryService.GetDeliveryById(deliveryId);
 
-            return await _deliveryService.GetDeliveryByDeliveryId(deliveryId);
+            return delivery;
+        }
+
+        /// <summary>
+        /// Usuwanie dostawy
+        /// </summary>
+        [HttpDelete("{deliveryId}")]
+        [Authorize(Roles = "Admin")]
+        public void DeleteDelivery([FromRoute] int deliveryId)
+        {
+            _deliveryService.DeleteDelivery(deliveryId);
         }
 
     }

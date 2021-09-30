@@ -9,14 +9,12 @@ namespace Deliveries.IServices
 {
     public interface IDeliveryService
     {
-        Task<IEnumerable<Delivery>> BrowseAllDeliveries();
-        Task<Delivery> GetDeliveryByUserId(int userId);
-        Task<Delivery> GetDeliveryByWeeks(int week);
-        Task<IEnumerable<Delivery>> GetDeliveryByStatus(int status);
-        Task<Delivery> GetDeliveryByDeliveryId(int deliveryId);
-        Task AddDelivery(int userId, DateTime date, string year, int semestr, int week,
-            string description, int statusId);
-        Task UpdateDelivery(int deliveryId, string description, int statusId);
-        
+        IEnumerable<DeliveryInformationDto> BrowseAllDeliveries();
+        IEnumerable<DeliveryInformationDto> GetDeliveryByUserId(int userId);
+        IEnumerable<DeliveryInformationDto> GetDeliveryByStatus(int status);
+        Task<DeliveryInformationDto> GetDeliveryById(int deliveryId);
+        void AddNewDelivery(CreatDeliveryDto creatDeliveryDto);
+        void UpdateDelivery(UpdateDeliveryDTO deliveryDto, int deliveryId);
+        void DeleteDelivery(int deliveryId);
     }
 }
