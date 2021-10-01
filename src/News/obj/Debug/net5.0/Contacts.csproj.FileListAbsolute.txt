@@ -75,3 +75,5 @@ C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\bin\Debug
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\bin\Debug\net5.0\Users.pdb
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\bin\Debug\net5.0\Users.xml
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\obj\Debug\net5.0\Contacts.csprojAssemblyReference.cache
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\bin\Debug\net5.0\Contacts.xml
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\obj\Debug\net5.0\Contacts.xml

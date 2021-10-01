@@ -1,6 +1,7 @@
 ﻿using Contacts.DTO;
 using Contacts.IServices;
 using Contacts.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -8,6 +9,7 @@ namespace Contacts.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class ContactsController : Controller
     {
         private readonly IContactsService _contactsServices;

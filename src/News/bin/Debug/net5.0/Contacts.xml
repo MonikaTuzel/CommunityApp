@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Contacts</name>
+    </assembly>
+    <members>
+        <member name="M:Contacts.Controllers.ContactsController.BrowseAdresses">
+            <summary>
+            Pobieranie listy wszystkich adresów
+            </summary>
+        </member>
+        <member name="M:Contacts.Controllers.ContactsController.GetAdressDetails(System.String)">
+            <summary>
+            Pobieranie listy adresów po nazwie miasta
+            </summary>
+        </member>
+        <member name="M:Contacts.Controllers.ContactsController.GetAdressFromDistrict(System.String)">
+            <summary>
+            Pobieranie listy adresów po nazwie województwa
+            </summary>
+        </member>
+        <member name="M:Contacts.Controllers.ContactsController.AddNewAdress(Contacts.DTO.CreateAdressDto)">
+            <summary>
+            Tworzenie nowego adresu
+            </summary>
+        </member>
+        <member name="M:Contacts.Controllers.ContactsController.AddNewTown(Contacts.DTO.CreateTownDto)">
+            <summary>
+            Tworzenie nowego miasta
+            </summary>
+        </member>
+        <member name="M:Contacts.Controllers.ContactsController.UpdateAdress(Contacts.DTO.UpdateAdressDto,System.Int32)">
+            <summary>
+            Uaktuanienie istniejącego adresu
+            </summary>
+        </member>
+        <member name="M:Contacts.Controllers.ContactsController.DeleteAdress(System.Int32)">
+            <summary>
+            Usuwanie istniejącego adresu
+            </summary>
+        </member>
+    </members>
+</doc>
