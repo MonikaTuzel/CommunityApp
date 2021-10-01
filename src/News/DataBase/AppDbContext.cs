@@ -1,7 +1,5 @@
-﻿
-using Contacts.Models;
+﻿using Contacts.Models;
 using Microsoft.EntityFrameworkCore;
-using Users.Models;
 
 namespace Contacts.DataBase
 {

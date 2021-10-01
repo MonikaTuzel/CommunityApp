@@ -19,10 +19,6 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Users\Users.csproj" />
-  </ItemGroup>
-
 	<PropertyGroup>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>

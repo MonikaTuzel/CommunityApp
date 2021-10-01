@@ -1,6 +1,4 @@
-﻿using Users.Models;
-
-namespace Contacts.Models
+﻿namespace Contacts.Models
 {
     public class Adress
     {

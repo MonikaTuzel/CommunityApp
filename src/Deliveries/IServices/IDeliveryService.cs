@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Deliveries.DTO;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Deliveries.DTO;
-using Deliveries.Models;
 
 namespace Deliveries.IServices
 {
