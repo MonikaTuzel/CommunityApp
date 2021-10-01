@@ -66,3 +66,12 @@ C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\obj\Debug
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\obj\Debug\net5.0\ref\Contacts.dll
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\obj\Debug\net5.0\Contacts.pdb
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\obj\Debug\net5.0\Contacts.genruntimeconfig.cache
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\bin\Debug\net5.0\Users.deps.json
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\bin\Debug\net5.0\Users.runtimeconfig.json
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\bin\Debug\net5.0\Users.runtimeconfig.dev.json
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\bin\Debug\net5.0\nlog.config
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\bin\Debug\net5.0\Users.exe
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\bin\Debug\net5.0\Users.dll
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\bin\Debug\net5.0\Users.pdb
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\bin\Debug\net5.0\Users.xml
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\News\obj\Debug\net5.0\Contacts.csprojAssemblyReference.cache

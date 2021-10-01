@@ -1577,6 +1577,28 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "Users/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "8.1.1",
+          "FluentValidation.AspNetCore": "10.3.3",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "5.0.9",
+          "Microsoft.EntityFrameworkCore": "5.0.8",
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.8",
+          "NLog.Web.AspNetCore": "4.14.0",
+          "Swashbuckle.AspNetCore": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Users.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Users.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },
@@ -5822,6 +5844,11 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "Users/1.0.0": {
+      "type": "project",
+      "path": "../Users/Users.csproj",
+      "msbuildProject": "../Users/Users.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5833,7 +5860,8 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.8",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.8",
       "NLog.Web.AspNetCore >= 4.14.0",
-      "Swashbuckle.AspNetCore >= 6.1.5"
+      "Swashbuckle.AspNetCore >= 6.1.5",
+      "Users >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -5862,7 +5890,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\PC\\Desktop\\UCZELNIA\\DYPLOM\\CommunityApp\\CommunityApp\\src\\Users\\Users.csproj": {
+              "projectPath": "C:\\Users\\PC\\Desktop\\UCZELNIA\\DYPLOM\\CommunityApp\\CommunityApp\\src\\Users\\Users.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
