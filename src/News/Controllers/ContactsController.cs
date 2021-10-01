@@ -67,9 +67,9 @@ namespace Contacts.Controllers
         /// Uaktuanienie istniejącego adresu
         /// </summary>
         [HttpPut("[action]")]
-        public void UpdateAdress([FromBody]UpdateAdressDto updateAdressDto, int townId)
+        public void UpdateAdress([FromBody]UpdateAdressDto updateAdressDto, int adressId)
         {
-            _contactsServices.UpdateAdress(updateAdressDto, townId);
+            _contactsServices.UpdateAdress(updateAdressDto, adressId);
         }
 
         /// <summary>

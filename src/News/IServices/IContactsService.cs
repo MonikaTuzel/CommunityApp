@@ -11,7 +11,7 @@ namespace Contacts.IServices
         IEnumerable<AdressDetailsDto> BrowseAdressByDistrict(string district);
         void CreateAdress(CreateAdressDto createAdressDto);
         void AddNewTown(CreateTownDto createTownDto);
-        void UpdateAdress(UpdateAdressDto updateAdressDto, int townId);
+        void UpdateAdress(UpdateAdressDto updateAdressDto, int adressId);
         void RemoveAdress(int adressId);
     }
 }

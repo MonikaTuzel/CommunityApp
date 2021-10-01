@@ -42,7 +42,6 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "5.0.2",
           "NLog.Web.AspNetCore": "4.14.0",
           "Swashbuckle.AspNetCore": "6.1.5",
-          "Users": "1.0.0",
           "Microsoft.AspNetCore.Antiforgery": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "5.0.0.0",
@@ -3679,18 +3678,6 @@
           "WindowsBase.dll": {}
         },
         "compileOnly": true
-      },
-      "Users/1.0.0": {
-        "dependencies": {
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": "8.1.1",
-          "FluentValidation.AspNetCore": "10.3.3",
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "5.0.9",
-          "Microsoft.EntityFrameworkCore": "5.0.8",
-          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.8",
-          "NLog.Web.AspNetCore": "4.14.0",
-          "Swashbuckle.AspNetCore": "6.1.5"
-        },
-        "compileOnly": true
       }
     }
   },
@@ -6075,11 +6062,6 @@
     },
     "WindowsBase/4.0.0.0": {
       "type": "referenceassembly",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Users/1.0.0": {
-      "type": "project",
       "serviceable": false,
       "sha512": ""
     }

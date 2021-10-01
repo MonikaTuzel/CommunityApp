@@ -98,9 +98,9 @@ namespace Contacts.Services
             _dbContext.SaveChanges();
         }
 
-        public void UpdateAdress(UpdateAdressDto updateAdressDto, int townId)
+        public void UpdateAdress(UpdateAdressDto updateAdressDto, int adressId)
         {
-            var adress = _dbContext.Adress.SingleOrDefault(x => x.Id == townId);
+            var adress = _dbContext.Adress.SingleOrDefault(x => x.Id == adressId);
             if (adress is null)
             {
                 throw new NotFiniteNumberException($"Podany adres nie istnieje!");
