@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Deliveries.DataBase;
 using Deliveries.DTO;
 using Deliveries.Exceptions;
@@ -10,6 +6,10 @@ using Deliveries.IServices;
 using Deliveries.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Deliveries.Service
 {

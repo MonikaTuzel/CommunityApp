@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Contacts.Services
 {
@@ -114,6 +113,15 @@ namespace Contacts.Services
             _dbContext.SaveChanges();
         }
 
-
+        public void RemoveAdress(int adressId)
+        {
+            var adress = _dbContext.Adress.SingleOrDefault(x => x.Id == adressId);
+            if (adress is null)
+            {
+                throw new NotFoundException($"Podany adres nie istnieje");
+            }
+            _dbContext.Adress.Remove(adress);
+            _dbContext.SaveChanges();
+        }
     }
 }

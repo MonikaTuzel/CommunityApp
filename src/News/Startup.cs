@@ -1,5 +1,11 @@
+using Contacts.DataBase;
+using Contacts.DTO;
 using Contacts.IServices;
+using Contacts.Middleware;
 using Contacts.Services;
+using Contacts.Validation;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -7,13 +13,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Contacts.DataBase;
-using AutoMapper;
-using Contacts.Middleware;
-using FluentValidation;
-using Contacts.DTO;
-using FluentValidation.AspNetCore;
-using Contacts.Validation;
 
 namespace Contacts
 {
