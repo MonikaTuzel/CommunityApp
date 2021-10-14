@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Files</name>
+    </assembly>
+    <members>
+        <member name="M:Files.Controllers.FilesController.Browse">
+            <summary>
+            Pobieranie listy wszystkich dokumentów
+            </summary>
+        </member>
+        <member name="M:Files.Controllers.FilesController.Browse(System.Int32)">
+            <summary>
+            Pobieranie listy dokumentów przypisanych do użytkownika o numerze ID
+            </summary>
+        </member>
+        <member name="M:Files.Controllers.FilesController.Download(System.Int32)">
+            <summary>
+            Pobieranie pliku .pdf
+            </summary>
+        </member>
+        <member name="M:Files.Controllers.FilesController.Upload(Files.DTO.UploadDocumentsDto,Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            Wysyłanie pliku .pdf
+            </summary>
+        </member>
+        <member name="M:Files.Controllers.FilesController.Delete(System.Int32)">
+            <summary>
+            Usuwanie pliku .pdf o numerze ID
+            </summary>
+        </member>
+    </members>
+</doc>
