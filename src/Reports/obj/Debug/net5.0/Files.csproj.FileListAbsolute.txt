@@ -70,3 +70,10 @@ C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Reports\obj\De
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Reports\bin\Debug\net5.0\nlog.config
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Reports\bin\Debug\net5.0\Files.xml
 C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Reports\obj\Debug\net5.0\Files.xml
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Reports\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Reports\bin\Debug\net5.0\Microsoft.AspNetCore.MiddlewareAnalysis.dll
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Reports\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Reports\bin\Debug\net5.0\Microsoft.Extensions.DiagnosticAdapter.dll
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Reports\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Reports\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\Users\PC\Desktop\UCZELNIA\DYPLOM\CommunityApp\CommunityApp\src\Reports\bin\Debug\net5.0\Ocelot.dll

@@ -12,7 +12,7 @@ namespace Users.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userservice;
@@ -26,7 +26,7 @@ namespace Users.Controllers
         /// Pobieranie listy wszystkich użytkowników
         /// </summary>
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public ActionResult<IEnumerable<UserInformationDto>> GetUsers()
         {
             var users = _userservice.BrowseAllUsers();
