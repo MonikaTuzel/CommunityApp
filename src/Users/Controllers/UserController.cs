@@ -49,7 +49,7 @@ namespace Users.Controllers
         /// Pobieranie użytkownika po nazwie
         /// </summary>
         [HttpGet("[action]")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetByName(string name)
         {
             var user = await _userservice.GetUserByName(name);
@@ -71,7 +71,7 @@ namespace Users.Controllers
         /// Usuwanie użytkownika
         /// </summary>
         [HttpDelete("{userId}")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
 
         public ActionResult Delete(int userId)
         {

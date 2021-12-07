@@ -6,7 +6,6 @@ using Files.IServices;
 using Files.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -24,12 +23,15 @@ namespace Files.Services
         private readonly IMapper _mapper;
         private readonly string AppDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
         private readonly ILogger<FilesService> _logger;
+        private readonly IWebHostEnvironment _env;
 
-        public FilesService(AppDbContext dbContext, IMapper mapper, ILogger<FilesService> logger)
+        public FilesService(AppDbContext dbContext, IMapper mapper, ILogger<FilesService> logger,
+            IWebHostEnvironment environment)
         {
             _dbContext = dbContext;
             _mapper = mapper;
             _logger = logger;
+            _env = environment;
         }
 
         public IEnumerable<BrowseDocumentsDto> BrowseDocuments()
@@ -47,7 +49,7 @@ namespace Files.Services
                 .Include(x => x.User)
                 .Where(x => x.User.Id == id)
                 .ToList();
-            
+
             return _mapper.Map<List<BrowseDocumentsDto>>(docs);
         }
 
@@ -74,7 +76,8 @@ namespace Files.Services
 
                     filesName = file.Name + file.Id.ToString() + filesExtension;
 
-                    var path = Path.Combine(AppDirectory, filesName);
+                    var path = _env.ContentRootPath + "/FilesDoc/" + filesName;
+
 
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
@@ -103,7 +106,7 @@ namespace Files.Services
 
             if (file is not null)
             {
-                var path = Path.Combine(AppDirectory, file.Name + file.Id.ToString()) + ".pdf";
+                var path = Path.Combine(_env.ContentRootPath, "FilesDoc", file.Name + file.Id.ToString() + ".pdf");
 
                 var memory = new MemoryStream();
                 using (var stream = new FileStream(path, FileMode.Open))
@@ -118,32 +121,13 @@ namespace Files.Services
             }
             else
             {
-                throw new NotFoundException($"Plik o id: {id} nie istnieje");
+                throw new NotFoundException($"Plik którego szukasz, o id: {id} nie istnieje");
             }
 
+
+
         }
-        //public async Task<IActionResult> DownloadDoc(int id)
-        //{
-        //    if (!Directory.Exists(AppDirectory))
-        //        Directory.CreateDirectory(AppDirectory);
-        //    {
-        //        var file = _dbContext.Documents.Where(x => x.Id == id).FirstOrDefault();
-
-        //        var path = Path.Combine(AppDirectory, file.Name + file.Id.ToString()) + ".pdf";
-
-        //        var memory = new MemoryStream();
-        //        using (var stream = new FileStream(path, FileMode.Open))
-        //        {
-        //            await stream.CopyToAsync(memory);
-        //        }
-        //        memory.Position = 0;
-        //        var contentType = "APPLICATION/octet-stream";
-        //        var fileName = Path.GetFileName(path);
-
-        //        return File(memory, contentType, fileName);
-        //    }
-        //}
-
 
     }
+    
 }

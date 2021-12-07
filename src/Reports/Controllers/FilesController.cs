@@ -1,7 +1,6 @@
 ﻿using Files.DataBase;
 using Files.DTO;
 using Files.IServices;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,20 +13,23 @@ namespace Files.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
+   // [Authorize]
     public class FilesController : ControllerBase
     {
         private readonly IFilesService _filesService;
         private static IWebHostEnvironment _webHostEnvironment;
         private readonly AppDbContext _dbContext;
-        private readonly string AppDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+        private readonly string AppDirectory = Path.Combine(Directory.GetCurrentDirectory(), "FilesDoc");
+        private readonly IWebHostEnvironment _env;
 
 
-        public FilesController(IFilesService fileService, IWebHostEnvironment webHostEnvironment, AppDbContext dbContext)
+        public FilesController(IFilesService fileService, IWebHostEnvironment webHostEnvironment, 
+            AppDbContext dbContext, IWebHostEnvironment environment)
         {
             _filesService = fileService;
             _webHostEnvironment = webHostEnvironment;
             _dbContext = dbContext;
+            _env = environment;
         }
         /// <summary>
         /// Pobieranie listy wszystkich dokumentów
@@ -58,7 +60,8 @@ namespace Files.Controllers
             {
                 var file = _dbContext.Documents.Where(x => x.Id == id).FirstOrDefault();
 
-                var path = Path.Combine(AppDirectory, file.Name + file.Id.ToString())+ ".pdf";
+                var path = Path.Combine(_env.ContentRootPath, "FilesDoc", file.Name + file.Id.ToString() + ".pdf");
+
 
                 var memory = new MemoryStream();
                 using (var stream = new FileStream(path, FileMode.Open))
@@ -67,9 +70,9 @@ namespace Files.Controllers
                 }
                 memory.Position = 0;
                 var contentType = "APPLICATION/octet-stream";
-                var fileName = Path.GetFileName(path);
+                var filesExtension = ".pdf";
 
-                return File(memory, contentType, fileName);
+                return File(memory, contentType, file.Name + filesExtension);
             }           
         }
 

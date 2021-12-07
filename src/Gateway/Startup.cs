@@ -22,14 +22,16 @@ namespace Gateway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOcelot();
+
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();               
             }
             else
             {
@@ -38,6 +40,7 @@ namespace Gateway
                 app.UseHsts();
             }
 
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

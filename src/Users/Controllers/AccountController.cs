@@ -24,7 +24,7 @@ namespace Users.Controllers
         /// Rejestracja nowego użytkownika
         /// </summary>
         [HttpPost("register")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public ActionResult RegistryNewUser([FromBody] RegisterUserDto dto)
         {
             _accountService.RegisterUser(dto);
@@ -46,7 +46,7 @@ namespace Users.Controllers
         /// Zmiana hasła użytkownika
         /// </summary>
         [HttpPut("change/{userId}")]
-        [Authorize]
+        //[Authorize]
 
         public ActionResult ChangeUserPassword([FromBody]ChangePasswordDto dto, [FromRoute]int userId)
         {

@@ -1,5 +1,6 @@
 {
   "Routes": [
+    // User API
     {
       "DownstreamPathTemplate": "/User",
       "DownstreamScheme": "https",
@@ -10,12 +11,11 @@
         }
       ],
 
-      "UpstreamPathTemplate": "/api/user",
-      "UpstreamHttpMethod": [ "GET"]
+      "UpstreamPathTemplate": "/users",
+      "UpstreamHttpMethod": [ "GET" ]
     },
-
     {
-      "DownstreamPathTemplate": "/User/{id}",
+      "DownstreamPathTemplate": "/User/{userId}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -24,10 +24,201 @@
         }
       ],
 
-      "UpstreamPathTemplate": "/api/user/{id}",
-      "UpstreamHttpMethod": [ "GET"]
+      "UpstreamPathTemplate": "/users/{userId}",
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/User/{name}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44383
+        }
+      ],
+
+      "UpstreamPathTemplate": "/users/{name}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/Account/register",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44383
+        }
+      ],
+
+      "UpstreamPathTemplate": "/users/account/register",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/Account/login",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44383
+        }
+      ],
+
+      "UpstreamPathTemplate": "/users/account/login",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/Account/change/{userId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44383
+        }
+      ],
+
+      "UpstreamPathTemplate": "/users/account/change_pass/{userId}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    // Contacts API
+    {
+      "DownstreamPathTemplate": "/api/Contacts",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44359
+        }
+      ],
+
+      "UpstreamPathTemplate": "/contacts",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Contacts/town/{townName}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44359
+        }
+      ],
+
+      "UpstreamPathTemplate": "/contacts/town/{townName}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Contacts/district/{district}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44359
+        }
+      ],
+
+      "UpstreamPathTemplate": "/contacts/district/{district}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Contacts/AddNewAdress",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44359
+        }
+      ],
+
+      "UpstreamPathTemplate": "/contacts/AddNewAdress",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Contacts/AddNewTown",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44359
+        }
+      ],
+
+      "UpstreamPathTemplate": "/contacts/AddNewTown",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Contacts/UpdateAdress",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44359
+        }
+      ],
+
+      "UpstreamPathTemplate": "/contacts/UpdateAdress",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Contacts/DeleteAdress",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44359
+        }
+      ],
+
+      "UpstreamPathTemplate": "/contacts/DeleteAdress",
+      "UpstreamHttpMethod": [ "DELETE" ]
+    },
+
+    // Deliveries API
+    {
+      "DownstreamPathTemplate": "/api/Delivery",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44389
+        }
+      ],
+
+      "UpstreamPathTemplate": "/delivery",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Delivery/{userId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44389
+        }
+      ],
+
+      "UpstreamPathTemplate": "/delivery/{userId}",
+      "UpstreamHttpMethod": [ "GET" ]
     }
+
+
+
+
+
+
+
+
+
+
+
   ],
+
+
+
+
+
+
 
   "GlobalConfiguration": {
     "BaseUrl": "https://localhost:5021"
