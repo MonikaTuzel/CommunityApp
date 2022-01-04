@@ -9,7 +9,7 @@ namespace Contacts.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class ContactsController : Controller
     {
         private readonly IContactsService _contactsServices;

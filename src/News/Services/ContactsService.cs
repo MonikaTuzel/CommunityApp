@@ -36,10 +36,10 @@ namespace Contacts.Services
                 .Where(x=>x.Town.Name == townName)
                 .ToList();
 
-            if(!adresses.Any())
-            {
-                throw new NotFoundException($"Adres o podanej nazwie miasta: {townName} nie istnieje!");
-            }
+            //if (!adresses.Any())
+            //{
+            //    throw new NotFoundException($"Adres o podanej nazwie miasta: {townName} nie istnieje!");
+            //}
 
             var adressesDto = _mapper.Map<List<AdressDetailsDto>>(adresses);
 

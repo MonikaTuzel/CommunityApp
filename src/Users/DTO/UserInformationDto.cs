@@ -7,6 +7,7 @@ namespace Users.DTO
 {
     public class UserInformationDto
     {
+        public int Id { get; set; }
         public string ShortName { get; set; }
         public string FullName { get; set; }
         public int StudentScore { get; set; }

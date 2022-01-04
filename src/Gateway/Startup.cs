@@ -23,6 +23,9 @@ namespace Gateway
         {
             services.AddOcelot();
 
+            services.AddCors(options => options.AddDefaultPolicy(
+                builder => builder.AllowAnyOrigin()));
+
         }
 
 
@@ -45,6 +48,8 @@ namespace Gateway
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 

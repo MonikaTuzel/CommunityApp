@@ -54,6 +54,8 @@ namespace Users
                 };
             });
 
+            services.AddCors(options => options.AddDefaultPolicy(
+                builder => builder.AllowAnyOrigin()));
 
             services.AddControllers().AddFluentValidation();
             services.AddSwaggerGen(c =>
@@ -118,6 +120,8 @@ namespace Users
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
