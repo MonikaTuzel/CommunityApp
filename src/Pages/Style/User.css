@@ -1,0 +1,25 @@
+div.table{
+  border-style: solid;
+  
+}
+
+.bur{  
+  margin-left: 195px;
+  flex-direction: row;
+  Justify-content:flex-end;
+}
+
+div.lok{  
+  padding: 10px;
+  width: 300;
+
+}
+
+div.blok{
+  display: flex;
+  flex-direction: row;
+  
+}
+
+
+

@@ -1,25 +1,62 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Navbar from './Components/Navbar';
+import { BrowserRouter as Router } from 'react-router-dom';
+import {Home} from './Pages/Home';
+import Contacts from './Pages/Contacts.js';
+import {Delivery} from './Pages/Delivery';
+import {Files} from './Pages/Files';
+import {Settings} from './Pages/Settings';
+import Users from './Pages/Users';
+import {Adresses} from './Pages/Adresses';
+import { Routes, Route } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { lime, orange, purple, yellow, indigo} from '@mui/material/colors';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
-export default App;
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: indigo[100],
+    },
+    secondary: {
+      main: '#7986cb',
+    },    
+    background: {
+      paper: '#fff',
+      default: "#ff0000"
+    },
+    action: {
+      hover: '#a6d4fa'
+    }    
+  },
+  typography: {
+    fontFamily: 'Quicksand',
+    fontWeightLight: 400,
+    fontWeightRegular: 500,
+    fontWeightMedium: 600,
+    fontWeightBold: 700,
+  }
+})
+
+
+ function App() {
+    return (
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Navbar>
+            <Routes>
+              <Route path='/home' element={<Home />} />
+              <Route path='/users' element={<Users />} />
+              <Route path='/delivery' element={<Delivery />} />
+              <Route path='/files' element={<Files />} />
+              <Route path='/adresses' element={<Adresses />} />
+              <Route path='/contacts' element={<Contacts />} />
+              <Route path='/settings' element={<Settings />} />
+            </Routes>
+          </Navbar>
+        </Router>
+      </ThemeProvider>
+    )
+  }
+
+export default App
