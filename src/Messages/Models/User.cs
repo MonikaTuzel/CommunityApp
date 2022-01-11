@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.ComponentModel.DataAnnotations;
-
-namespace Messages.Models
+﻿namespace Messages.Models
 {
     public class User
     {

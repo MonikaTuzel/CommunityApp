@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Messages.Services
 {
@@ -23,24 +24,49 @@ namespace Messages.Services
         {
              var messages = _dbContext.Message
                 .Include(u => u.StatusMess)
-                .Include(u => u.User)
-                .Where(x => x.User.Id == userId)
+                .Include(u => u.MessageDetails)
+                .Where(x=>x.UserId == userId)
                 .ToList();
 
             var messageList = _mapper.Map<List<MessagesInfoDto>>(messages);
 
             return messageList;
         }
+
+        public IEnumerable<Status> BrowseStatus()
+        {
+            return (_dbContext.StatusMess.ToList());
+        }
+
+        public async Task<ContentMessageDto> ReadMessage(int messageId)
+        {
+            var contentMessage = await Task.FromResult(_dbContext.Message
+                .Include(u => u.MessageDetails)
+                .Include(u => u.MessageDetails.Sender)
+                .SingleOrDefault(x => x.Id == messageId));
+
+            var contentMessageDto = _mapper.Map<ContentMessageDto>(contentMessage);
+            return contentMessageDto;
+        }
+
         public void CreateNewMessage(CreateMessageDto dto)
         {
-            var newMessage = new Message()
+            var newMessageDetails = new MessageDetails()
             {
-                UserId = dto.UserId,
                 SenderId = dto.SenderId,
                 Topic = dto.Topic,
                 Contents = dto.Contents,
-                Date = DateTime.UtcNow,
-                StatusId = 1002,
+                Date = DateTime.Now
+            };
+            _dbContext.MessageDetails.Add(newMessageDetails);
+            _dbContext.SaveChanges();
+
+
+            var newMessage = new Message()
+            {
+                UserId = dto.UserId,
+                StatusId = 1004,
+                MessageDetailsId = newMessageDetails.Id,
             };
 
             _dbContext.Message.Add(newMessage);
@@ -49,11 +75,22 @@ namespace Messages.Services
 
         public void DeleteMessage(int messageId)
         {
-            var mess = _dbContext.Message.FirstOrDefault(x => x.Id == messageId);
+            var message = _dbContext.Message.SingleOrDefault(x => x.Id == messageId);
+            var messageDetails = _dbContext.MessageDetails.SingleOrDefault(x => x.Id == message.MessageDetailsId);
 
-            _dbContext.Message.Remove(mess);
+            _dbContext.Message.Remove(message);
+            _dbContext.MessageDetails.Remove(messageDetails);
             _dbContext.SaveChanges();
         }
+        public void UpdateMessage(UpdateMessageDto dto)
+        {
+            var message = _dbContext.Message.SingleOrDefault(x => x.Id == dto.Id);
+            message.StatusId = dto.StatusId;
+
+            _dbContext.Message.Update(message);
+            _dbContext.SaveChanges();
+        }
+
 
 
 

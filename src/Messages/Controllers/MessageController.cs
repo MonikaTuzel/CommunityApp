@@ -3,6 +3,7 @@ using Messages.IServices;
 using Messages.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Messages.Controllers
 {
@@ -20,24 +21,56 @@ namespace Messages.Controllers
         /// <summary>
         /// Pobieranie wiadomości użytkownika
         /// </summary>
-        [HttpGet]
+        [HttpGet("{userId}")]
         public IEnumerable<MessagesInfoDto> GetAllMessage(int userId)
         {
             return _messageServices.BrowseMessage(userId);
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Pobieranie statusu
+        /// </summary>
+        [HttpGet("status")]
+        public IEnumerable<Status> GetAllStatus( )
+        {
+            return _messageServices.BrowseStatus();
+        }
+
+        /// <summary>
+        /// Pobieranie treści wiadomości
+        /// </summary>
+        [HttpGet("read/{messageId}")]
+        public async Task<IActionResult> GetMessage([FromRoute] int messageId)
+        {
+           var message = await  _messageServices.ReadMessage(messageId);
+            return Ok(message);
+        }
+
+        /// <summary>
+        /// Wysyłanie nowej wiadomości
+        /// </summary>
+        [HttpPost("send")]
         public void SendNewMessage(CreateMessageDto dto)
         {
             _messageServices.CreateNewMessage(dto);
         }
 
-        [HttpDelete]
-        public void DeleteMessage(int messageId)
+        /// <summary>
+        /// Edycja wiadomości
+        /// </summary>
+        [HttpPut("/{messageId}")]
+        public void DeleteMessage(UpdateMessageDto dto)
         {
-            _messageServices.DeleteMessage(messageId);
+            _messageServices.UpdateMessage(dto);
         }
 
-        
+        /// <summary>
+        /// Usuwanie wiadomości
+        /// </summary>
+        [HttpDelete("/{messageId}")]
+        public void DeleteMessage([FromRoute]int messageId)
+        {
+            _messageServices.DeleteMessage(messageId);
+        }        
     }
 }

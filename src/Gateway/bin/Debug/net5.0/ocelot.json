@@ -1,6 +1,7 @@
 {
   "Routes": [
     // User API
+
     {
       "DownstreamPathTemplate": "/User",
       "DownstreamScheme": "https",
@@ -81,7 +82,9 @@
       "UpstreamHttpMethod": [ "PUT" ]
     },
 
+
     // Contacts API
+
     {
       "DownstreamPathTemplate": "/api/Contacts",
       "DownstreamScheme": "https",
@@ -174,7 +177,9 @@
       "UpstreamHttpMethod": [ "DELETE" ]
     },
 
+
     // Deliveries API
+
     {
       "DownstreamPathTemplate": "/api/Delivery",
       "DownstreamScheme": "https",
@@ -200,8 +205,94 @@
 
       "UpstreamPathTemplate": "/delivery/{userId}",
       "UpstreamHttpMethod": [ "GET" ]
-    }
+    },
 
+
+
+    // MESSAGE API
+
+    { // GET ==> https://localhost:44308/api/Message/1006
+      "DownstreamPathTemplate": "/api/Message/{userId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44308
+        }
+      ],
+
+      "UpstreamPathTemplate": "/message/{userId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    { // GET (read) ==> https://localhost:44308/api/Message/read/15
+      "DownstreamPathTemplate": "/api/Message/read/{messageId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44308
+        }
+      ],
+
+      "UpstreamPathTemplate": "/message/read/{userId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    { // GET (STATUS) ==> 
+      "DownstreamPathTemplate": "/api/Message/status",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44308
+        }
+      ],
+
+      "UpstreamPathTemplate": "/message/status",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    { // POST  ==> 
+      "DownstreamPathTemplate": "/api/Message/send",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44308
+        }
+      ],
+
+      "UpstreamPathTemplate": "/message/send",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    { // DELETE  ==> 
+      "DownstreamPathTemplate": "/api/Message/{messageId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44308
+        }
+      ],
+
+      "UpstreamPathTemplate": "/message/{messageId}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+    },
+
+    { // PUT  ==> 
+      "DownstreamPathTemplate": "/api/Message/{messageId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44308
+        }
+      ],
+
+      "UpstreamPathTemplate": "/message/{messageId}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    }
 
 
 
