@@ -9,11 +9,14 @@ import {
 import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
 import React, {useState, useEffect} from 'react'
-import {variables} from '../Variables.js';
+import {variables} from '../../Variables.js';
 import {GridActionsCellItem} from '@mui/x-data-grid-pro';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { Button, Typography } from '@mui/material';
+import PersonAddAlt1OutlinedIcon from '@mui/icons-material/PersonAddAlt1Outlined';
+import PopupNewUser from './PopupNewUser';
 
 
 function escapeRegExp(value) {
@@ -21,6 +24,9 @@ function escapeRegExp(value) {
 }
 
 function QuickSearchToolbar(props) {
+  const [openPopup, setOpenPopup] = useState(false)
+
+
   return (
     <Box
       sx={{
@@ -32,10 +38,13 @@ function QuickSearchToolbar(props) {
         flexWrap: 'wrap',
       }}
     >
-      <div>
-        <GridToolbarFilterButton />
-        {/* <GridToolbarDensitySelector /> */}
-      </div>
+      
+      <Typography sx={{
+        display: 'flex',
+        alignItems: 'center',
+        direction: 'column',
+        flexWrap: 'wrap',
+      }}>      
       <TextField
         variant="standard"
         value={props.value}
@@ -70,6 +79,21 @@ function QuickSearchToolbar(props) {
           },
         }}
       />
+      <div>
+        <GridToolbarFilterButton />
+      </div>
+      </Typography>
+      <div>
+        <Button sx={{ borderRadius: '55px'}} type="submit" color="secondary" variant="contained" 
+          onClick={() => setOpenPopup(true)}>
+          <PersonAddAlt1OutlinedIcon sx={{ fontSize: 25 }} />
+          Dodaj nową szkołę
+        </Button>
+        <PopupNewUser
+          openPopup={openPopup}
+          setOpenPopup={setOpenPopup}>
+        </PopupNewUser>
+      </div>
     </Box>
   );
 }
@@ -81,7 +105,6 @@ QuickSearchToolbar.propTypes = {
 };
 
 export default function QuickFilteringGrid() {
-
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 80},
@@ -144,14 +167,14 @@ export default function QuickFilteringGrid() {
           },      
         ];         
     
-      const [tableData, setTableData] = useState([])
-    
-      useEffect(() => {
-        fetch(variables.API_URL+'users')
-        .then((data) => data.json())
-        .then((data) => setTableData(data))
-     })
-      
+  const [tableData, setTableData] = useState([])
+
+  useEffect(() => {
+    fetch(variables.API_URL_USERS)
+      .then((data) => data.json())
+      .then((data) => setTableData(data))
+  })
+
   const [searchText, setSearchText] = useState('');
 
   const requestSearch = (searchValue) => {
@@ -179,7 +202,7 @@ export default function QuickFilteringGrid() {
             <DataGrid
                 components={{ Toolbar: QuickSearchToolbar }}
                 rows={tableData}
-                columns={columns}
+                columns={columns} 
                 componentsProps={{
                     toolbar: {
                         value: searchText,
@@ -187,7 +210,7 @@ export default function QuickFilteringGrid() {
                         clearSearch: () => requestSearch(''),
                     },
                 }}
-            />
+            />        
         </Box>
   );
 }

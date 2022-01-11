@@ -8,9 +8,12 @@ import MessageBox from '../Components/ContactsPage/MessageBox';
 
 
 const useStyles = makeStyles({
-    mess: {
+    mess: {    
         display: 'flex',
         direction: 'row',
+        flexFlow: 'stretch',  
+        margin: 50, 
+        background: 'white',   
     }
     
 })
@@ -29,9 +32,7 @@ export default function Contacts() {
                 Formularz kontaktowego
             </Typography>
 
-            <Typography variant='body1'>
-                Dalsza treść strony
-            </Typography>
+
 
             <Typography className={classes.mess} >
                 <MessageBox/>

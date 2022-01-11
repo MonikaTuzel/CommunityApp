@@ -4,7 +4,7 @@ import { Typography } from '@mui/material';
 import { Container } from '@mui/material';
 import DataTableUsers from '../Components/DataTableUsers';
 import { makeStyles } from '@mui/styles';
-import UsersTableData from '../Components/UsersTableData';
+import UsersTableData from '../Components/UsersPage/UsersTableData';
 
 
 const useStyles = makeStyles({

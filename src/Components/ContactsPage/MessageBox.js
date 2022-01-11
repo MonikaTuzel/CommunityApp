@@ -1,14 +1,19 @@
-import React from 'react';
-import Button from '@mui/material/Button';
-import { TextField, Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { ListItemIcon, Typography } from '@mui/material';
 import { Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import Popup from './Popup';
+import { variables } from '../../Variables';
 
 const useStyles = makeStyles({
- 
+
     contc: {
-        width: '350px',
+        width: '600px',
         height: '500px',
         display: "flex",
         flexDirection: 'column',
@@ -17,70 +22,108 @@ const useStyles = makeStyles({
         border: 1,
         borderRadius: '15px',
         borderColor: '#7986cb',
-        border: "2px double",
+    },
+    mess: {
+        width: '100%',
+        height: 'auto',
+        bgcolor: 'background.paper',
+        position: 'relative',
+        overflow: 'auto',
+        maxHeight: 400,
+        '& ul': { padding: 0 },
     }
+
 })
 
 export default function Contacts() {
     const classes = useStyles()
+    const [tableData, setTableData] = useState([])
+    const [openPopup, setOpenPopup] = useState(false)
 
+    useEffect(() => {
+        fetch(variables.API_URL_MESSAGE+"/"+"1006")
+            .then((data) => data.json())
+            .then((data) => setTableData(data))
+            .then(response => console.log(response))
+    })
+    useEffect(() => {
+        setTableData(tableData);
+    }, [tableData]);
+
+    
     return (
-        <Container>
-           
-            <Typography className={classes.contc} p={1}  >
+        <Container  sx={{ padding: 3 }}>
 
-                <Typography
+            <Typography
+                className={classes.contc}
+                p={1}
+                sx={{ boxShadow: 3 }}  >
+
+                <Typography                    
                     variant='h5'
                     color='textSecondary'
                     component='h2'
                     align="center"
-                    gutterBottom>
+                    >
                     Twoje wiadomości
                 </Typography>
 
-                <Typography>
-                    <TextField
-                        sx={{ m: 1, width: '280px' }}
-                        label="Temat wiadomości"
-                        multiline
-                        maxRows={2}
-                        placeholder='Temat'
-                        variant="standard"
-                        color='secondary' />
-                </Typography>
-                <Typography >
-                    <TextField
-                        sx={{ m: 1, width: '280px' }}
-                        multiline
-                        rows={4}
-                        maxRows={4}
-                        label="Wiadomość..."
-                        helperText="Proszę wpisać treść wiadomości"
-                        variant="outlined"
-                    />
-                </Typography>
-
-
-                <Typography sx={{
-                    display: "flex",
-                    flexDirection: 'row',
-                }}>
-                    <Typography px={5}>
-                        <TextField
-                            sx={{ width: '120px' }}
-                            //disabled 
-                            label="ID użytkownika"
-                            placeholder='1001'
-                            variant="standard"
-                            color='secondary' />
-                    </Typography>
-                    <Button
-                        sx={{ width: '120px', height: '40px' }}
-                        type="submit" color="secondary" variant="contained">Wyślij</Button>
+               
+                <Typography sx={{ height: '400px', width: '580px', boxShadow: 3 }} >
+                    <List dense
+                        className={classes.mess} >
+                        {tableData.map((message) => {
+                            return (
+                                <ListItem sx={{ height: '80px', width: '550px', boxShadow: 2, border: 1,
+                                borderRadius: '15px',
+                                borderColor: '#e1f5fe',
+                                m: 1, }}                          
+                                disablePadding
+                                >
+                                    <ListItemButton                            
+                                        style={{ background: message.statusName == "Nieprzeczytane"  ?  '#e1f5fe' :  null }} 
+                                        onClick={() => setOpenPopup(message)}
+                                        >             
+                                        <ListItem alignItems="flex-start">
+                                            <ListItemIcon>
+                                                <EmailOutlinedIcon color="secondary" sx={{fontSize:"xx-large"}} />                                                
+                                            </ListItemIcon>
+                                             <ListItemText
+                                                key={message.Id}
+                                                primary={message.topic}
+                                                secondary={                                            
+                                                    <React.Fragment>
+                                                        <Typography
+                                                            sx={{ display: 'inline' }}
+                                                            component="span"
+                                                            variant="body2"
+                                                            color="text.primary"
+                                                        >                               
+                                                        {message.statusName}                                                                                                                                                                                                       
+                                                        </Typography>      
+                                                    </React.Fragment>
+                                                }
+                                            />                                                                    
+                                        </ListItem>                                        
+                                    </ListItemButton>
+                                    <Popup
+                                        messageId={message.id}
+                                        date={message.date}
+                                        openPopup={openPopup}
+                                        setOpenPopup={setOpenPopup}
+                                    >
+                                    </Popup>
+                                </ListItem> 
+                            );
+                            
+                        })}
+                    </List>
                 </Typography>
 
             </Typography>
 
         </Container>
-    )
+        
+    );
 }
+

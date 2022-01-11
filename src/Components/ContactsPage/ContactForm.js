@@ -5,6 +5,8 @@ import { Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Autocomplete from '@mui/material/Autocomplete';
 import {variables} from '../../Variables';
+import { shadows } from '@mui/system';
+
 
 const useStyles = makeStyles({
  
@@ -18,7 +20,6 @@ const useStyles = makeStyles({
         border: 1,
         borderRadius: '15px',
         borderColor: '#7986cb',
-        border: "2px double",
     },
     autocom:{        
         display: "flex",
@@ -29,19 +30,20 @@ const useStyles = makeStyles({
 
 export default function Contacts() {
     const classes = useStyles()
-    const [tableData, setTableData] = useState([])
-
-    useEffect(() => {
-       fetch(variables.API_URL+'users')
-       .then((data) => data.json())
-       .then((data) => setTableData(data))
-    })
-
+    const [tableDataUsers, setTableDataUsers] = useState([])
+    const [tableDataMessage,  xc] = useState([])
     
+    useEffect(() => {
+       fetch(variables.API_URL_USERS)
+       .then((data) => data.json())
+       .then((data) => setTableDataUsers(data))
+    })
+   
     return (
-        <Container>
-           
-            <Typography className={classes.contc} p={1}  >
+        <Container sx={{ padding: 3 }}  >
+                   
+            <Typography className={classes.contc} p={1}
+            sx={{ boxShadow: 3 }}  >
 
                 <Typography
                     variant='h5'
@@ -56,7 +58,7 @@ export default function Contacts() {
                     <Autocomplete
                         id="clear-on-escape"
                         clearOnEscape
-                        options={tableData}
+                        options={tableDataUsers}
                         getOptionLabel={(option) => option.fullName}
                         sx={{ width: 280}}
                         renderInput={(params) => <TextField
@@ -68,23 +70,22 @@ export default function Contacts() {
                         sx={{ m: 1, width: '280px' }}
                         label="Temat wiadomości"
                         multiline
-                        maxRows={2}
+                        rows={2}
                         placeholder='Temat'
                         variant="standard"
-                        color='secondary' />
+                        color='secondary'                                         
+                        />
                 </Typography>
                 <Typography >
                     <TextField
                         sx={{ m: 1, width: '280px' }}
                         multiline
                         rows={4}
-                        maxRows={4}
                         label="Wiadomość..."
                         helperText="Proszę wpisać treść wiadomości"
                         variant="outlined"
                     />
                 </Typography>
-
 
                 <Typography sx={{
                     display: "flex",
@@ -92,7 +93,8 @@ export default function Contacts() {
                 }}>                    
                     <Button
                         sx={{ width: '120px', height: '40px' }}
-                        type="submit" color="secondary" variant="contained">Wyślij</Button>
+                        type="submit" color="secondary" variant="contained"
+                        >Wyślij</Button>
                 </Typography>
 
             </Typography>
