@@ -31,7 +31,6 @@ const useStyles = makeStyles({
 export default function Contacts() {
     const classes = useStyles()
     const [tableDataUsers, setTableDataUsers] = useState([])
-    const [tableDataMessage,  xc] = useState([])
     
     useEffect(() => {
        fetch(variables.API_URL_USERS)

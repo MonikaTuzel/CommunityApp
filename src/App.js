@@ -10,7 +10,7 @@ import Users from './Pages/Users';
 import {Adresses} from './Pages/Adresses';
 import { Routes, Route } from 'react-router-dom';
 
-import { lime, orange, purple, yellow, indigo} from '@mui/material/colors';
+import {indigo} from '@mui/material/colors';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
 const theme = createTheme({
