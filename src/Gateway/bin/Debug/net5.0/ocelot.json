@@ -86,7 +86,7 @@
     // Contacts API
 
     {
-      "DownstreamPathTemplate": "/api/Contacts",
+      "DownstreamPathTemplate": "/api/Contacts/adresses",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -95,7 +95,20 @@
         }
       ],
 
-      "UpstreamPathTemplate": "/contacts",
+      "UpstreamPathTemplate": "/adresses",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Contacts/towns",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44359
+        }
+      ],
+
+      "UpstreamPathTemplate": "/towns",
       "UpstreamHttpMethod": [ "GET" ]
     },
     {

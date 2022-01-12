@@ -21,10 +21,19 @@ namespace Contacts.Controllers
         /// <summary>
         /// Pobieranie listy wszystkich adresów
         /// </summary>
-        [HttpGet]
+        [HttpGet("adresses")]
         public IEnumerable<Adress> BrowseAdresses()
         {
             return _contactsServices.BrowseAllAdress();
+        }
+
+        /// <summary>
+        /// Pobieranie listy wszystkich miast
+        /// </summary>
+        [HttpGet("towns")]
+        public IEnumerable<Town> BrowseTown()
+        {
+            return _contactsServices.BrowseAllTown();
         }
 
         /// <summary>

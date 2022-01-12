@@ -7,6 +7,8 @@ namespace Contacts.IServices
     public interface IContactsService
     {
         IEnumerable<Adress> BrowseAllAdress();
+        IEnumerable<Town> BrowseAllTown();
+
         IEnumerable<AdressDetailsDto> BrowseAdressByTown(string townName);
         IEnumerable<AdressDetailsDto> BrowseAdressByDistrict(string district);
         void CreateAdress(CreateAdressDto createAdressDto);

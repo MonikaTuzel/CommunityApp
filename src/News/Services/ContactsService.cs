@@ -46,6 +46,12 @@ namespace Contacts.Services
             return adressesDto;
 
         }
+
+        public IEnumerable<Town> BrowseAllTown()
+        {
+            return _dbContext.Town.ToList();
+        }
+
         public IEnumerable<AdressDetailsDto> BrowseAdressByDistrict(string district)
         {
             var adresses = _dbContext.Adress
