@@ -8,6 +8,8 @@ namespace Contacts.IServices
     {
         IEnumerable<Adress> BrowseAllAdress();
         IEnumerable<Town> BrowseAllTown();
+        IEnumerable<AdressDetailsDto> BrowseAllDetails();
+
 
         IEnumerable<AdressDetailsDto> BrowseAdressByTown(string townName);
         IEnumerable<AdressDetailsDto> BrowseAdressByDistrict(string district);

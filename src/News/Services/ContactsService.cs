@@ -52,6 +52,23 @@ namespace Contacts.Services
             return _dbContext.Town.ToList();
         }
 
+        public IEnumerable<AdressDetailsDto> BrowseAllDetails()
+        {
+            var adresses = _dbContext.Adress
+                .Include(x => x.Town)
+                .Include(x => x.User)
+                .ToList();
+
+            if (!adresses.Any())
+            {
+                throw new NotFoundException($"Wystąpił błąd!");
+            }
+
+            var adressesDto = _mapper.Map<List<AdressDetailsDto>>(adresses);
+
+            return adressesDto;
+        }
+
         public IEnumerable<AdressDetailsDto> BrowseAdressByDistrict(string district)
         {
             var adresses = _dbContext.Adress

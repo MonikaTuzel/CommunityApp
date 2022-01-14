@@ -10,7 +10,7 @@ namespace Deliveries.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class DeliveryController : Controller
     {
         private readonly IDeliveryService _deliveryService;
@@ -24,10 +24,30 @@ namespace Deliveries.Controllers
         /// Pobieranie listy wszystkich dostaw
         /// </summary>
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IEnumerable<DeliveryInformationDto> GetAllDelivery()
         {
             return _deliveryService.BrowseAllDeliveries();
+        }
+
+        /// <summary>
+        /// Pobieranie listy historii dostaw
+        /// </summary>
+        [HttpGet("history")]
+        //[Authorize(Roles = "Admin")]
+        public IEnumerable<DeliveryInformationDto> GetHistoryDelivery()
+        {
+            return _deliveryService.BrowseHistoryDelivery();
+        }
+
+        /// <summary>
+        /// Pobieranie listy przyszłych dostaw
+        /// </summary>
+        [HttpGet("future")]
+        //[Authorize(Roles = "Admin")]
+        public IEnumerable<DeliveryInformationDto> GetFutureDelivery()
+        {
+            return _deliveryService.BrowseFutureDelivery();
         }
 
         /// <summary>
@@ -44,7 +64,7 @@ namespace Deliveries.Controllers
         /// Dodawanie nowej dostawy
         /// </summary>
         [HttpPost("create")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
 
         public void AddNewDelivery([FromBody] CreatDeliveryDto creatDeliveryDto)
         {
@@ -68,7 +88,7 @@ namespace Deliveries.Controllers
         /// Usuwanie dostawy
         /// </summary>
         [HttpDelete("{deliveryId}")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public void DeleteDelivery([FromRoute] int deliveryId)
         {
             _deliveryService.DeleteDelivery(deliveryId);

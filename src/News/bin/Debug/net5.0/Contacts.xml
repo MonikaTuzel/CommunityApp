@@ -14,6 +14,11 @@
             Pobieranie listy wszystkich miast
             </summary>
         </member>
+        <member name="M:Contacts.Controllers.ContactsController.GetAllAdressDetails">
+            <summary>
+            Pobieranie listy adresów po nazwie miasta
+            </summary>
+        </member>
         <member name="M:Contacts.Controllers.ContactsController.GetAdressDetails(System.String)">
             <summary>
             Pobieranie listy adresów po nazwie miasta

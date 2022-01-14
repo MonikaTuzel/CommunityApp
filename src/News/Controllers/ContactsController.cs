@@ -39,6 +39,15 @@ namespace Contacts.Controllers
         /// <summary>
         /// Pobieranie listy adresów po nazwie miasta
         /// </summary>
+        [HttpGet("addresses_browse")]
+        public IEnumerable<AdressDetailsDto> GetAllAdressDetails()
+        {
+            return _contactsServices.BrowseAllDetails();
+        }
+
+        /// <summary>
+        /// Pobieranie listy adresów po nazwie miasta
+        /// </summary>
         [HttpGet("town/{townName}")]
         public IEnumerable<AdressDetailsDto> GetAdressDetails([FromRoute] string townName)
         {

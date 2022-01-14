@@ -7,6 +7,9 @@ namespace Deliveries.IServices
     public interface IDeliveryService
     {
         IEnumerable<DeliveryInformationDto> BrowseAllDeliveries();
+        IEnumerable<DeliveryInformationDto> BrowseHistoryDelivery();
+        IEnumerable<DeliveryInformationDto> BrowseFutureDelivery();
+
         IEnumerable<DeliveryInformationDto> GetDeliveryByUserId(int userId);
         IEnumerable<DeliveryInformationDto> GetDeliveryByStatus(int status);
         Task<DeliveryInformationDto> GetDeliveryById(int deliveryId);

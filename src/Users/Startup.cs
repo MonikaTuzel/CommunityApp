@@ -60,10 +60,12 @@ namespace Users
             services.AddControllers().AddFluentValidation();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { 
-                    Title = "CommunityApp", 
-                    Version = "v1", 
-                    Description = "Aplikacja wymaga autoryzacji u¿ytkownika" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "CommunityApp",
+                    Version = "v1",
+                    Description = "Aplikacja wymaga autoryzacji u¿ytkownika"
+                });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
@@ -91,12 +93,12 @@ namespace Users
                     new string[]{}
 
                 }});
-        });
+            });
 
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("CommunityContext")));
-            
+
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAccountService, AccountService>();
@@ -108,6 +110,9 @@ namespace Users
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(optins =>
+      optins.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -121,7 +126,7 @@ namespace Users
 
             app.UseRouting();
 
-            app.UseCors();
+
 
             app.UseAuthorization();
 

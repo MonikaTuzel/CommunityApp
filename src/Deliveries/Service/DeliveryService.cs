@@ -37,6 +37,32 @@ namespace Deliveries.Service
 
            return deliveriesDto;
         }
+        public IEnumerable<DeliveryInformationDto> BrowseHistoryDelivery()
+        {
+            var deliveries = _dbContext.Delivery
+                   .Include(x => x.Status)
+                   .Include(x => x.User)
+                   .Where(x=>x.StatusId == 1)
+                   .ToList();
+
+            var deliveriesDto = _mapper.Map<List<DeliveryInformationDto>>(deliveries);
+
+            return deliveriesDto;
+
+        }
+        public IEnumerable<DeliveryInformationDto> BrowseFutureDelivery()
+        {
+            var deliveries = _dbContext.Delivery
+                   .Include(x => x.Status)
+                   .Include(x => x.User)
+                   .Where(x => x.StatusId == 2)                   
+                   .ToList();
+
+            var deliveriesDto = _mapper.Map<List<DeliveryInformationDto>>(deliveries);
+
+            return deliveriesDto;
+
+        }
 
         public IEnumerable<DeliveryInformationDto> GetDeliveryByStatus(int status)
         {
