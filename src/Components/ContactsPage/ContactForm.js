@@ -1,15 +1,14 @@
-import React,  {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { TextField, Typography } from '@mui/material';
 import { Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Autocomplete from '@mui/material/Autocomplete';
-import {variables} from '../../Variables';
-import { shadows } from '@mui/system';
+import { variables } from '../../Variables';
 
 
 const useStyles = makeStyles({
- 
+
     contc: {
         width: '350px',
         height: '500px',
@@ -17,83 +16,155 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         justifyContent: 'space-around',
         textAlign: 'center',
-        border: 1,
+        alignItems: 'center',
         borderRadius: '15px',
-        borderColor: '#7986cb',
     },
-    autocom:{        
+    autocom: {
         display: "flex",
         justifyContent: 'space-around',
-        textAlign: 'center',    
+        textAlign: 'center',
     }
 })
 
 export default function Contacts() {
     const classes = useStyles()
     const [tableDataUsers, setTableDataUsers] = useState([])
-    
-    useEffect(() => {
-       fetch(variables.API_URL_USERS)
-       .then((data) => data.json())
-       .then((data) => setTableDataUsers(data))
+    const [value, setValue] = React.useState(tableDataUsers[0]);
+    const [message, setMessage] = useState({
+        senderId: '1006'
     })
-   
+
+
+    function validateForm() {
+
+        return message.userId && message.topic&&message.contents;
+    
+      }
+
+
+    useEffect(() => {
+        fetch(variables.API_URL_USERS)
+            .then((data) => data.json())
+            .then((data) => setTableDataUsers(data))
+    }, []);
+
+    const handleChange = (event, newValue) => {
+
+        let name = event.target.id;
+
+        if (name.includes('clear-on-escape-option') ) name = 'userId'
+     
+
+        setMessage({
+
+            ...message,
+
+            [name]: newValue?.id ?? event.target.value,
+
+        });
+
+    };
+
+    const send = async () => {
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(message),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        fetch(variables.API_URL_MESSAGE_SEND, options).then(()=>{
+            setMessage({senderId:"1006", userId:message.userId})
+        })
+
+
+            ;
+    }
+
+    console.log(message, "msg")
+
     return (
         <Container sx={{ padding: 3 }}  >
-                   
+
             <Typography className={classes.contc} p={1}
-            sx={{ boxShadow: 3 }}  >
+                sx={{ boxShadow: 10, border: 2, borderColor: '#c5cae9' }}  >
 
                 <Typography
                     variant='h5'
-                    color='textSecondary'
+                    color='#e8eaf6'
                     component='h2'
                     align="center"
-                    gutterBottom>
+                    sx={{
+                        border: 1,
+                        borderRadius: '15px',
+                        borderColor: '#7986cb',
+                        boxShadow: 5,
+                        background: '#5c6bc0',
+                        width: "80%",
+                    }}>
                     Wyślij wiadomość
                 </Typography>
 
                 <Typography className={classes.autocom}>
                     <Autocomplete
+                        value={value}
+                        // inputValue={message.userId}
+                    
+
                         id="clear-on-escape"
                         clearOnEscape
                         options={tableDataUsers}
                         getOptionLabel={(option) => option.fullName}
-                        sx={{ width: 280}}
+                        sx={{ width: 280 }}
+                        onChange={handleChange}
                         renderInput={(params) => <TextField
                             helperText="Wybierz użytkownika z listy"
                             {...params} label="Nadawca" variant="standard" />} />
                 </Typography>
                 <Typography>
                     <TextField
+                        id="topic"
+                        value={message?.topic??""}
+                     
                         sx={{ m: 1, width: '280px' }}
                         label="Temat wiadomości"
                         multiline
                         rows={2}
                         placeholder='Temat'
                         variant="standard"
-                        color='secondary'                                         
-                        />
+                        color='secondary'
+                        onChange={handleChange}
+                    />
                 </Typography>
                 <Typography >
                     <TextField
+                        id="contents"
+                        value={message?.contents??""}
+                  
                         sx={{ m: 1, width: '280px' }}
                         multiline
                         rows={4}
                         label="Wiadomość..."
                         helperText="Proszę wpisać treść wiadomości"
                         variant="outlined"
+                 
+
+
+                        onChange={handleChange}
                     />
                 </Typography>
 
                 <Typography sx={{
                     display: "flex",
-                    justifyContent:'flex-end'
-                }}>                    
+                    justifyContent: 'flex-end'
+                }}>
                     <Button
                         sx={{ width: '120px', height: '40px' }}
                         type="submit" color="secondary" variant="contained"
-                        >Wyślij</Button>
+                        onClick={send}
+                        disabled={!validateForm()}
+                    >Wyślij</Button>
                 </Typography>
 
             </Typography>

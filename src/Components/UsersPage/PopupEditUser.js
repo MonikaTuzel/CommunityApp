@@ -35,13 +35,49 @@ const useStyles = makeStyles({
 
 export default function PopupMessage(props) {
     const classes = useStyles()
-    const { openPopupEditUser, setOpenPopupEditUser } = props;
+    const { openPopupEditUser, setOpenPopupEditUser, user } = props;
+    const [newUser, setNewUser] = useState();
 
 
+    useEffect(() => {
+        if (user)
+            setNewUser(user);
+    }, [user]);
 
-    const handleClose = () => {
+    const handleChange = (event) => {
+
+        const name = event.target.id;
+
+        setNewUser({
+
+            ...newUser,
+
+            [name]: event.target.value,
+
+        });
+
+    };
+
+    const handleClose = async () => {
         setOpenPopupEditUser(false);
     };
+
+    const updateUser = async () => {
+        const options = {
+            method: 'PUT',
+            body: JSON.stringify(newUser),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+         };
+         
+         fetch(variables.API_URL_USERS +`/${newUser.id}`, options)
+           .then( setOpenPopupEditUser(false))
+    
+       ;
+    }
+
+    console.log(newUser, "user")
 
     return (
         <Dialog open={openPopupEditUser}
@@ -83,18 +119,22 @@ export default function PopupMessage(props) {
                             disabled
                             sx={{ m: 1, width: '200px' }}
                             label="ID"
-                            placeholder='ID'                            
-                            color='secondary' 
+                            placeholder='ID'
+                            color='secondary'
                             defaultValue="numer id"
-                            />
+                            value={user?.id}
+                        />
 
-                        <TextField                            
+                        <TextField
                             sx={{ m: 1, mt: 2, width: '200px' }}
                             label="Nazwa użytkownika"
-                            placeholder='Nazwa użytkownika'                            
-                            color='secondary' 
+                            placeholder='Nazwa użytkownika'
+                            color='secondary'
                             defaultValue="nazwa uzytkownika"
-                            />
+                            value={newUser?.fullName}
+                            id="fullName"
+                            onChange={handleChange}
+                        />
 
                     </Typography>
 
@@ -105,6 +145,9 @@ export default function PopupMessage(props) {
                             label="Ilość uczniów"
                             placeholder='Ilość uczniów'
                             defaultValue="ilość uczniów"
+                            value={newUser?.studentScore}
+                            id="studentScore"
+                            onChange={handleChange}
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
@@ -119,6 +162,9 @@ export default function PopupMessage(props) {
                             label="Numer telefonu"
                             placeholder='Numer telefonu'
                             defaultValue="numer telefonu"
+                            value={newUser?.phone}
+                            id="phone"
+                            onChange={handleChange}
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
@@ -135,7 +181,7 @@ export default function PopupMessage(props) {
                             <Button
                                 sx={{ width: '120px', height: '40px', mt: 2 }}
                                 type="submit" color="secondary" variant="contained"
-                                onClick={handleClose}
+                                onClick={updateUser}
                             >Akceptuj</Button>
                         </Typography>
 

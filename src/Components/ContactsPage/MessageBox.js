@@ -18,10 +18,9 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: 'column',
         justifyContent: 'space-around',
+        alignItems:'center',
         textAlign: 'center',
-        border: 1,
         borderRadius: '15px',
-        borderColor: '#7986cb',
     },
     mess: {
         width: '100%',
@@ -45,7 +44,7 @@ export default function Contacts() {
             .then((data) => data.json())
             .then((data) => setTableData(data))
             .then(response => console.log(response))
-    })
+    },[])
     useEffect(() => {
         setTableData(tableData);
     }, [tableData]);
@@ -55,16 +54,23 @@ export default function Contacts() {
         <Container  sx={{ padding: 3 }}>
 
             <Typography
-                className={classes.contc}
-                p={1}
-                sx={{ boxShadow: 3 }}  >
+                className={classes.contc} p={1}
+                sx={{ boxShadow: 10, border: 2, borderColor: '#c5cae9' }}  >
 
-                <Typography                    
+
+                <Typography  
                     variant='h5'
-                    color='textSecondary'
+                    color='#e8eaf6'
                     component='h2'
                     align="center"
-                    >
+                    sx={{border: 1,
+                        borderRadius: '15px',
+                        borderColor: '#7986cb',
+                        boxShadow: 5,
+                        background: '#5c6bc0',
+                        width: "80%",
+                        }}>
+                    
                     Twoje wiadomości
                 </Typography>
 

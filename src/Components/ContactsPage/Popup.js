@@ -20,7 +20,7 @@ export default function Popup(props) {
             .then((data) => data.json())
             .then((data) => setTableDataDetails(data))
             .then(response => console.log(response))
-    })
+    },[])
     useEffect(() => {
         setTableDataDetails(tableDataDetails);
     }, [tableDataDetails]);

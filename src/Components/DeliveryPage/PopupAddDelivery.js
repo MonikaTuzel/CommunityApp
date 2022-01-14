@@ -1,19 +1,17 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { TextField, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import IconButton from '@mui/material/IconButton';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import PopNewAdress from './PopupNewAdress';
 import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
-
+import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
+import Autocomplete from '@mui/material/Autocomplete';
+import { variables } from '../../Variables';
 
 
 const useStyles = makeStyles({
@@ -27,47 +25,32 @@ const useStyles = makeStyles({
         border: 1,
         borderRadius: '15px',
         borderColor: '#7986cb',
-
     },
     tekstbox: {
         display: "flex",
         flexDirection: 'column',
         justifyContent: 'center',
-        textAlign: 'center',
+        textAlign: 'flex-start',
     }
 })
 
-export default function Popup(props) {
+export default function PopupDeliveryInfo(props) {
     const classes = useStyles()
-    const { openPopup, setOpenPopup } = props;
-    const [openAdressPopup, setOpenAdressPopup] = useState(false)
+    const { openPopupAddDelivery, setOpenPopupAddDelivery } = props;
+    const [tableDataUsers, setTableDataUsers] = useState([])
+
+    useEffect(() => {
+        fetch(variables.API_URL_USERS)
+            .then((data) => data.json())
+            .then((data) => setTableDataUsers(data))
+    })
 
     const handleClose = () => {
-        setOpenPopup(false);
+        setOpenPopupAddDelivery(false);
     };
-
-    const [values, setValues] = React.useState({
-        password: '',
-        showPassword: false,
-    });
-
-    const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
-    };
-    const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
-        });
-    };
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-
 
     return (
-        <Dialog open={openPopup}
+        <Dialog open={openPopupAddDelivery}
             fullWidth
             maxWidth="lg"
         >
@@ -85,79 +68,49 @@ export default function Popup(props) {
                 textAlign: 'center',
             }}>
                 <div>
-                    <h1> Dodaj nową szkołę </h1>
+                    <h2> Dodaj nową dostawę </h2>
                 </div>
             </DialogTitle>
-
             <DialogContent sx={{
                 display: "flex",
-                justifyContent: 'center'
+                justifyContent: 'center',
+                textAlign: 'center',
             }}>
-
                 <Typography
                     className={classes.contc}
-                    p={5}
+                    p={1}
                     sx={{ boxShadow: 3 }}  >
 
                     <Typography>
 
+                        <Autocomplete
+                            id="clear-on-escape"
+                            clearOnEscape
+                            options={tableDataUsers}
+                            getOptionLabel={(option) => option.fullName}
+                            sx={{ width: 280 }}
+                            ml={5}
+                            renderInput={(params) => <TextField
+                                helperText="Wybierz użytkownika z listy"
+                                {...params} label="Nazwa szkoły" variant="standard" />} />
+
                         <TextField
                             sx={{ m: 1, width: '350px' }}
-                            label="Pełna nazwa szkoły"
-                            placeholder='Pełna nazwa szkoły'
+                            label="Data dostawy"
+                            placeholder='Data dostawy'
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
-                                        <BadgeOutlinedIcon />
-                                    </InputAdornment>
-                                ),
-                            }}
-                            color='secondary' />
-                        <TextField
-                            sx={{ m: 1, width: '350px' }}
-                            label="Skrócona nazwa szkoły"
-                            placeholder='Skrócona nazwa szkoły'
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <AccountCircle />
-                                    </InputAdornment>
-                                ),
-                            }}
-                            color='secondary' />
-                        <TextField
-                            sx={{ m: 1, width: '350px' }}
-                            label="Ilość uczniów"
-                            placeholder='Ilość uczniów'
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <PeopleOutlinedIcon />
+                                        <DateRangeOutlinedIcon />
                                     </InputAdornment>
                                 ),
                             }}
                             color='secondary' />
 
-                    </Typography>
-
-                    <Typography>
-
                         <TextField
                             sx={{ m: 1, width: '350px' }}
-                            label="Telefon kontaktowy"
-                            placeholder='Telefon kontaktowy'
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <PhoneOutlinedIcon />
-                                    </InputAdornment>
-                                ),
-                            }}
-                            color='secondary' />
-                        <TextField
-                            sx={{ m: 1, width: '350px' }}
-                            label="Adres e-mail"
-                            placeholder='Adres e-mail'
+                            label="Uwagi"
+                            placeholder='Uwagi'
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
@@ -166,28 +119,51 @@ export default function Popup(props) {
                                 ),
                             }}
                             color='secondary' />
+
+
+
+                    </Typography>
+
+                    <Typography>
+
                         <TextField
                             sx={{ m: 1, width: '350px' }}
-                            label="Hasło"
-                            defaultValue="hasloTymczasowe$!"
-                            type={values.showPassword ? 'text' : 'password'}
-                            value={values.password}
-                            onChange={handleChange('password')}
+                            label="Rok szkolny"
+                            placeholder='Rok szkolny'
                             InputProps={{
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                            edge="end"
-                                        >
-                                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <DateRangeOutlinedIcon />
                                     </InputAdornment>
                                 ),
                             }}
                             color='secondary' />
+                        <TextField
+                            sx={{ m: 1, width: '350px' }}
+                            label="Semestr"
+                            placeholder='Semestr'
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <DateRangeOutlinedIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                            color='secondary' />
+
+                        <TextField
+                            sx={{ m: 1, width: '350px' }}
+                            label="Tydzień"
+                            placeholder='Tydzień'
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <DateRangeOutlinedIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                            color='secondary' />
+
 
                         <Typography sx={{
                             display: "flex",
@@ -196,33 +172,15 @@ export default function Popup(props) {
                             <Button
                                 sx={{ width: '120px', height: '40px' }}
                                 type="submit" color="secondary" variant="contained"
-                      
-                                onClick={() =>{
-                                    handleClose();
-                                    setOpenAdressPopup(true)
-                                } }
+                                onClick={handleClose}
                             >Akceptuj</Button>
                         </Typography>
 
                     </Typography>
-
                 </Typography>
-
-                <PopNewAdress
-                    openAdressPopup={openAdressPopup}
-                    setOpenAdressPopup={setOpenAdressPopup}>
-                </PopNewAdress>
-
             </DialogContent>
-
-            <DialogActions>
-
-            </DialogActions>
-
         </Dialog>
 
 
     )
-
 }
-

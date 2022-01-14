@@ -3,11 +3,11 @@ import Navbar from './Components/Navbar';
 import { BrowserRouter as Router } from 'react-router-dom';
 import {Home} from './Pages/Home';
 import Contacts from './Pages/Contacts.js';
-import {Delivery} from './Pages/Delivery';
+import Delivery from './Pages/Delivery';
 import {Files} from './Pages/Files';
 import {Settings} from './Pages/Settings';
 import Users from './Pages/Users';
-import {Adresses} from './Pages/Adresses';
+import Adresses from './Pages/Adresses';
 import { Routes, Route } from 'react-router-dom';
 
 import {indigo} from '@mui/material/colors';

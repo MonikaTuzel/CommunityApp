@@ -1,11 +1,38 @@
-import React,{Component} from 'react';
+import React from 'react';
+import { Typography } from '@mui/material';
+import { Container } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import AdressesTable from '../Components/AdressesPage/AdressesTable';
 
-export class Adresses extends Component{
-    render(){
-        return(
-            <div>
-                <h3>Strona z listą adresów</h3>
-            </div>
-        )
-    }
+
+const useStyles = makeStyles({
+    mess: {    
+        display: 'flex',
+        direction: 'row',
+        flexFlow: 'stretch',  
+        margin: 50, 
+        background: 'white',   
+    }    
+})
+
+export default function Contacts() {
+    const classes = useStyles()
+ 
+    return (
+        <Container>
+            <Typography
+                variant='h3'
+                color='textSecondary'
+                component='h2'
+                align="center"
+                gutterBottom>
+                Lista adresów 
+            </Typography>
+
+            <Typography>
+                <AdressesTable/>
+            </Typography>
+
+        </Container>
+    )
 }

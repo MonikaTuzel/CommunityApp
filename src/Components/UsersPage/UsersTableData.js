@@ -97,7 +97,7 @@ function QuickSearchToolbar(props) {
           openPopup={openPopup}
           setOpenPopup={setOpenPopup}>
         </PopupNewUser>
-        
+
       </div>
     </Box>
   );
@@ -127,25 +127,31 @@ export default function QuickFilteringGrid() {
       headerName: 'Opcje',
       width: 130,
       cellClassName: 'actions',
-      getActions: () => {
+      getActions: (params) => {
         return [
           <GridActionsCellItem
             icon={<InfoOutlinedIcon />}
             label="Info"
             //onClick={handleDeleteClick(id)}
+            //  onClick={deleteUser(params.id)}
             color="inherit"
           />,
           <GridActionsCellItem
             icon={<EditOutlinedIcon />}
             label="Edit"
             className="textPrimary"
-            onClick={setOpenPopupEditUser(true)}
+            onClick={async () => {
+              await getInfo(params.id).then(() => {
+                setOpenPopupEditUser(true);
+              })
+
+            }}
             color="inherit"
           />,
           <GridActionsCellItem
             icon={<DeleteOutlineOutlinedIcon />}
             label="Delete"
-            //   onClick={handleDeleteClick(id)}
+            onClick={deleteUser(params.id)}
             color="inherit"
           />,
 
@@ -153,21 +159,12 @@ export default function QuickFilteringGrid() {
       },
     },
   ];
-  <PopupEditUser
-    openPopupEditUser={openPopupEditUser}
-    setOpenPopupEditUser={setOpenPopupEditUser}>
-  </PopupEditUser>
+
 
 
 
   const [tableData, setTableData] = useState([])
-
-  useEffect(() => {
-    fetch(variables.API_URL_USERS)
-      .then((data) => data.json())
-      .then((data) => setTableData(data))
-  })
-
+  const [user, setUser] = useState()
   const [searchText, setSearchText] = useState('');
 
   const requestSearch = (searchValue) => {
@@ -181,9 +178,38 @@ export default function QuickFilteringGrid() {
     setTableData(filteredRows);
   };
 
-  React.useEffect(() => {
-    setTableData(tableData);
-  }, [tableData]);
+  const getInfo = async (id) => {
+    let element = tableData.find(el => el.id == id)
+    setUser(element)
+  }
+
+  const deleteUser = React.useCallback(
+    (id) => () => {
+
+      const options = {
+        method: 'DELETE',
+  
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+  
+      fetch(variables.API_URL_USERS + `/${id}`, options).then(() => {
+        setTimeout(() => {
+          setTableData((prevRows) => prevRows.filter((row) => row.id !== id));
+        });
+      })
+  
+    },
+    [],
+  );
+
+
+  useEffect(() => {
+    fetch(variables.API_URL_USERS)
+      .then((data) => data.json())
+      .then((data) => setTableData(data))
+  }, []);
 
   return (
     <Box sx={{
@@ -192,6 +218,11 @@ export default function QuickFilteringGrid() {
       height: 600,
       width: 1
     }}>
+      <PopupEditUser
+        openPopupEditUser={openPopupEditUser}
+        setOpenPopupEditUser={setOpenPopupEditUser}
+        user={user}>
+      </PopupEditUser>
       <DataGrid
         components={{ Toolbar: QuickSearchToolbar }}
         rows={tableData}
@@ -203,10 +234,8 @@ export default function QuickFilteringGrid() {
             clearSearch: () => requestSearch(''),
           },
         }}
-      />      
-      
-     
+      />
     </Box>
-    
+
   );
 }
