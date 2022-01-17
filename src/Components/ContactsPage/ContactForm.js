@@ -75,7 +75,7 @@ export default function Contacts() {
         };
 
         fetch(variables.API_URL_MESSAGE_SEND, options).then(()=>{
-            setMessage({senderId:"1006", userId:message.userId})
+            setMessage({senderName:"Administrator", userId:message.userId})
         })
 
 

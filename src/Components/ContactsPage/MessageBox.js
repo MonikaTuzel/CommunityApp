@@ -37,17 +37,37 @@ const useStyles = makeStyles({
 export default function Contacts() {
     const classes = useStyles()
     const [tableData, setTableData] = useState([])
+    const [message, setMessage] = useState()
     const [openPopup, setOpenPopup] = useState(false)
 
     useEffect(() => {
-        fetch(variables.API_URL_MESSAGE+"/"+"1006")
+        fetch(variables.API_URL_MESSAGE+"/1006")
             .then((data) => data.json())
             .then((data) => setTableData(data))
             .then(response => console.log(response))
     },[])
-    useEffect(() => {
-        setTableData(tableData);
-    }, [tableData]);
+
+
+    const setChangeStatus = async (id) => {
+        let element = tableData.find(el => el.id == id)
+       
+            const options = {
+                method: 'PUT',
+                body: JSON.stringify(),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+             };             
+             fetch(variables.API_URL_MESSAGE_READ +`/${id}`, options)
+        
+        setMessage(element)                
+      }
+
+
+      const getInfo = async (id) => {
+        let element = tableData.find(el => el.id == id)
+        setMessage(element)
+      }
 
     
     return (
@@ -58,37 +78,53 @@ export default function Contacts() {
                 sx={{ boxShadow: 10, border: 2, borderColor: '#c5cae9' }}  >
 
 
-                <Typography  
+                <Typography
                     variant='h5'
                     color='#e8eaf6'
                     component='h2'
                     align="center"
-                    sx={{border: 1,
+                    sx={{
+                        border: 1,
                         borderRadius: '15px',
                         borderColor: '#7986cb',
                         boxShadow: 5,
                         background: '#5c6bc0',
                         width: "80%",
-                        }}>
-                    
+                    }}>
+
                     Twoje wiadomości
                 </Typography>
+                
+                <Popup
+                    openPopup={openPopup}
+                    setOpenPopup={setOpenPopup}
+                    message={message}
+                >
+                </Popup>
 
-               
                 <Typography sx={{ height: '400px', width: '580px', boxShadow: 3 }} >
                     <List dense
                         className={classes.mess} >
                         {tableData.map((message) => {
-                            return (
+                            return (              
                                 <ListItem sx={{ height: '80px', width: '550px', boxShadow: 2, border: 1,
                                 borderRadius: '15px',
                                 borderColor: '#e1f5fe',
                                 m: 1, }}                          
                                 disablePadding
-                                >
+                                >                
                                     <ListItemButton                            
                                         style={{ background: message.statusName == "Nieprzeczytane"  ?  '#e1f5fe' :  null }} 
-                                        onClick={() => setOpenPopup(message)}
+                                        onClick={async () => {
+                                            await getInfo(message.id).then(() => {
+                                                setOpenPopup(true);
+                                                if(message.statusName == "Nieprzeczytane")
+                                                {
+                                                    setChangeStatus(message.id)
+                                                }
+
+                                            })
+                                          }}
                                         >             
                                         <ListItem alignItems="flex-start">
                                             <ListItemIcon>
@@ -105,20 +141,14 @@ export default function Contacts() {
                                                             variant="body2"
                                                             color="text.primary"
                                                         >                               
-                                                        {message.statusName}                                                                                                                                                                                                       
+                                                        Nadawca: {message.senderName}                                                                                                                                                                                         
                                                         </Typography>      
                                                     </React.Fragment>
                                                 }
                                             />                                                                    
                                         </ListItem>                                        
-                                    </ListItemButton>
-                                    <Popup
-                                        messageId={message.id}
-                                        date={message.date}
-                                        openPopup={openPopup}
-                                        setOpenPopup={setOpenPopup}
-                                    >
-                                    </Popup>
+                                    </ListItemButton> 
+                                   
                                 </ListItem> 
                             );
                             

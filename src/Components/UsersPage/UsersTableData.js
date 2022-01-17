@@ -144,7 +144,6 @@ export default function QuickFilteringGrid() {
               await getInfo(params.id).then(() => {
                 setOpenPopupEditUser(true);
               })
-
             }}
             color="inherit"
           />,
@@ -203,7 +202,6 @@ export default function QuickFilteringGrid() {
     },
     [],
   );
-
 
   useEffect(() => {
     fetch(variables.API_URL_USERS)

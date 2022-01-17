@@ -1,17 +1,12 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle, ListItemButton, ListItemIcon } from '@mui/material';
+import { Dialog, DialogContent, DialogTitle} from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { TextField, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import InputAdornment from '@mui/material/InputAdornment';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import Autocomplete from '@mui/material/Autocomplete';
 import { variables } from '../../Variables';
-import EditRoadOutlinedIcon from '@mui/icons-material/EditRoadOutlined';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
-import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
-import PopupNewTown from './PopupNewTown';
+
 
 const useStyles = makeStyles({
 
@@ -77,7 +72,7 @@ export default function PopupMessage(props) {
        ;
     }
 
-    console.log(newUser, "user")
+    //console.log(newUser, "user")
 
     return (
         <Dialog open={openPopupEditUser}

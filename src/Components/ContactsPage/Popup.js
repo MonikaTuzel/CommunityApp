@@ -4,27 +4,17 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined';
 import Button from '@mui/material/Button';
 import PopupMessage from './PopupMessage';
+import { variables } from '../../Variables';
 
 export default function Popup(props) {
 
-    const {title, nazwa, date, messageId, children, openPopup, setOpenPopup} = props;
-    const [tableDataDetails, setTableDataDetails] = useState([])
+    const {openPopup, setOpenPopup, message} = props;
     const [openPopupMess, setOpenPopupMess] = useState(false)
 
     const handleClose = () => {
         setOpenPopup(false);
       };
-
-    useEffect(() => {
-        fetch('https://localhost:5021/message/read/2')
-            .then((data) => data.json())
-            .then((data) => setTableDataDetails(data))
-            .then(response => console.log(response))
-    },[])
-    useEffect(() => {
-        setTableDataDetails(tableDataDetails);
-    }, [tableDataDetails]);
-    
+     
     return (          
         <Dialog open={openPopup} >
             <Button
@@ -36,15 +26,14 @@ export default function Popup(props) {
 
             <DialogTitle>                                    
                 <div>            
-                    <h2> Wiadomość od użytkownika: {tableDataDetails.senderName} </h2>
-                    <h6>Data wysłania wiadomości: {date} </h6>
-                    <h6>Numer wiadomości: {messageId} </h6>
-
+                    <h3> Wiadomość od użytkownika:  {message?.senderName} </h3>
+                    <h4>Temat: {message?.topic} </h4>
+                    <h6>Data nadania: {message?.date} </h6>
                 </div>
             </DialogTitle>
 
             <DialogContent>
-                {tableDataDetails.content}
+              {message?.contents}
             </DialogContent>
 
             <DialogActions>                     
@@ -53,8 +42,11 @@ export default function Popup(props) {
                     color="secondary" 
                     variant="outlined" 
                     startIcon={<QuestionAnswerOutlinedIcon />}
-                    onClick = {handleClose} 
-                    onClick={() => setOpenPopupMess(tableDataDetails)}
+                    onClick={async () => {
+                        await setOpenPopupMess(message).then(() => {
+                            handleClose();
+                        })                                                 
+                      }}
                     >
                         Odpowiedz
                 </Button>
@@ -70,9 +62,9 @@ export default function Popup(props) {
             </DialogActions>
 
             <PopupMessage
-                userName={tableDataDetails.senderName}
-                topic = {tableDataDetails.topic}
-                content = {tableDataDetails.content}
+                userName={message?.senderName}
+                topic = {message?.topic}
+                content = {message?.content}
                 openPopupMess={openPopupMess}
                 setOpenPopupMess={setOpenPopupMess}
             >
