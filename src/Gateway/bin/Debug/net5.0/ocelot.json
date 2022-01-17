@@ -307,7 +307,7 @@
     },
 
     { // PUT  ==> 
-      "DownstreamPathTemplate": "/api/Message/{messageId}",
+      "DownstreamPathTemplate": "/api/Message/read/{messageId}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -316,7 +316,7 @@
         }
       ],
 
-      "UpstreamPathTemplate": "/message/{messageId}",
+      "UpstreamPathTemplate": "/message/read/{messageId}",
       "UpstreamHttpMethod": [ "PUT" ]
     }
 

@@ -3,7 +3,6 @@ using Messages.IServices;
 using Messages.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Messages.Controllers
 {
@@ -34,17 +33,7 @@ namespace Messages.Controllers
         public IEnumerable<Status> GetAllStatus( )
         {
             return _messageServices.BrowseStatus();
-        }
-
-        /// <summary>
-        /// Pobieranie treści wiadomości
-        /// </summary>
-        [HttpGet("read/{messageId}")]
-        public async Task<IActionResult> GetMessage([FromRoute] int messageId)
-        {
-           var message = await  _messageServices.ReadMessage(messageId);
-            return Ok(message);
-        }
+        }       
 
         /// <summary>
         /// Wysyłanie nowej wiadomości
@@ -58,16 +47,16 @@ namespace Messages.Controllers
         /// <summary>
         /// Edycja wiadomości
         /// </summary>
-        [HttpPut("/{messageId}")]
-        public void DeleteMessage(UpdateMessageDto dto)
+        [HttpPut("read/{messageId}")]
+        public void ReadMessage([FromRoute] int messageId)
         {
-            _messageServices.UpdateMessage(dto);
+            _messageServices.UpdateMessage(messageId);
         }
 
         /// <summary>
         /// Usuwanie wiadomości
         /// </summary>
-        [HttpDelete("/{messageId}")]
+        [HttpDelete("{messageId}")]
         public void DeleteMessage([FromRoute]int messageId)
         {
             _messageServices.DeleteMessage(messageId);
