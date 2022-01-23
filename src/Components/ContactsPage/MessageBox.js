@@ -67,6 +67,7 @@ export default function Contacts() {
       const getInfo = async (id) => {
         let element = tableData.find(el => el.id == id)
         setMessage(element)
+        console.log(element, "element");
       }
 
     

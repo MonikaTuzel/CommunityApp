@@ -8,18 +8,21 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import PopNewAdress from './PopupNewAdress';
 import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
-
+import Autocomplete from '@mui/material/Autocomplete';
+import {variables} from '../../Variables';
+import EditRoadOutlinedIcon from '@mui/icons-material/EditRoadOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
 
 
 const useStyles = makeStyles({
 
     contc: {
-        width: '900px',
+        width: 'auto',
         height: 'auto',
         display: "flex",
         flexDirection: 'row',
@@ -40,20 +43,30 @@ const useStyles = makeStyles({
 export default function Popup(props) {
     const classes = useStyles()
     const { openPopup, setOpenPopup } = props;
-    const [openAdressPopup, setOpenAdressPopup] = useState(false)
+    const [dataTown, setDataTown] = useState([])
+    const [user, setNewUser] = useState();
+    const [value, setValue] = useState(dataTown[0]);
+
 
     const handleClose = () => {
         setOpenPopup(false);
     };
 
-    const [values, setValues] = React.useState({
+    useEffect(() => {
+        fetch(variables.API_URL_TOWNS)
+        .then((data) => data.json())
+        .then((data) => setDataTown(data))
+    }, []);
+
+    const [values, setValues] = useState({
         password: '',
         showPassword: false,
     });
 
-    const handleChange = (prop) => (event) => {
+    const handleChangePass = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
     };
+
     const handleClickShowPassword = () => {
         setValues({
             ...values,
@@ -64,6 +77,38 @@ export default function Popup(props) {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+
+    const handleChange = (event, newValue) => {
+
+        let name = event.target.id;
+
+        if (name.includes('clear-on-escape-option') ) name = 'townId'
+     
+
+        setNewUser({
+
+            ...user,
+
+            [name]: newValue ?? event.target.value,
+
+        });
+
+    };
+
+    const save = async () => {
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(user),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        fetch(variables.API_URL_USERS_REGISTER, options).then(()=>{
+            setNewUser()
+        });
+    };
+    console.log(user, "nowyUser")
 
 
     return (
@@ -94,14 +139,19 @@ export default function Popup(props) {
                 justifyContent: 'center'
             }}>
 
+
                 <Typography
                     className={classes.contc}
-                    p={5}
+                    p={2}
                     sx={{ boxShadow: 3 }}  >
 
                     <Typography>
 
                         <TextField
+                        id="fullName"
+                        value={user?.fullName??""}
+                        onChange={handleChange}
+
                             sx={{ m: 1, width: '350px' }}
                             label="Pełna nazwa szkoły"
                             placeholder='Pełna nazwa szkoły'
@@ -114,6 +164,10 @@ export default function Popup(props) {
                             }}
                             color='secondary' />
                         <TextField
+                        id="shortName"
+                        value={user?.shortName??""}
+                        onChange={handleChange}
+
                             sx={{ m: 1, width: '350px' }}
                             label="Skrócona nazwa szkoły"
                             placeholder='Skrócona nazwa szkoły'
@@ -126,6 +180,10 @@ export default function Popup(props) {
                             }}
                             color='secondary' />
                         <TextField
+                        id="studentScore"
+                        value={user?.studentScore??""}
+                        onChange={handleChange}
+
                             sx={{ m: 1, width: '350px' }}
                             label="Ilość uczniów"
                             placeholder='Ilość uczniów'
@@ -139,10 +197,94 @@ export default function Popup(props) {
                             color='secondary' />
 
                     </Typography>
-
                     <Typography>
+                    <TextField
+                    id="street"
+                    value={user?.street??""}
+                    onChange={handleChange}
+
+                            sx={{ m: 1, width: '320px' }}
+                            label="Nazwa ulicy"
+                            placeholder='Nazwa ulicy'
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <EditRoadOutlinedIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                            color='secondary' />
+
 
                         <TextField
+                        id="number"
+                        value={user?.number??""}
+                        onChange={handleChange}
+
+                            sx={{ m: 1, mt:2, width: '150px' }}
+                            label="Numer budynku"
+                            placeholder='Numer budynku'
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <HomeOutlinedIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                            color='secondary' />
+
+                        <TextField
+                        id="code"
+                        value={user?.code??""}
+                        onChange={handleChange}
+
+                            sx={{ m: 1, mt:2, width: '150px' }}
+                            label="Kod pocztowy"
+                            placeholder='Kod pocztowy'
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <LocationCityOutlinedIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                            color='secondary' />
+                            <Typography className={classes.autocom}>
+                            <Autocomplete
+                            value={value}
+                            onChange={handleChange}
+
+                                id="clear-on-escape"
+                                clearOnEscape
+                                options={dataTown}
+                                getOptionLabel={(option) => option.name}
+                                noOptionsText="Dodaj nowe miasto"
+                                sx={{ ml: 1, mb: 1, width: 320 }}
+                                renderInput={(params) => <TextField
+                                    helperText="Wybierz nazwę miasta z listy"
+                                    {...params} label="Nazwa miasta" variant="standard" />} />                                                
+                        </Typography>    
+                        <Typography sx={{
+                            display: "flex",
+                            justifyContent: 'center'
+                        }} mt={5}>
+                            <Button
+                                sx={{ width: '120px', height: '40px' }}
+                                type="submit" color="secondary" variant="contained"
+                      
+                                onClick={save}
+
+                            >Utwórz</Button>
+                        </Typography>         
+                    </Typography>
+
+                    <Typography ml={2}>
+
+                        <TextField
+                        id="phone"
+                        value={user?.phone??""}
+                        onChange={handleChange}
+
                             sx={{ m: 1, width: '350px' }}
                             label="Telefon kontaktowy"
                             placeholder='Telefon kontaktowy'
@@ -155,6 +297,10 @@ export default function Popup(props) {
                             }}
                             color='secondary' />
                         <TextField
+                        id="email"
+                        value={user?.email??""}
+                        onChange={handleChange}
+                        
                             sx={{ m: 1, width: '350px' }}
                             label="Adres e-mail"
                             placeholder='Adres e-mail'
@@ -167,12 +313,24 @@ export default function Popup(props) {
                             }}
                             color='secondary' />
                         <TextField
+                        id="password"
+                        value={user?.password??""}
+                        onChange={handleChange}
+                        
                             sx={{ m: 1, width: '350px' }}
                             label="Hasło"
-                            defaultValue="hasloTymczasowe$!"
                             type={values.showPassword ? 'text' : 'password'}
+
                             value={values.password}
-                            onChange={handleChange('password')}
+                            onChange={handleChangePass('password')}
+
+
+                            // onChange = {async () => {
+                            //     await handleChangePass('password').then(() => {
+                            //         handleChange();
+                            //     })
+                            //   }}
+
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
@@ -187,38 +345,19 @@ export default function Popup(props) {
                                     </InputAdornment>
                                 ),
                             }}
-                            color='secondary' />
-
-                        <Typography sx={{
-                            display: "flex",
-                            justifyContent: 'flex-end'
-                        }}>
-                            <Button
-                                sx={{ width: '120px', height: '40px' }}
-                                type="submit" color="secondary" variant="contained"
-                      
-                                onClick={() =>{
-                                    handleClose();
-                                    setOpenAdressPopup(true)
-                                } }
-                            >Akceptuj</Button>
-                        </Typography>
+                            color='secondary' />      
+                                             
 
                     </Typography>
+                  
 
-                </Typography>
-
-                <PopNewAdress
-                    openAdressPopup={openAdressPopup}
-                    setOpenAdressPopup={setOpenAdressPopup}>
-                </PopNewAdress>
+                </Typography>                
 
             </DialogContent>
 
             <DialogActions>
 
             </DialogActions>
-
         </Dialog>
 
 

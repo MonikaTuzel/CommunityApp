@@ -15,6 +15,25 @@ export default function Popup(props) {
         setOpenPopup(false);
       };
      
+      const deleteClick = React.useCallback(
+        (id) => () => {
+    
+          const options = {
+            method: 'DELETE',
+      
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          };
+      
+          fetch(variables.API_URL_MESSAGE + `/${id}`, options).then(() => {
+            handleClose()
+          })          
+          console.log(id, "deleteMessage")
+        },
+        [],
+      );
+     
     return (          
         <Dialog open={openPopup} >
             <Button
@@ -43,9 +62,7 @@ export default function Popup(props) {
                     variant="outlined" 
                     startIcon={<QuestionAnswerOutlinedIcon />}
                     onClick={async () => {
-                        await setOpenPopupMess(message).then(() => {
-                            handleClose();
-                        })                                                 
+                        await setOpenPopupMess(message)                                        
                       }}
                     >
                         Odpowiedz
@@ -55,6 +72,7 @@ export default function Popup(props) {
                     sx={{ width: '150px', height: '35px' }}
                     color="secondary" 
                     variant="outlined" 
+                    // onClick = {deleteClick(message.id)}
                     startIcon={<DeleteOutlinedIcon />}>
                         Usuń
                 </Button>           
@@ -62,12 +80,15 @@ export default function Popup(props) {
             </DialogActions>
 
             <PopupMessage
+                date = {message?.date}
+                messageId = {message?.id}
+                userId = {message?.userId}
                 userName={message?.senderName}
                 topic = {message?.topic}
-                content = {message?.content}
+                content = {message?.contents}
                 openPopupMess={openPopupMess}
                 setOpenPopupMess={setOpenPopupMess}
-            >
+            >             
             </PopupMessage>
 
         </Dialog>

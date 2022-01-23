@@ -31,7 +31,7 @@ export default function Contacts() {
     const [tableDataUsers, setTableDataUsers] = useState([])
     const [value, setValue] = React.useState(tableDataUsers[0]);
     const [message, setMessage] = useState({
-        senderId: '1006'
+        senderId: '3010'
     })
 
 
@@ -40,7 +40,6 @@ export default function Contacts() {
         return message.userId && message.topic&&message.contents;
     
       }
-
 
     useEffect(() => {
         fetch(variables.API_URL_USERS)
@@ -75,14 +74,11 @@ export default function Contacts() {
         };
 
         fetch(variables.API_URL_MESSAGE_SEND, options).then(()=>{
-            setMessage({senderName:"Administrator", userId:message.userId})
-        })
-
-
-            ;
+            setMessage({userId:message.userId})
+        });
     }
 
-    console.log(message, "msg")
+    console.log(message, "newMessage")
 
     return (
         <Container sx={{ padding: 3 }}  >
@@ -111,7 +107,6 @@ export default function Contacts() {
                         value={value}
                         // inputValue={message.userId}
                     
-
                         id="clear-on-escape"
                         clearOnEscape
                         options={tableDataUsers}
@@ -149,8 +144,6 @@ export default function Contacts() {
                         helperText="Proszę wpisać treść wiadomości"
                         variant="outlined"
                  
-
-
                         onChange={handleChange}
                     />
                 </Typography>
