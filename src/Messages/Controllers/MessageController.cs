@@ -45,6 +45,15 @@ namespace Messages.Controllers
         }
 
         /// <summary>
+         /// Wysyłanie odpowiedzi na wiadomość
+         /// </summary>
+        [HttpPost("reply")]
+        public void ReplyNewMessage(ReplyMessageDto dto)
+        {
+            _messageServices.ReplyMessage(dto);
+        }
+
+        /// <summary>
         /// Edycja wiadomości
         /// </summary>
         [HttpPut("read/{messageId}")]

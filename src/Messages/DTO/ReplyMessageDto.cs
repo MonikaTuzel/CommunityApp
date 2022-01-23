@@ -2,15 +2,12 @@
 
 namespace Messages.DTO
 {
-    public class MessagesInfoDto
+    public class ReplyMessageDto
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
+        public int MessageId { get; set; }
         public string SenderName { get; set; }
         public string Topic { get; set; }
         public string Contents { get; set; }
         public DateTime Date { get; set; }
-        public string StatusName { get; set; }
-
     }
 }

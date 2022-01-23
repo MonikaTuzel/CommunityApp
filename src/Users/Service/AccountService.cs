@@ -38,7 +38,7 @@ namespace Users.Service
 
             var newUser = new User()
             {
-                RoleId = dto.RoleId,
+                RoleId = 2,
                 ShortName = dto.ShortName,
                 FullName = dto.FullName,
                 StudentScore = dto.StudentScore,
@@ -49,6 +49,17 @@ namespace Users.Service
             _dbContext.User.Add(newUser);
             var passwordhash = _passwordHasher.HashPassword(newUser, dto.Password);
             newUser.Password = passwordhash;
+            _dbContext.SaveChanges();
+
+            var newAdress = new Adress()
+            {
+                TownId = dto.TownId,
+                Code = dto.Code,
+                Street = dto.Street,
+                Number = dto.Number,
+                UserId = newUser.Id,
+            };
+            _dbContext.Adress.Add(newAdress);
             _dbContext.SaveChanges();
         }
         public string GenerateJwt(LoginUserDto dto)

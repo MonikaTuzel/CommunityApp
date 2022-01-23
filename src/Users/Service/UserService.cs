@@ -11,6 +11,7 @@ using Users.Exeptions;
 using Users.IServices;
 using Users.Models;
 
+
 namespace Users.Service
 {
     public class UserService : IUserService
@@ -64,6 +65,9 @@ namespace Users.Service
             var user =  _dbContext.User.FirstOrDefault(x => x.Id == id);
             if (user is null)
                 throw new NotFoundException($"Użytkownik o numerze id: {id} nie istnieje");
+
+            var adress = _dbContext.Adress.FirstOrDefault(x => x.UserId == id);
+            _dbContext.Adress.Remove(adress);
 
             _dbContext.User.Remove(user);
             _dbContext.SaveChanges();

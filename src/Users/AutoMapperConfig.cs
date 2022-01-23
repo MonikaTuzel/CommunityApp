@@ -5,6 +5,7 @@ using Users.Models;
 namespace Users
 {
     public class AutoMapperConfig : Profile
+
     {
         public AutoMapperConfig()
         {

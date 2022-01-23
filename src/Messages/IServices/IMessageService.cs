@@ -10,6 +10,7 @@ namespace Messages.IServices
         IEnumerable<MessagesInfoDto> BrowseMessage(int userId);
         IEnumerable<Status> BrowseStatus();
         void CreateNewMessage(CreateMessageDto dto);
+        void ReplyMessage(ReplyMessageDto dto);
         void UpdateMessage(int messageId);
         void DeleteMessage(int messageId);
     }

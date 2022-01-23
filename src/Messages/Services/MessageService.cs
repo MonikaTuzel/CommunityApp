@@ -39,9 +39,30 @@ namespace Messages.Services
 
         public void CreateNewMessage(CreateMessageDto dto)
         {
+            var sender = _dbContext.User.SingleOrDefault(x => x.Id == dto.SenderId);
+
             var newMessage = new Message()
             {
                 UserId = dto.UserId,
+                StatusId = 1004,
+                SenderName = sender.FullName,
+                Topic = dto.Topic,
+                Contents = dto.Contents,
+                Date = DateTime.Now
+            };
+            _dbContext.Message.Add(newMessage);
+            _dbContext.SaveChanges();
+
+        }
+
+        public void ReplyMessage(ReplyMessageDto dto)
+        {
+            var message = _dbContext.Message.SingleOrDefault(x => x.Id == dto.MessageId);
+            var user = _dbContext.User.SingleOrDefault(x => x.FullName == message.SenderName);
+
+            var newMessage = new Message()
+            {
+                UserId = user.Id,
                 StatusId = 1004,
                 SenderName = dto.SenderName,
                 Topic = dto.Topic,
@@ -52,6 +73,7 @@ namespace Messages.Services
             _dbContext.SaveChanges();
 
         }
+
 
         public void DeleteMessage(int messageId)
         {
