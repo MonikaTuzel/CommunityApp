@@ -35,17 +35,21 @@ const useStyles = makeStyles({
 
 export default function Contacts() {
     const classes = useStyles()
+    const [tableData, setTableData] = useState([])
     const [delivery, setDelivery] = useState([])
     const [openPopupDelivery, setOpenPopupDelivery] = useState(false)
     const [openPopupAddDelivery, setOpenPopupAddDelivery] = useState(false)
 
-
-
     useEffect(() => {
         fetch(variables.API_URL_DELIVERY_BROWSE)
             .then((data) => data.json())
-            .then((data) => setDelivery(data))
+            .then((data) => setTableData(data))
     })
+
+    const getInfo = async (id) => {
+        let element = tableData.find(el => el.id == id)
+        setDelivery(element)
+      }    
 
     const columns = [
         { field: 'deliveryDate', headerName: 'Data', width: 180 },
@@ -60,13 +64,17 @@ export default function Contacts() {
             width: 60,
             headerName: 'Info',
             cellClassName: 'actions',
-            getActions: () => {
+            getActions: (params) => {
                 return [
                     <GridActionsCellItem
                         icon={<InfoOutlinedIcon />}
                         label="Info"
-                        onClick={() => setOpenPopupDelivery(delivery)}
                         color="inherit"
+                        onClick={async () => {
+                            await getInfo(params.id).then(() => {
+                                setOpenPopupDelivery(true);
+                            })
+                          }}
                     />,
                 ];
             },
@@ -101,25 +109,16 @@ export default function Contacts() {
 
                 <Typography className={classes.autocom} sx={{ boxShadow: 3 }}>
                     <DataGrid
-                        rows={delivery}
+                        rows={tableData}
                         columns={columns}
                     />
                 </Typography>
 
-                <PopupDeliveryInfo
-                    userName={delivery.userName}
-                    studentScore={delivery.studentScore}
-                    deliveryDate={delivery.deliveryDate}
-                    year={delivery.year}
-                    semestr={delivery.semestr}
-                    week={delivery.week}
-                    description={delivery.description}
-                    updateDate={delivery.updateDate}
-                    openPopupDelivery={delivery.openPopupDelivery}
-                    setOpenPopupDelivery={delivery.setOpenPopupDelivery}
-
+                <PopupDeliveryInfo                    
                     openPopupDelivery={openPopupDelivery}
-                    setOpenPopupDelivery={setOpenPopupDelivery}>
+                    setOpenPopupDelivery={setOpenPopupDelivery}
+                    delivery={delivery}                    
+                    >
                 </PopupDeliveryInfo>
 
                 <PopupAddDelivery openPopupAddDelivery={openPopupAddDelivery}

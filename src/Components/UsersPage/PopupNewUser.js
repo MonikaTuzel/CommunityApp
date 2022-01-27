@@ -42,7 +42,7 @@ const useStyles = makeStyles({
 
 export default function Popup(props) {
     const classes = useStyles()
-    const { openPopup, setOpenPopup } = props;
+    const { openPopup, setOpenPopup} = props;
     const [dataTown, setDataTown] = useState([])
     const [user, setNewUser] = useState();
     const [value, setValue] = useState(dataTown[0]);
@@ -65,6 +65,7 @@ export default function Popup(props) {
 
     const handleChangePass = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
+        console.log(values.password, "hasło")
     };
 
     const handleClickShowPassword = () => {
@@ -98,7 +99,7 @@ export default function Popup(props) {
     const save = async () => {
         const options = {
             method: 'POST',
-            body: JSON.stringify(user),
+            body: JSON.stringify({user, password:values.password }),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -107,8 +108,10 @@ export default function Popup(props) {
         fetch(variables.API_URL_USERS_REGISTER, options).then(()=>{
             setNewUser()
         });
+        console.log(user, "nowyUser")
+
     };
-    console.log(user, "nowyUser")
+    
 
 
     return (

@@ -1,13 +1,10 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle, ListItemButton, ListItemIcon } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import { Dialog, DialogContent, DialogTitle} from '@mui/material';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import { TextField, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import InputAdornment from '@mui/material/InputAdornment';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import Autocomplete from '@mui/material/Autocomplete';
 import { variables } from '../../Variables';
-
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 
 const useStyles = makeStyles({
@@ -32,11 +29,49 @@ const useStyles = makeStyles({
 
 export default function PopupMessage(props) {
     const classes = useStyles()
-    const { topic, content, openPopupTown, setOpenPopupTown } = props;
+    const {openPopupTown, setOpenPopupTown } = props;
+    const [town, setNewTown] = useState({province:"dolnośląskie"});
 
+    // function validateForm() {
+    //     return town.name && town.province && town.district && town.commune;    
+    //   }
+      
     const handleClose = () => {
         setOpenPopupTown(false);
     };
+
+    const handleChange = (event, newValue) => {
+
+        let name = event.target.id;
+
+        if (name.includes('clear-on-escape-option')) name = 'townId'
+
+        setNewTown({
+
+            ...town,
+
+            [name]: newValue ?? event.target.value,
+
+        });
+        console.log(town, "newTown")
+
+    };
+
+    const save = async () => {
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(town),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        fetch(variables.API_URL_ADD_TOWN, options).then(() => {
+            setNewTown()
+        });
+
+    };
+
 
     return (
         <Dialog open={openPopupTown}
@@ -74,9 +109,13 @@ export default function PopupMessage(props) {
                     <Typography>
 
                         <TextField
+                            id="name"
+                            value={town?.name??""}
+                            onChange={handleChange}
+
                             sx={{ m: 1, width: '200px' }}
                             label="Nazwa miasta"
-                            placeholder='Skrócona nazwa szkoły'
+                            placeholder='Nazwa miasta'
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
@@ -85,11 +124,15 @@ export default function PopupMessage(props) {
                                 ),
                             }}
                             color='secondary' />
-
+                            
                         <TextField
+                            id="district"
+                            value={town?.district ?? ""}
+                            onChange={handleChange}
+
                             sx={{ m: 1, width: '200px' }}
-                            label="Województwo"
-                            placeholder='Skrócona nazwa szkoły'
+                            label="Powiat"
+                            placeholder='Powiat'
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
@@ -105,9 +148,15 @@ export default function PopupMessage(props) {
                     <Typography>
 
                         <TextField
+                        InputProps={{
+                            readOnly: true,
+                          }}
+                            id="province"
+                            value={town?.province ?? "dolnośląskie"}
+                            onChange={handleChange}
+
                             sx={{ m: 1, width: '200px' }}
-                            label="Powiat"
-                            placeholder='Skrócona nazwa szkoły'
+                            label="Województwo"
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
@@ -117,10 +166,15 @@ export default function PopupMessage(props) {
                             }}
                             color='secondary' />
 
+
                         <TextField
+                            id="commune"
+                            value={town?.commune ?? ""}
+                            onChange={handleChange}
+
                             sx={{ m: 1, width: '200px' }}
                             label="Gmina"
-                            placeholder='Skrócona nazwa szkoły'
+                            placeholder='Gmina'
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
@@ -138,8 +192,9 @@ export default function PopupMessage(props) {
                             <Button
                                 sx={{ width: '120px', height: '40px', mt: 2 }}
                                 type="submit" color="secondary" variant="contained"
-                                onClick={handleClose}
-                            >Akceptuj</Button>
+                                onClick={save}                                
+                                // disabled={!validateForm()}
+                            >Zapisz</Button>
                         </Typography>
                     </Typography>
 

@@ -11,12 +11,17 @@ import {
 } from '@mui/x-data-grid';
 import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
+import PopupNewTown from './PopupNewTown';
+import { Button, Typography } from '@mui/material';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+
 
 function escapeRegExp(value) {
   return value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
 
 function QuickSearchToolbar(props) {
+
   return (
     <Box
       sx={{
@@ -29,7 +34,7 @@ function QuickSearchToolbar(props) {
       }}
     >
       <div>
-        <GridToolbarFilterButton />
+        <GridToolbarFilterButton />       
       </div>
       <TextField
         variant="standard"
@@ -77,6 +82,7 @@ QuickSearchToolbar.propTypes = {
 
 export default function QuickFilteringGrid() {
  
+  const [openPopupTown, setOpenPopupTown] = useState(false)
 
   const [searchText, setSearchText] = React.useState('');
 
@@ -121,6 +127,17 @@ export default function QuickFilteringGrid() {
         height: 600,
         width: 1
       }}>
+         <Button sx={{ borderRadius: '55px', m: 1}} 
+         type="submit" color="secondary" variant="contained"
+          onClick={() => setOpenPopupTown(true)}>
+          <AddCircleOutlineOutlinedIcon sx={{ fontSize: 25, mr:1 }} />
+          Miasto
+        </Button>
+
+        <PopupNewTown
+          openPopupTown={openPopupTown}
+          setOpenPopupTown={setOpenPopupTown}>
+        </PopupNewTown>
       <DataGrid     
         components={{ Toolbar: GridToolbar }}
         rows={tableData}

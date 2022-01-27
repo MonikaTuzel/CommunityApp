@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 export default function Contacts() {
     const classes = useStyles()
     const [tableDataUsers, setTableDataUsers] = useState([])
-    const [value, setValue] = React.useState(tableDataUsers[0]);
+    const [value, setValue] = useState(tableDataUsers[0]);
     const [message, setMessage] = useState({
         senderId: '3010'
     })

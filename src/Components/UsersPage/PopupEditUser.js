@@ -19,12 +19,6 @@ const useStyles = makeStyles({
         border: 1,
         borderRadius: '15px',
         borderColor: '#7986cb',
-    },
-    autocom: {
-        display: "flex",
-        justifyContent: 'space-around',
-        textAlign: 'center',
-        width: '350px'
     }
 })
 
@@ -50,7 +44,6 @@ export default function PopupMessage(props) {
             [name]: event.target.value,
 
         });
-
     };
 
     const handleClose = async () => {
@@ -68,7 +61,6 @@ export default function PopupMessage(props) {
          
          fetch(variables.API_URL_USERS +`/${newUser.id}`, options)
            .then( setOpenPopupEditUser(false))
-    
        ;
     }
 

@@ -35,6 +35,7 @@ const useStyles = makeStyles({
 })
 
 export default function Contacts() {
+    const [tableData, setTableData] = useState([])
     const classes = useStyles()
     const [history, setHistory] = useState([])
     const [openPopupDelivery, setOpenPopupDelivery] = useState(false)
@@ -43,8 +44,13 @@ export default function Contacts() {
     useEffect(() => {
        fetch(variables.API_URL_DELIVERY_BROWSE + "/history")
        .then((data) => data.json())
-       .then((data) => setHistory(data))
-    })
+       .then((data) => setTableData(data))
+    });
+
+    const getInfo = async (id) => {
+        let element = tableData.find(el => el.id == id)
+        setHistory(element)
+      }    
    
     const columns = [
         { field: 'deliveryDate', headerName: 'Data', width: 150},
@@ -56,13 +62,17 @@ export default function Contacts() {
           width: 30,
           headerName: 'I',
           cellClassName: 'actions',
-          getActions: () => {
+          getActions: (params) => {
             return [
               <GridActionsCellItem
                 icon={<InfoOutlinedIcon />}
                 label="Info"
-                onClick={() => setOpenPopupDelivery(history)}
                 color="inherit"
+                onClick={async () => {
+                    await getInfo(params.id).then(() => {
+                        setOpenPopupDelivery(true);
+                    })
+                  }}
               />,              
             ];
           },
@@ -93,25 +103,16 @@ export default function Contacts() {
 
                 <Typography className={classes.autocom} sx={{ boxShadow: 3 }}>
                     <DataGrid
-                        rows={history}
+                        rows={tableData}
                         columns={columns}
                     />
                 </Typography>
                 
-                <PopupDeliveryInfo
-                    userName={history.userName}
-                    studentScore={history.studentScore}
-                    deliveryDate={history.deliveryDate}
-                    year={history.year}
-                    semestr={history.semestr}
-                    week={history.week}
-                    description={history.description}
-                    updateDate={history.updateDate}
-                    openPopupDelivery={history.openPopupDelivery}
-                    setOpenPopupDelivery={history.setOpenPopupDelivery}
-
+                <PopupDeliveryInfo                    
                     openPopupDelivery={openPopupDelivery}
-                    setOpenPopupDelivery={setOpenPopupDelivery}>
+                    setOpenPopupDelivery={setOpenPopupDelivery}
+                    delivery={history}                    
+                    >
                 </PopupDeliveryInfo>
 
             </Typography>

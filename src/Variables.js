@@ -10,14 +10,18 @@ export const variables={
 
 
     API_URL_TOWNS:"https://localhost:5021/towns",
+    API_URL_ADD_TOWN:"https://localhost:5021/contacts/AddNewTown",
 
-    API_URL_ADRESS:"https://localhost:5021/adresses",
+
+    API_URL_ADRESS:"https://localhost:5021/contacts",
 
     API_URL_ADRESS_BROWSE:"https://localhost:5021/addresses_browse",
 
+    API_URL_DELIVERY:"https://localhost:5021/delivery",
     API_URL_DELIVERY_BROWSE:"https://localhost:5021/delivery",
+    API_URL_DELIVERY_HISTORY:"https://localhost:5021/delivery/history",
+    API_URL_DELIVERY_CREATE:"https://localhost:5021/delivery/create",
 
-    API_URL_DELIVERY_HISTORY:"https://localhost:5021/delivery/history"
 
 
 

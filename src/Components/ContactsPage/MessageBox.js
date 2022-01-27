@@ -69,7 +69,6 @@ export default function Contacts() {
         setMessage(element)
         console.log(element, "element");
       }
-
     
     return (
         <Container  sx={{ padding: 3 }}>
@@ -77,7 +76,6 @@ export default function Contacts() {
             <Typography
                 className={classes.contc} p={1}
                 sx={{ boxShadow: 10, border: 2, borderColor: '#c5cae9' }}  >
-
 
                 <Typography
                     variant='h5'
@@ -123,7 +121,6 @@ export default function Contacts() {
                                                 {
                                                     setChangeStatus(message.id)
                                                 }
-
                                             })
                                           }}
                                         >             
@@ -148,11 +145,9 @@ export default function Contacts() {
                                                 }
                                             />                                                                    
                                         </ListItem>                                        
-                                    </ListItemButton> 
-                                   
+                                    </ListItemButton>                                    
                                 </ListItem> 
-                            );
-                            
+                            );                            
                         })}
                     </List>
                 </Typography>

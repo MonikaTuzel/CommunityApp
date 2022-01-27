@@ -33,16 +33,23 @@ const useStyles = makeStyles({
 })
 
 export default function Contacts() {
+    const [tableData, setTableData] = useState([])
     const classes = useStyles()
-    const [future, setFuture] = useState([])
+    const [future, setFuture] = useState()
     const [openPopupDelivery, setOpenPopupDelivery] = useState(false)
 
     
     useEffect(() => {
        fetch(variables.API_URL_DELIVERY_BROWSE + "/future")
        .then((data) => data.json())
-       .then((data) => setFuture(data))
+       .then((data) => setTableData(data))
     })
+
+    const getInfo = async (id) => {
+        let element = tableData.find(el => el.id == id)
+        setFuture(element)
+        console.log(element, "elementFuture");    
+      }    
    
     const columns = [
         { field: 'deliveryDate', headerName: 'Data', width: 150},
@@ -54,12 +61,16 @@ export default function Contacts() {
           width: 30,
           headerName: 'I',
           cellClassName: 'actions',
-          getActions: () => {
+          getActions: (params) => {
             return [
               <GridActionsCellItem
                 icon={<InfoOutlinedIcon />}
                 label="Info"
-                onClick={() => setOpenPopupDelivery(future)}
+                onClick={async () => {
+                    await getInfo(params.id).then(() => {
+                        setOpenPopupDelivery(true);
+                    })
+                  }}
                 color="inherit"
               />,              
             ];
@@ -90,25 +101,16 @@ export default function Contacts() {
 
                 <Typography className={classes.autocom} sx={{ boxShadow: 3 }}>
                     <DataGrid
-                        rows={future}
+                        rows={tableData}
                         columns={columns}                       
                     />
                 </Typography>
 
-                <PopupDeliveryInfo
-                    userName={future.userName}
-                    studentScore={future.studentScore}
-                    deliveryDate={future.deliveryDate}
-                    year={future.year}
-                    semestr={future.semestr}
-                    week={future.week}
-                    description={future.description}
-                    updateDate={future.updateDate}
-                    openPopupDelivery={future.openPopupDelivery}
-                    setOpenPopupDelivery={future.setOpenPopupDelivery}
-
+                <PopupDeliveryInfo                    
                     openPopupDelivery={openPopupDelivery}
-                    setOpenPopupDelivery={setOpenPopupDelivery}>
+                    setOpenPopupDelivery={setOpenPopupDelivery}
+                    delivery={future}                    
+                    >
                 </PopupDeliveryInfo>
         
             </Typography>
