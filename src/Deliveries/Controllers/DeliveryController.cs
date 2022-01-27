@@ -75,13 +75,21 @@ namespace Deliveries.Controllers
         /// <summary>
         /// Aktualnienie danych dostawy
         /// </summary>
-        [HttpPut("{deliveryId}")]
+        [HttpPut("/change/{deliveryId}")]
         public Task<DeliveryInformationDto> Put([FromBody] UpdateDeliveryDTO updateDTO, [FromRoute] int deliveryId)
         {
              _deliveryService.UpdateDelivery(updateDTO, deliveryId);
             var delivery = _deliveryService.GetDeliveryById(deliveryId);
 
             return delivery;
+        }
+
+        [HttpPut("{deliveryId}")]
+        public IActionResult ChangeStatus([FromRoute] int deliveryId)
+        {
+            _deliveryService.ChangeStatusDelivery(deliveryId);
+            return Ok();
+
         }
 
         /// <summary>

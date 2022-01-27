@@ -14,6 +14,7 @@ namespace Deliveries.IServices
         IEnumerable<DeliveryInformationDto> GetDeliveryByStatus(int status);
         Task<DeliveryInformationDto> GetDeliveryById(int deliveryId);
         void AddNewDelivery(CreatDeliveryDto creatDeliveryDto);
+        void ChangeStatusDelivery(int deliveryId);
         void UpdateDelivery(UpdateDeliveryDTO deliveryDto, int deliveryId);
         void DeleteDelivery(int deliveryId);
     }

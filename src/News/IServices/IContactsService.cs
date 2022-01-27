@@ -1,6 +1,7 @@
 ﻿using Contacts.DTO;
 using Contacts.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Contacts.IServices
 {
@@ -9,8 +10,7 @@ namespace Contacts.IServices
         IEnumerable<Adress> BrowseAllAdress();
         IEnumerable<Town> BrowseAllTown();
         IEnumerable<AdressDetailsDto> BrowseAllDetails();
-
-
+        Task<AdressDetailsDto> GetAdressByUser(int userId);
         IEnumerable<AdressDetailsDto> BrowseAdressByTown(string townName);
         IEnumerable<AdressDetailsDto> BrowseAdressByDistrict(string district);
         void CreateAdress(CreateAdressDto createAdressDto);

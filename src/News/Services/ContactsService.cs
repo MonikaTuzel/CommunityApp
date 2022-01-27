@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Contacts.Services
 {
@@ -68,6 +69,26 @@ namespace Contacts.Services
 
             return adressesDto;
         }
+
+        public async Task<AdressDetailsDto> GetAdressByUser(int userId)
+        {
+            var sdr = _dbContext.Adress.FirstOrDefault(x => x.UserId == userId);
+
+            var adresses = _dbContext.Adress
+                   .Include(x => x.Town)
+                   .FirstOrDefault(c => c.UserId == userId);
+
+            if (adresses == null)
+            {
+                throw new NotFoundException($"Wystąpił błąd!");
+            }
+
+            var adressesDto = _mapper.Map<AdressDetailsDto>(adresses);
+
+            return adressesDto;
+
+        }
+
 
         public IEnumerable<AdressDetailsDto> BrowseAdressByDistrict(string district)
         {
@@ -146,5 +167,7 @@ namespace Contacts.Services
             _dbContext.Adress.Remove(adress);
             _dbContext.SaveChanges();
         }
+
+        
     }
 }

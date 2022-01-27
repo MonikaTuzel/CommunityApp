@@ -42,7 +42,7 @@ namespace Deliveries.Service
             var deliveries = _dbContext.Delivery
                    .Include(x => x.Status)
                    .Include(x => x.User)
-                   .Where(x=>x.StatusId == 1)
+                   .Where(x=>x.StatusId == 2)
                    .ToList();
 
             var deliveriesDto = _mapper.Map<List<DeliveryInformationDto>>(deliveries);
@@ -55,7 +55,7 @@ namespace Deliveries.Service
             var deliveries = _dbContext.Delivery
                    .Include(x => x.Status)
                    .Include(x => x.User)
-                   .Where(x => x.StatusId == 2)                   
+                   .Where(x => x.StatusId == 1)                   
                    .ToList();
 
             var deliveriesDto = _mapper.Map<List<DeliveryInformationDto>>(deliveries);
@@ -94,11 +94,8 @@ namespace Deliveries.Service
         {
             _logger.LogInformation($"Wywołano metodę utworzenia nowej dostawy");
 
-            var status = _dbContext.Status
-                .SingleOrDefault(x => x.Name == creatDeliveryDto.StatusName);
-
             var user = _dbContext.User
-                .SingleOrDefault(x => x.ShortName == creatDeliveryDto.UserShortName);
+                .SingleOrDefault(x => x.Id == creatDeliveryDto.userId);
 
             if (user is null)
                 throw new NotFoundException($"Nie można przypisać nowej dostawy do użytkownika, który nie istnieje");
@@ -110,7 +107,7 @@ namespace Deliveries.Service
                 Semestr = creatDeliveryDto.Semestr,
                 Week = creatDeliveryDto.Week,
                 Description = creatDeliveryDto.Description,
-                StatusId = status.Id,
+                StatusId = 1,
                 UserId = user.Id
             };
 
@@ -155,6 +152,16 @@ namespace Deliveries.Service
             _dbContext.Update(delivery);
             _dbContext.SaveChanges();
         }
+
+        public void ChangeStatusDelivery(int deliveryId)
+        {
+            var delivery = _dbContext.Delivery.SingleOrDefault(x => x.Id == deliveryId);
+            delivery.StatusId = 2;
+            _dbContext.Update(delivery);
+            _dbContext.SaveChanges();
+
+        }
+
 
         public void DeleteDelivery(int deliveryId)
         {

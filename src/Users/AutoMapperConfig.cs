@@ -11,6 +11,7 @@ namespace Users
         {
             CreateMap<User, UserInformationDto>()
                 .ForMember(c => c.RoleName, c => c.MapFrom(e => e.Role.Name));
+
         }
     }
 }

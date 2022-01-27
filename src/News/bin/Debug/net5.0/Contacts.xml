@@ -29,6 +29,11 @@
             Pobieranie listy adresów po nazwie województwa
             </summary>
         </member>
+        <member name="M:Contacts.Controllers.ContactsController.GetAdressFromUser(System.Int32)">
+            <summary>
+            Pobieranie listy adresów po id użytkowika
+            </summary>
+        </member>
         <member name="M:Contacts.Controllers.ContactsController.AddNewAdress(Contacts.DTO.CreateAdressDto)">
             <summary>
             Tworzenie nowego adresu

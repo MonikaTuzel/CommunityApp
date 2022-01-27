@@ -151,6 +151,19 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
     {
+      "DownstreamPathTemplate": "/api/Contacts/{userId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44359
+        }
+      ],
+
+      "UpstreamPathTemplate": "/contacts/{userId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
       "DownstreamPathTemplate": "/api/Contacts/AddNewAdress",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -231,6 +244,19 @@
 
       "UpstreamPathTemplate": "/delivery/{userId}",
       "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Delivery/{deliveryId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44389
+        }
+      ],
+
+      "UpstreamPathTemplate": "/delivery/{deliveryId}",
+      "UpstreamHttpMethod": [ "PUT" ]
     },
 
 

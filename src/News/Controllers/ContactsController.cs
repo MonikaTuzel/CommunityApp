@@ -4,6 +4,7 @@ using Contacts.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Contacts.Controllers
 {
@@ -61,6 +62,15 @@ namespace Contacts.Controllers
         public IEnumerable<AdressDetailsDto> GetAdressFromDistrict([FromRoute]string district)
         {
             return _contactsServices.BrowseAdressByDistrict(district);
+        }
+
+        /// <summary>
+        /// Pobieranie listy adresów po id użytkowika
+        /// </summary>
+        [HttpGet("{userId}")]
+        public async Task<AdressDetailsDto> GetAdressFromUser([FromRoute] int userId)
+        {
+            return await _contactsServices.GetAdressByUser(userId);
         }
 
         /// <summary>

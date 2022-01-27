@@ -45,17 +45,24 @@ namespace Users.Service
         {
             _logger.LogWarning($"Wywołano funkcję edycji danych użytkonika o id={userId}");
 
-            var user = await Task.FromResult(_dbContext.User.SingleOrDefault(x => x.Id == userId));
+            var user = await Task.FromResult(_dbContext.User
+                .SingleOrDefault(x => x.Id == userId));
+
+            var adress = await Task.FromResult(_dbContext.Adress
+                .SingleOrDefault(x => x.UserId == userId));
+
             if (user is null)
                 throw new NotFoundException($"Użytkownik o numerze id: '{userId}' nie istnieje!");
-            
-            user.FullName = userDto.FullName;
+                       
             user.StudentScore = userDto.StudentScore;
             user.Phone = userDto.Phone;
+            adress.Street = userDto.Street;
+            adress.Number = userDto.Number;
 
             _dbContext.User.Update(user);
+            _dbContext.Adress.Update(adress);
             _dbContext.SaveChanges();
-            await Task.FromResult("");
+            await Task.FromResult("");            
         }
 
         public void DeleteUser(int id)
