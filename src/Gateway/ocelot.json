@@ -358,9 +358,80 @@
 
       "UpstreamPathTemplate": "/message/read/{messageId}",
       "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    // DOCUMENTS API
+
+    { // GET (browse all files) 
+
+      "DownstreamPathTemplate": "/Files/Browse",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44352
+        }
+      ],
+
+      "UpstreamPathTemplate": "/files",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    { // GET (browse files by userId) ==> https://localhost:44352/Files/Browse/1006
+      "DownstreamPathTemplate": "/Files/Browse/{userId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44352
+        }
+      ],
+
+      "UpstreamPathTemplate": "/files/browse/{userId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    { // GET (download document)
+      "DownstreamPathTemplate": "/Files/Download/{Id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44352
+        }
+      ],
+
+      "UpstreamPathTemplate": "/files/download/{userId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    { // GET (upload document)
+      "DownstreamPathTemplate": "/Files/Upload",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44352
+        }
+      ],
+
+      "UpstreamPathTemplate": "/files/upload",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    { // DELETE
+      "DownstreamPathTemplate": "/api/Files/Delete/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44352
+        }
+      ],
+
+      "UpstreamPathTemplate": "/files/delete/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ]
     }
-
-
 
 
 

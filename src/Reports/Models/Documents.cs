@@ -9,6 +9,9 @@ namespace Files.Models
         public string Name { get; set; }
         public int UserId { get; set; }
         public DateTime UpdateDate { get; set; }
+        public int StatusId { get; set; }
         public virtual User User { get;  set; }
+        public virtual Status Status { get; set; }
+
     }
 }

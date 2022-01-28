@@ -38,6 +38,7 @@ namespace Files.Services
         {
             var docs = _dbContext.Documents
                 .Include(x => x.User)
+                .Include(x=>x.Status)
                 .ToList();
 
             return _mapper.Map<List<BrowseDocumentsDto>>(docs);
@@ -47,6 +48,7 @@ namespace Files.Services
         {
             var docs = _dbContext.Documents
                 .Include(x => x.User)
+                .Include(x => x.Status)
                 .Where(x => x.User.Id == id)
                 .ToList();
 
