@@ -22,6 +22,11 @@ export const variables={
     API_URL_DELIVERY_HISTORY:"https://localhost:5021/delivery/history",
     API_URL_DELIVERY_CREATE:"https://localhost:5021/delivery/create",
 
+    API_URL_DOCUMENTS_USER:"https://localhost:5021/files/browse",
+    API_URL_DOCUMENTS_BROWSE:"https://localhost:5021/files",
+
+
+
 
 
 

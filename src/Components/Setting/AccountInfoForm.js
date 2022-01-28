@@ -4,7 +4,6 @@ import { Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { variables } from '../../Variables';
 import Avatar from '@mui/material/Avatar';
-import Stack from '@mui/material/Stack';
 
 const useStyles = makeStyles({
 
@@ -43,20 +42,59 @@ export default function Contacts() {
     const classes = useStyles()
     const [tableData, setTableData] = useState([])
     const [adressData, setAdressData] = useState([])
+    const [newUser, setNewUser] = useState();
 
+    function validateForm() {
+        return tableData.street && tableData.number && tableData.studentScore && tableData.phone;    
+      }
 
     useEffect(() => {
         fetch(variables.API_URL_USERS + "/1006")
             .then((data) => data.json())
             .then((data) => setTableData(data))
-    })
+    },[]);
 
     useEffect(() => {
         fetch(variables.API_URL_ADRESS + "/1006")
             .then((data) => data.json())
             .then((data) => setAdressData(data))
-    })
+    },[]);
+    
+    useEffect(() => {
+        if (tableData)
+            setNewUser(tableData);
+    }, [tableData]);
 
+    useEffect(() => {
+        if (adressData)
+            setNewUser(adressData);
+    }, [adressData]);
+
+    const handleChange = (event) => {
+
+        const name = event.target.id;
+
+        setNewUser({
+
+            ...newUser,
+
+            [name]: event.target.value,
+
+        });    console.log(newUser, "userChange")
+
+    };
+
+    const updateUser = async () => {
+        const options = {
+            method: 'PUT',
+            body: JSON.stringify(newUser),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+         };
+         
+         fetch(variables.API_URL_USERS +`/${newUser.id}`, options);
+    }
 
     return (
         <Container sx={{ padding: 2 }}  >
@@ -93,18 +131,18 @@ export default function Contacts() {
                                                 label="Ulica"
                                                 placeholder='Ulica'
                                                 color='secondary'
-                                                value={adressData?.street??""}
+                                                value={newUser?.street}
                                                 id="street"
-                                            //onChange={handleChange}
+                                            onChange={handleChange}
                                             />
                                             <TextField
                                                 sx={{ m: 1, mt: 2, width: '80px' }}
                                                 label="Numer"
                                                 placeholder='Numer'
                                                 color='secondary'
-                                                value={adressData?.number??""}
+                                                value={newUser?.number}
                                                 id="number"
-                                            //onChange={handleChange}
+                                            onChange={handleChange}
                                             />
                                         </Typography>
                                         <Typography>
@@ -135,10 +173,10 @@ export default function Contacts() {
                                                 sx={{ m: 1, mt: 2, width: '300px' }}
                                                 label="Ilość uczniów"
                                                 placeholder='Ilość uczniów'
-                                                color='secondary'
-                                                value={tableData?.studentScore??""}
+                                                color='secondary'                                                
+                                                value={newUser?.studentScore}
                                                 id="studentScore"
-                                            //onChange={handleChange}
+                                            onChange={handleChange}
                                             />
                                         </Typography>
                                     </Typography>
@@ -182,7 +220,7 @@ export default function Contacts() {
                                     <Typography>
                                         <TextField
                                             disabled
-                                            sx={{ m: 1, mt: 2, width: '280px' }}
+                                            sx={{ m: 1, mt: 2, width: '300px' }}
                                             label="Adres e-mail"
                                             placeholder='Adres e-mail'
                                             color='secondary'
@@ -192,14 +230,13 @@ export default function Contacts() {
                                         //onChange={handleChange}
                                         />
                                         <TextField
-                                            sx={{ m: 1, mt: 2, width: '280px' }}
+                                            sx={{ m: 1, mt: 2, width: '300px' }}
                                             label="Numer telefonu"
                                             placeholder='Numer telefonu'
-                                            color='secondary'
-                                            defaultValue="nazwa uzytkownika"
-                                            value={tableData?.phone}
-                                            id="fullName"
-                                        //onChange={handleChange}
+                                            color='secondary'                                    
+                                            value={newUser?.phone}
+                                            id="phone"
+                                        onChange={handleChange}
                                         />
                                     </Typography>
                                     <Typography sx={{
@@ -209,7 +246,8 @@ export default function Contacts() {
                                         <Button
                                             sx={{ width: '150px', height: '40px', mt: 2 }}
                                             type="submit" color="secondary" variant="contained"
-                                            //onClick={save}
+                                            onClick={updateUser}
+                                            //disabled={!validateForm()}
                                         >Zapisz zmiany</Button>
                                     </Typography>
                                 </Typography>

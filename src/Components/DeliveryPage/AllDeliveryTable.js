@@ -44,7 +44,7 @@ export default function Contacts() {
         fetch(variables.API_URL_DELIVERY_BROWSE)
             .then((data) => data.json())
             .then((data) => setTableData(data))
-    })
+        },[]);
 
     const getInfo = async (id) => {
         let element = tableData.find(el => el.id == id)

@@ -110,9 +110,7 @@ export default function Popup(props) {
         });
         console.log(user, "nowyUser")
 
-    };
-    
-
+    };    
 
     return (
         <Dialog open={openPopup}

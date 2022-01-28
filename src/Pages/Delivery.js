@@ -6,8 +6,6 @@ import PlaningDeliveryTable from '../Components/DeliveryPage/PlaningDeliveryTabl
 import HistoryDeliveryTable from '../Components/DeliveryPage/HistoryDeliveryTable';
 import AllDeliveryTable from '../Components/DeliveryPage/AllDeliveryTable';
 
-
-
 const useStyles = makeStyles({
     mess: {    
         display: 'flex',
@@ -31,16 +29,16 @@ export default function Contacts() {
 
     return (
         <Container>
-            <Typography
+            {/* <Typography
                 variant='h3'
                 color='textSecondary'
                 component='h2'
                 align="center"
                 gutterBottom>
                 Dostawy                
-            </Typography>
+            </Typography> */}
 
-            <Typography >
+            <Typography sx={{mt:3}}>
                 <Typography className={classes.hist}>
                     <HistoryDeliveryTable />
                     <PlaningDeliveryTable />

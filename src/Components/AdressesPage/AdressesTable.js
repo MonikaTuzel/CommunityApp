@@ -114,7 +114,7 @@ export default function QuickFilteringGrid() {
     fetch(variables.API_URL_ADRESS_BROWSE)
       .then((data) => data.json())
       .then((data) => setTableData(data))
-  })
+    },[]);
 
   React.useEffect(() => {
     setTableData(tableData);

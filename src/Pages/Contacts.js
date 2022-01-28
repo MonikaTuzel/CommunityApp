@@ -5,16 +5,13 @@ import { makeStyles } from '@mui/styles';
 import ContactForm from '../Components/ContactsPage/ContactForm';
 import MessageBox from '../Components/ContactsPage/MessageBox';
 
-
 const useStyles = makeStyles({
     mess: {    
         display: 'flex',
         direction: 'row',
         flexFlow: 'stretch',  
-        margin: 50, 
         background: 'white',   
-    }
-    
+    }    
 })
 
 export default function Contacts() {
@@ -22,18 +19,8 @@ export default function Contacts() {
 
     return (
         <Container>
-            <Typography
-                variant='h3'
-                color='textSecondary'
-                component='h2'
-                align="center"
-                gutterBottom>
-                Formularz kontaktowego
-            </Typography>
-
-
-
-            <Typography className={classes.mess} >
+           
+            <Typography className={classes.mess} sx={{mt:3}}>
                 <MessageBox/>
                 <ContactForm/>
 

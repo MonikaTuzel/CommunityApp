@@ -5,7 +5,6 @@ import { makeStyles } from '@mui/styles';
 import AccountInfoForm from '../Components/Setting/AccountInfoForm';
 import ChangePasswordForm from '../Components/Setting/ChangePasswordForm';
 
-
 const useStyles = makeStyles({
     mess: {
         display: 'flex',
@@ -27,15 +26,7 @@ export default function Settings() {
 
     return (
         <Container>
-            {/* <Typography
-                variant='h3'
-                color='textSecondary'
-                component='h2'
-                align="center"
-                gutterBottom>
-                Mój profil
-            </Typography> */}
-
+        
             <Typography >
 
                 <Typography className={classes.hist}>

@@ -8,17 +8,9 @@ export default function Contacts() {
  
     return (
         <Container>
-            <Typography
-                variant='h3'
-                color='textSecondary'
-                component='h2'
-                align="center"
-                gutterBottom>
-                Lista adresów 
-            </Typography>
 
-            <Typography>
-                <AdressesTable/>
+            <Typography sx={{mt:3}}>
+                <AdressesTable />
             </Typography>
 
         </Container>

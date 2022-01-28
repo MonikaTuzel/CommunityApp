@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import {Home} from './Pages/Home';
 import Contacts from './Pages/Contacts.js';
 import Delivery from './Pages/Delivery';
-import {Files} from './Pages/Files';
+import Files from './Pages/Files';
 import Users from './Pages/Users';
 import Adresses from './Pages/Adresses';
 import Settings from './Pages/Settings';
