@@ -52,13 +52,13 @@ namespace Files.Controllers
         /// <summary>
         /// Pobieranie pliku .pdf
         /// </summary>
-        [HttpGet("[action]/{id}")]
-        public async Task<IActionResult> Download(int id)
+        [HttpGet("[action]/{filesId}")]
+        public async Task<IActionResult> Download([FromRoute] int filesId)
         {
             if (!Directory.Exists(AppDirectory))
                 Directory.CreateDirectory(AppDirectory);
             {
-                var file = _dbContext.Documents.Where(x => x.Id == id).FirstOrDefault();
+                var file = _dbContext.Documents.Where(x => x.Id == filesId).FirstOrDefault();
 
                 var path = Path.Combine(_env.ContentRootPath, "FilesDoc", file.Name + file.Id.ToString() + ".pdf");
 

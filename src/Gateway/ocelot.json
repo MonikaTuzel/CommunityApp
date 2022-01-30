@@ -401,7 +401,7 @@
         }
       ],
 
-      "UpstreamPathTemplate": "/files/download/{userId}",
+      "UpstreamPathTemplate": "/files/download/{filesId}",
       "UpstreamHttpMethod": [ "GET" ]
     },
 
@@ -411,7 +411,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44352
+          "Port": 44352 
         }
       ],
 
