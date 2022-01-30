@@ -89,12 +89,11 @@ export default function Contacts() {
                      color='#e8eaf6'
                      component='h2'
                      align="center"
-                     sx={{border: 1,
-                         borderRadius: '15px',
-                         borderColor: '#7986cb',
-                         boxShadow: 5,
-                         background: '#5c6bc0',
-                         width: "80%",
+                     sx={{
+                      borderRadius: '15px',
+                      boxShadow: 5,
+                      background: '#689f38',
+                      width: "80%",
                          }}>
                     Planowane dostawy
                 </Typography>

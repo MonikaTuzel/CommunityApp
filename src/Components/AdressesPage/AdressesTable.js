@@ -124,7 +124,7 @@ export default function QuickFilteringGrid() {
     <Box sx={{
         boxShadow: 4,
         bgcolor: 'background.paper',
-        height: 600,
+        height: 480,
         width: 1
       }}>
          <Button sx={{ borderRadius: '55px', m: 1}} 

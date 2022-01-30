@@ -1,46 +1,52 @@
 import React from 'react';
 import { SidebarData } from './SidebarData';
-import { List, ListItem, ListItemButton, ListItemIcon, Typography } from '@mui/material';
-import {ListItemText, makeStyles} from '@material-ui/core';
+import { List, ListItemButton, ListItemIcon, Typography } from '@mui/material';
+import { makeStyles} from '@material-ui/core';
 import { Drawer } from '@material-ui/core';
 import { useLocation, useNavigate } from 'react-router-dom';
-import {BrowserRouter, Route, Switch,NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import { ThemeConsumer } from 'styled-components';
+import { format } from 'date-fns';
 
 const drawerWidth = 200
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => {
+  return {
   page: {
     background: '#f9f9f9',
     width: '100%'
   },
   drawer: {
-    width: drawerWidth
+    width: drawerWidth,
   },
   drawerPaper: {
-    width: drawerWidth,
-    background: '#f9f9f9',
+    //background: '#f0f4c3',
   },
   root: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',  
-
-
+    // justifyContent: 'center',
+    // alignItems: 'center',  
   },
   active: {
-    background: '#c5cae9',
-    borderBottom: '2px solid #5c6bc0',
+    background: '#aed581',
+    borderRadius: '15px',
   },
   tlo: {
     margin: 10,
     marginLeft: 0,
   },
   logo: {
-    width: 130,
-    marginLeft:30,
-    marginTop:20
+    display:"flex",
+    justifyContent: "center",
+    marginTop: 15,
+  },
+  toolbar: theme.mixins.toolbar,
+  date: {
+    flexGrow: 1
   }
-})
+}})
 
 export default function Navbar({children}) {
   const classes = useStyles()
@@ -49,6 +55,15 @@ export default function Navbar({children}) {
 
   return (
     <div className={classes.root}>
+      
+      <AppBar sx={{ width: `calc(100% - ${drawerWidth}px)`, backgroundColor: "white"}}>
+        <Toolbar>
+          <Typography>
+            Dzisiejsza data: { format(new Date(), 'do MMMM Y') }
+          </Typography>          
+        </Toolbar>
+      </AppBar>
+
       <Drawer
         className={classes.drawer}
         variant="permanent"
@@ -56,11 +71,11 @@ export default function Navbar({children}) {
         classes={{ paper: classes.drawerPaper }}
       >
         <div>
-          <Typography variant='h5'>
+          <Typography variant='h5'  >
 
-            <NavLink  to="/home">
+            <NavLink  to="/home" className={classes.logo} >
 
-              <img src="Kleks_logo.png" alt="kleks" className={classes.logo} />
+              <img src="Kleks_logo.png" alt="kleks" style={{ width: 100}} />
 
             </NavLink>
 
@@ -70,22 +85,27 @@ export default function Navbar({children}) {
         <div className={classes.tlo}>
         <List>
           {SidebarData.map(item => (
-            <div className={location.pathname == item.path ? classes.active : classes.unactive}>
+            <Typography className={location.pathname == item.path ? classes.active : classes.unactive} 
+              sx={{display: 'flex',
+                width: 180, 
+                m: 1, borderRadius: '15px', 
+                '&:hover': {
+                  borderRadius: '15px',
+              },}}>
               <ListItemButton      
                 key={item.title}
-                onClick={() => navigate(item.path)}
-                
-              >
+                onClick={() => navigate(item.path)}>
                 <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.title}  />
+                <Typography variant='h6'> {item.title}</Typography>
               </ListItemButton>
-            </div>
+            </Typography>
           ))}
         </List>      
         </div>    
       </Drawer>
 
       <div className={classes.page}>
+        <div className={classes.toolbar}></div>
         {children}
       </div>
     </div>

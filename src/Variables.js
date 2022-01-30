@@ -24,9 +24,7 @@ export const variables={
 
     API_URL_DOCUMENTS_USER:"https://localhost:5021/files/browse",
     API_URL_DOCUMENTS_BROWSE:"https://localhost:5021/files",
-
-
-
+    API_URL_DOCUMENTS_DOWNLOAD:"https://localhost:5021/files/download",
 
 
 

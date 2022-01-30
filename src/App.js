@@ -8,35 +8,39 @@ import Files from './Pages/Files';
 import Users from './Pages/Users';
 import Adresses from './Pages/Adresses';
 import Settings from './Pages/Settings';
+import Login from './Pages/Login';
 import { Routes, Route } from 'react-router-dom';
-import {indigo} from '@mui/material/colors';
+import {lightGreen} from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: indigo[100],
+      main: lightGreen[100],
     },
     secondary: {
-      main: '#7986cb',
+      main: '#689f38',
     },    
     background: {
       paper: '#fff',
-      default: "#ff0000"
+      default: "#9ccc65"
     },
     action: {
-      hover: '#a6d4fa'
+      hover: '#c5e1a5',
     }    
   },
   typography: {
-    fontFamily: 'Quicksand',
+    fontFamily: 'Merriweather',
     fontWeightLight: 400,
     fontWeightRegular: 500,
     fontWeightMedium: 600,
     fontWeightBold: 700,
+    h6:{
+      fontSize: "15px",
+      fontWeight: 200,
+    }
   }
 })
-
 
  function App() {
     return (
@@ -51,6 +55,7 @@ const theme = createTheme({
               <Route path='/adresses' element={<Adresses />} />
               <Route path='/contacts' element={<Contacts />} />
               <Route path='/settings' element={<Settings />} />
+              <Route path='/login' element={<Login />} />
             </Routes>
           </Navbar>
         </Router>

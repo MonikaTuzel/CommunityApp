@@ -75,7 +75,7 @@ export default function PopupMessage(props) {
         <Dialog open={openPopupMess}>
             <Button
                 sx={{ width: '90px', height: '35px' }}
-                type="submit" color="secondary" variant="contained"
+                type="submit" color="error" variant="contained"
                 onClick={handleClose}>
                     Anuluj
             </Button>

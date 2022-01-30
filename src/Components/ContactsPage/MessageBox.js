@@ -13,25 +13,28 @@ import { variables } from '../../Variables';
 const useStyles = makeStyles({
 
     contc: {
-        width: '600px',
-        height: '500px',
+        width: 'auto',
+        height: '480px',
         display: "flex",
         flexDirection: 'column',
         justifyContent: 'space-around',
         alignItems:'center',
         textAlign: 'center',
         borderRadius: '15px',
+        flexWrap:"wrap",
+
     },
     mess: {
-        width: '100%',
+        width: 'auto',
         height: 'auto',
         bgcolor: 'background.paper',
         position: 'relative',
         overflow: 'auto',
         maxHeight: 400,
         '& ul': { padding: 0 },
-    }
+        flexWrap:"wrap",
 
+    }
 })
 
 export default function Contacts() {
@@ -46,7 +49,6 @@ export default function Contacts() {
             .then((data) => setTableData(data))
             .then(response => console.log(response))
     },[])
-
 
     const setChangeStatus = async (id) => {
         let element = tableData.find(el => el.id == id)
@@ -63,8 +65,7 @@ export default function Contacts() {
         setMessage(element)                
       }
 
-
-      const getInfo = async (id) => {
+    const getInfo = async (id) => {
         let element = tableData.find(el => el.id == id)
         setMessage(element)
         console.log(element, "element");
@@ -72,7 +73,6 @@ export default function Contacts() {
     
     return (
         <Container  sx={{ padding: 3 }}>
-
             <Typography
                 className={classes.contc} p={1}
                 sx={{ boxShadow: 10, border: 2, borderColor: '#c5cae9' }}  >
@@ -83,22 +83,18 @@ export default function Contacts() {
                     component='h2'
                     align="center"
                     sx={{
-                        border: 1,
                         borderRadius: '15px',
-                        borderColor: '#7986cb',
                         boxShadow: 5,
-                        background: '#5c6bc0',
+                        background: '#689f38',
                         width: "80%",
                     }}>
-
                     Twoje wiadomości
                 </Typography>
                 
                 <Popup
                     openPopup={openPopup}
                     setOpenPopup={setOpenPopup}
-                    message={message}
-                >
+                    message={message} >
                 </Popup>
 
                 <Typography sx={{ height: '400px', width: '580px', boxShadow: 3 }} >
@@ -110,10 +106,9 @@ export default function Contacts() {
                                 borderRadius: '15px',
                                 borderColor: '#e1f5fe',
                                 m: 1, }}                          
-                                disablePadding
-                                >                
+                                disablePadding >                
                                     <ListItemButton                            
-                                        style={{ background: message.statusName == "Nieprzeczytane"  ?  '#e1f5fe' :  null }} 
+                                        style={{borderRadius: "15px", background: message.statusName == "Nieprzeczytane"  ?  '#ccff90' :  null}} 
                                         onClick={async () => {
                                             await getInfo(message.id).then(() => {
                                                 setOpenPopup(true);

@@ -91,11 +91,9 @@ export default function Contacts() {
                     component='h2'
                     align="center"
                     sx={{
-                        border: 1,
                         borderRadius: '15px',
-                        borderColor: '#7986cb',
                         boxShadow: 5,
-                        background: '#5c6bc0',
+                        background: '#689f38',
                         width: "80%",
                     }}>
                     Historia dostaw

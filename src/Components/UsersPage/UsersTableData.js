@@ -192,7 +192,6 @@ export default function QuickFilteringGrid() {
     .then((data) => setDataTown(data));
 
     console.log(dataTown, "elementTown");
-
   }    
 
   const deleteUser = React.useCallback(
@@ -225,7 +224,7 @@ export default function QuickFilteringGrid() {
     <Box sx={{
       boxShadow: 4,
       bgcolor: 'background.paper',
-      height: 600,
+      height: 500,
       width: 1
     }}>
       <PopupEditUser

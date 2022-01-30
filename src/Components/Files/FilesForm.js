@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { variables } from '../../Variables';
 import Avatar from '@mui/material/Avatar';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
+
 
 const useStyles = makeStyles({
 
@@ -14,49 +13,85 @@ const useStyles = makeStyles({
         height: 'auto',
         display: "flex",
         flexDirection: 'row',
-        // justifyContent: 'space-around',
-        // textAlign: 'center',
-        // alignItems:'center',
+        flexWrap:"wrap",
         borderRadius: '15px',
     }
 })
 
 export default function FilesForm() {
     const [filesData, setFilesData] = useState([])
+
+
     const classes = useStyles()
 
     useEffect(() => {
         fetch(variables.API_URL_DOCUMENTS_USER + "/1006")
             .then((data) => data.json())
             .then((data) => setFilesData(data))
+        console.log(filesData, "doku")
     }, []);
-    console.log(filesData, "doku")
 
+    // const download = React.useCallback(
+    //     (id) => () => {
+    
+    //       const options = {
+    //         method: 'GET',
+      
+    //         headers: {
+    //           'Content-Type': 'application/json'
+    //         }
+    //       };
+      
+    //       fetch(variables.API_URL_DOCUMENTS_DOWNLOAD + `/${id}`, options)
+    //     },
+    //     [],
+    //   );
 
+    
     return (
         <Container sx={{ padding: 3 }}  >
-            <List>
+            <Typography component="span" sx={{ display:"flex", justifyContent: 'space-around', alignItems:'stretch', flexDirection: 'row', flexWrap:"wrap"}}>                            
+
                 {filesData.map((file) => {
                     return (
-                        <ListItem sx={{ display:"flex",
-                        flexDirection:'row'}}>
-                            <Typography className={classes.contc} p={1}
-                                sx={{ boxShadow: 10, border: 2, borderColor: '#c5cae9' }} >
-                                <Avatar alt="file" src="grafika_dok.png" sx={{ width: 180, height: 160, m: 3 }} />
+                        <Typography component="span" sx={{ padding: 3 }} >
 
-                                <Typography sx={{ m: 2 }}>
-                                    Nazwa pliku: {file.name}
+                            <Typography className={classes.contc} p={1}
+                                sx={{ boxShadow: 10, border: 2,  
+                                borderColor: file.statusName == "Zrealizowano" ?  "#b2ff59" : "#ffeb3b",
+                                background: file.statusName == "Zrealizowano" ? "#b2ff59" : "#ffeb3b" }} >
+                                <Avatar alt="file" src="grafika_dok.png" sx={{ width: 180, height: 160, m: 1 }} />
+
+                                <Typography sx={{display:"flex", justifyContent: 'space-around',flexDirection: 'column', m: 1 }}>
+                                    <h4>{file.name}</h4>
+                                    <Typography>
+                                        <h6>{file.updateDate}</h6>
+                                        <h6>{file.statusName}</h6>
+                                    </Typography>
+                                    <Typography sx={{display:"flex", justifyContent:'flex-end'}}>
+                                        <Button sx={{ width: '80px', height: '25px', mr: 2 }}
+                                            type="submit" color="info" variant="contained"
+                                            //onClick={download(file.id)}
+                                            >
+                                            Pobierz
+                                        </Button>
+                                        <Button sx={{ width: '80px', height: '25px'}}
+                                            type="submit" color="success" variant="contained"
+                                            disabled={file.statusName == "Zrealizowano"}>
+                                            Odeślij
+                                        </Button>
+                                    </Typography>
                                 </Typography>
 
                             </Typography>
 
-                        </ListItem>
+                        </Typography>
 
 
                     )
                 })}
 
-        </List>
+        </Typography>
 
         </Container >
     )

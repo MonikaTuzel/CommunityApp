@@ -87,7 +87,6 @@ export default function PopupDeliveryInfo(props) {
         fetch(variables.API_URL_DELIVERY_CREATE, options).then(()=>{
             setDelivery({userId:delivery.userId, semestr:delivery.semestr})
         });            
-
     }
 
     return (
@@ -97,7 +96,7 @@ export default function PopupDeliveryInfo(props) {
         >
             <Button
                 sx={{ width: '90px', height: '35px' }}
-                type="submit" color="secondary" variant="contained"
+                type="submit" color="error" variant="contained"
                 onClick={handleClose}>
                 Anuluj
             </Button>

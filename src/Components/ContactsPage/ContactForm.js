@@ -11,18 +11,22 @@ const useStyles = makeStyles({
 
     contc: {
         width: '350px',
-        height: '500px',
+        height: '480px',
         display: "flex",
         flexDirection: 'column',
         justifyContent: 'space-around',
         textAlign: 'center',
         alignItems: 'center',
         borderRadius: '15px',
+        flexWrap:"wrap",
+
     },
     autocom: {
         display: "flex",
         justifyContent: 'space-around',
         textAlign: 'center',
+        flexWrap:"wrap",
+
     }
 })
 
@@ -61,7 +65,6 @@ export default function Contacts() {
             [name]: newValue?.id ?? event.target.value,
 
         });
-
     };
 
     const send = async () => {
@@ -92,11 +95,9 @@ export default function Contacts() {
                     component='h2'
                     align="center"
                     sx={{
-                        border: 1,
                         borderRadius: '15px',
-                        borderColor: '#7986cb',
                         boxShadow: 5,
-                        background: '#5c6bc0',
+                        background: '#689f38',
                         width: "80%",
                     }}>
                     Wyślij wiadomość
