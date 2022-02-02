@@ -10,7 +10,8 @@ namespace Files.IServices
     {
         public IEnumerable<BrowseDocumentsDto> BrowseDocuments();
         public IEnumerable<BrowseDocumentsDto> BrowseDocumentsUser(int id);
-        public Task<UploadDocumentsDto> Upload(UploadDocumentsDto dto, IFormFile files);
+        public Task Upload(int fileId, IFormFile files);
+        public Task<UploadDocumentsDto> NewDocumentUpload(UploadDocumentsDto dto, IFormFile files);
         void DeleteDoc(int id);
     }
 }

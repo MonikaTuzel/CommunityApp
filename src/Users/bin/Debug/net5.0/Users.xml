@@ -39,6 +39,11 @@
             Aktualnienie danych użytkownika
             </summary>
         </member>
+        <member name="M:Users.Controllers.UserController.EditUser(Users.DTO.EditUserDto,System.Int32)">
+            <summary>
+            Edycja użytkownika
+            </summary>
+        </member>
         <member name="M:Users.Controllers.UserController.Delete(System.Int32)">
             <summary>
             Usuwanie użytkownika

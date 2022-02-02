@@ -68,6 +68,17 @@ namespace Users.Controllers
         }
 
         /// <summary>
+        /// Edycja użytkownika
+        /// </summary>
+        [HttpPut("edit/{userId}")]
+
+        public async Task<User> EditUser([FromBody] EditUserDto userDto, [FromRoute] int userId)
+        {
+            await _userservice.EditUser(userId, userDto);
+            return await _userservice.GetUserById(userId);
+        }
+
+        /// <summary>
         /// Usuwanie użytkownika
         /// </summary>
         [HttpDelete("{userId}")]

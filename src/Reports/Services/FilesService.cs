@@ -6,6 +6,7 @@ using Files.IServices;
 using Files.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -54,8 +55,7 @@ namespace Files.Services
 
             return _mapper.Map<List<BrowseDocumentsDto>>(docs);
         }
-
-        public async Task<UploadDocumentsDto> Upload(UploadDocumentsDto dto, IFormFile files)
+        public async Task<UploadDocumentsDto> NewDocumentUpload(UploadDocumentsDto dto, IFormFile files)
         {
             _logger.LogInformation($"Wywołano funkcję wysyłania pliku");
 
@@ -71,6 +71,7 @@ namespace Files.Services
                         Name = dto.Name,
                         UserId = dto.UserId,
                         UpdateDate = DateTime.Now,
+                        StatusId = 1,
                     };
 
                     _dbContext.Documents.Add(file);
@@ -94,6 +95,49 @@ namespace Files.Services
                 }
 
                 return dto;
+            }
+            else
+            {
+                throw new FilesUploadException($"Dodaj załącznik");
+            }
+        }
+        public async Task Upload(int fileId, IFormFile files)
+        {
+            _logger.LogInformation($"Wywołano funkcję wysyłania pliku");
+
+            if (files is not null)               
+            {
+                var document = _dbContext.Documents.SingleOrDefault(x => x.Id == fileId);
+
+                var filesName = Path.GetFileName(document.Name);
+                var filesExtension = Path.GetExtension(files.FileName);
+
+                if (filesExtension == ".pdf")
+                {
+                    document.Name = filesName;
+                    document.UpdateDate = DateTime.Now;
+                    document.StatusId = 2;
+
+                    _dbContext.Documents.Update(document);
+                    _dbContext.SaveChanges();
+
+                    filesName = document.Name + document.Id.ToString() + filesExtension;
+
+                    var path = _env.ContentRootPath + "/FilesDoc/" + filesName;
+
+
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await files.CopyToAsync(stream);
+                    }
+
+                    await Task.FromResult("Przesłanie załącznika przebiegło pomyślnie!");
+                }
+                else
+                {
+                    throw new FilesUploadException($"Wymagany załącznik o rozszerzeniu .pdf!");
+                }
+
             }
             else
             {

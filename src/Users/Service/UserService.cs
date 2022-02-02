@@ -64,6 +64,23 @@ namespace Users.Service
             _dbContext.SaveChanges();
             await Task.FromResult("");            
         }
+        public async Task EditUser(int userId, EditUserDto userDto)
+        {
+            _logger.LogWarning($"Wywołano funkcję edycji danych użytkonika o id={userId}");
+
+            var user = await Task.FromResult(_dbContext.User.SingleOrDefault(x => x.Id == userId));
+
+            user.StudentScore = userDto.StudentScore;
+            user.FullName = userDto.FullName;
+            user.Phone = userDto.Phone;
+
+            _dbContext.User.Update(user);
+            _dbContext.SaveChanges();
+            
+            await Task.FromResult("");
+
+        }
+
 
         public void DeleteUser(int id)
         {

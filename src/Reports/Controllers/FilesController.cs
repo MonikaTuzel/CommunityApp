@@ -80,9 +80,18 @@ namespace Files.Controllers
         /// Wysyłanie pliku .pdf
         /// </summary>
         [HttpPost("[action]")]
-        public void Upload([FromForm]UploadDocumentsDto dto, IFormFile files)
+        public void NewUpload([FromForm]UploadDocumentsDto dto, IFormFile files)
         {
-            _filesService.Upload(dto, files);
+            _filesService.NewDocumentUpload(dto, files);
+        }
+
+        /// <summary>
+        /// Wysyłanie pliku .pdf - aktualizacja 
+        /// </summary>
+        [HttpPut("[action]/{fileId}")]
+        public void Upload([FromRoute] int fileId, IFormFile files)
+        {
+            _filesService.Upload(fileId, files);
         }
 
         /// <summary>

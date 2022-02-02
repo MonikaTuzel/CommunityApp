@@ -19,9 +19,14 @@
             Pobieranie pliku .pdf
             </summary>
         </member>
-        <member name="M:Files.Controllers.FilesController.Upload(Files.DTO.UploadDocumentsDto,Microsoft.AspNetCore.Http.IFormFile)">
+        <member name="M:Files.Controllers.FilesController.NewUpload(Files.DTO.UploadDocumentsDto,Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             Wysyłanie pliku .pdf
+            </summary>
+        </member>
+        <member name="M:Files.Controllers.FilesController.Upload(System.Int32,Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            Wysyłanie pliku .pdf - aktualizacja 
             </summary>
         </member>
         <member name="M:Files.Controllers.FilesController.Delete(System.Int32)">

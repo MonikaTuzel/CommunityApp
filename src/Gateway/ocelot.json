@@ -30,6 +30,20 @@
     },
 
     {
+      "DownstreamPathTemplate": "/User/edit/{userId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44383
+        }
+      ],
+
+      "UpstreamPathTemplate": "/users/edit/{userId}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    {
       "DownstreamPathTemplate": "/User/{name}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -392,7 +406,7 @@
     },
 
     { // GET (download document)
-      "DownstreamPathTemplate": "/Files/Download/{Id}",
+      "DownstreamPathTemplate": "/Files/Download/{filesId}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -405,18 +419,31 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
 
-    { // GET (upload document)
-      "DownstreamPathTemplate": "/Files/Upload",
+    { // POST (upload new document)
+      "DownstreamPathTemplate": "/Files/NewUpload",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44352 
+          "Port": 44352
         }
       ],
 
-      "UpstreamPathTemplate": "/files/upload",
+      "UpstreamPathTemplate": "/files/newUpload",
       "UpstreamHttpMethod": [ "POST" ]
+    },
+    { // PUT (upload update document)
+      "DownstreamPathTemplate": "/Files/Upload/{fileId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44352
+        }
+      ],
+
+      "UpstreamPathTemplate": "/files/upload/{fileId}",
+      "UpstreamHttpMethod": [ "PUT" ]
     },
 
     { // DELETE
