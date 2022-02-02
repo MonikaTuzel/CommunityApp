@@ -75,6 +75,12 @@ export default function Popup(props) {
         });
     };
 
+    // function validateForm() {
+
+    //     return user.fullName && user.shortName && user.studentScore && user.street && user.number && user.code && user.phone && user.email && user.password  
+    
+    // }
+
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
@@ -95,6 +101,7 @@ export default function Popup(props) {
         });
 
     };
+    console.log(user, "newUser")
 
     const save = async () => {
         const options = {
@@ -272,7 +279,7 @@ export default function Popup(props) {
                             <Button
                                 sx={{ width: '120px', height: '40px' }}
                                 type="submit" color="secondary" variant="contained"
-                      
+                                // disabled={!validateForm()}
                                 onClick={save}
 
                             >Utwórz</Button>
@@ -324,7 +331,6 @@ export default function Popup(props) {
 
                             value={values.password}
                             onChange={handleChangePass('password')}
-
 
                             // onChange = {async () => {
                             //     await handleChangePass('password').then(() => {

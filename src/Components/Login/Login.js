@@ -12,7 +12,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 const useStyles = makeStyles({
 
     contc: {
-        width: '800px',
+        width: '900px',
         height: '500px',
         display: "flex",
         flexDirection: 'row',
@@ -21,6 +21,7 @@ const useStyles = makeStyles({
         alignItems: 'center',
         borderRadius: '15px',
         flexWrap:"wrap",
+        background: "white"
 
     },
     info: {
@@ -29,7 +30,7 @@ const useStyles = makeStyles({
         display: "flex",
     },
     account: {
-        width: '80%',
+        width: '90%',
         height: 'auto',
         display: "flex",
         flexDirection: 'column',
@@ -82,7 +83,7 @@ export default function Contacts() {
                     <Typography sx={{ m: 3, width: '95%', height: 'auto'}} >
                         <Typography sx={{ display: "flex", flexDirection: 'column', alignItems: 'flex-start' }}>
                             <h2>Zaloguj się</h2>
-                            <p>Podaj swój andres email oraz hasło</p>
+                            <p>Podaj swój adres email oraz hasło</p>
                         </Typography>
 
                         <Typography sx={{ display: "flex", flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around' }}>

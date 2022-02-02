@@ -65,7 +65,10 @@ export default function PopupMessage(props) {
                         <h6>Id użytkownika: {user?.id}</h6>
                         <h6>Nazwa użytkownika: {user?.fullName}</h6>
                         <h6>Ilość uczniów: {user?.studentScore} </h6> 
-                        <h6>Ilość uczniów: {dataTown?.townName} </h6> 
+                        <h6>Adres: ul. {dataTown?.street}  {dataTown?.number} , {dataTown?.townName}  </h6> 
+                        <h6>Województwo: {dataTown?.province} </h6> 
+                        <h6>Powiat: {dataTown?.district} </h6> 
+                        <h6>Gmina: {dataTown?.commune} </h6> 
 
                     </Typography>
 

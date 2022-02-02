@@ -6,6 +6,7 @@ import { makeStyles } from '@mui/styles';
 import InputAdornment from '@mui/material/InputAdornment';
 import { variables } from '../../Variables';
 import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
+import InputMask from "react-input-mask";
 
 
 const useStyles = makeStyles({
@@ -59,12 +60,12 @@ export default function PopupMessage(props) {
             }
          };
          
-         fetch(variables.API_URL_USERS +`/${newUser.id}`, options)
-           .then( setOpenPopupEditUser(false))
+         fetch(variables.API_URL_USERS + "/edit" +`/${newUser.id}`, options)
+           .then(setOpenPopupEditUser(false))
        ;
     }
 
-    //console.log(newUser, "user")
+    console.log(newUser, "user")
 
     return (
         <Dialog open={openPopupEditUser}
@@ -108,7 +109,6 @@ export default function PopupMessage(props) {
                             label="ID"
                             placeholder='ID'
                             color='secondary'
-                            defaultValue="numer id"
                             value={user?.id}
                         />
 
@@ -117,7 +117,6 @@ export default function PopupMessage(props) {
                             label="Nazwa użytkownika"
                             placeholder='Nazwa użytkownika'
                             color='secondary'
-                            defaultValue="nazwa uzytkownika"
                             value={newUser?.fullName}
                             id="fullName"
                             onChange={handleChange}
@@ -131,7 +130,6 @@ export default function PopupMessage(props) {
                             sx={{ m: 1, mt: 2, width: '200px' }}
                             label="Ilość uczniów"
                             placeholder='Ilość uczniów'
-                            defaultValue="ilość uczniów"
                             value={newUser?.studentScore}
                             id="studentScore"
                             onChange={handleChange}
@@ -144,22 +142,28 @@ export default function PopupMessage(props) {
                             }}
                             color='secondary' />
 
-                        <TextField
-                            sx={{ m: 1, mt: 2, width: '200px' }}
-                            label="Numer telefonu"
-                            placeholder='Numer telefonu'
-                            defaultValue="numer telefonu"
+                        <InputMask
+                            mask="999 999 999"
                             value={newUser?.phone}
-                            id="phone"
+                            maskChar=" "
                             onChange={handleChange}
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <LocationCityOutlinedIcon />
-                                    </InputAdornment>
-                                ),
-                            }}
-                            color='secondary' />
+                        >       
+                            {()=><TextField
+                                sx={{ m: 1, mt: 2, width: '200px' }}
+                                label="Numer telefonu"
+                                placeholder='Numer telefonu'
+                                value={newUser?.phone}
+                                id="phone"
+                                onChange={handleChange}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <LocationCityOutlinedIcon />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                color='secondary' />}
+                        </InputMask>
 
                         <Typography sx={{
                             display: "flex",

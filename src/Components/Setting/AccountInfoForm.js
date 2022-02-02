@@ -4,6 +4,7 @@ import { Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { variables } from '../../Variables';
 import Avatar from '@mui/material/Avatar';
+import InputMask from "react-input-mask";
 
 const useStyles = makeStyles({
 
@@ -127,7 +128,7 @@ export default function Contacts() {
                                     
                                         <Typography>
                                             <TextField
-                                                sx={{ m: 1, mt: 2, width: '200px' }}
+                                                sx={{ m: 1, mt: 2, width: '190px' }}
                                                 label="Ulica"
                                                 placeholder='Ulica'
                                                 color='secondary'
@@ -136,7 +137,7 @@ export default function Contacts() {
                                             onChange={handleChange}
                                             />
                                             <TextField
-                                                sx={{ m: 1, mt: 2, width: '80px' }}
+                                                sx={{ m: 1, mt: 2, width: '90px' }}
                                                 label="Numer"
                                                 placeholder='Numer'
                                                 color='secondary'
@@ -148,7 +149,7 @@ export default function Contacts() {
                                         <Typography>
                                             <TextField
                                             disabled
-                                                sx={{ m: 1, mt: 2, width: '200px' }}
+                                                sx={{ m: 1, mt: 2, width: '190px' }}
                                                 label="Miasto"
                                                 placeholder='Miasto'
                                                 color='secondary'
@@ -156,16 +157,25 @@ export default function Contacts() {
                                                 id="townName"
                                             //onChange={handleChange}
                                             />
-                                            <TextField
-                                            disabled
-                                                sx={{ m: 1, mt: 2, width: '80px' }}
+                                        <InputMask
+                                            mask="99-999"
+                                            value={adressData?.code??""}
+                                            disabled = {true}
+                                            maskChar=" "
+                                            onChange={handleChange}
+                                        >
+                                            {() => <TextField
+                                                disabled
+                                                sx={{ m: 1, mt: 2, width: '90px' }}
                                                 label="Kod"
                                                 placeholder='Kod'
                                                 color='secondary'
                                                 value={adressData?.code??""}
                                                 id="code"
                                             //onChange={handleChange}
-                                            />
+                                            />}
+                                        </InputMask>
+
                                         </Typography>
 
                                         <Typography>
@@ -229,15 +239,23 @@ export default function Contacts() {
                                             id="fullName"
                                         //onChange={handleChange}
                                         />
-                                        <TextField
-                                            sx={{ m: 1, mt: 2, width: '300px' }}
-                                            label="Numer telefonu"
-                                            placeholder='Numer telefonu'
-                                            color='secondary'                                    
+
+                                        <InputMask
+                                            mask="999 999 999"
                                             value={newUser?.phone}
-                                            id="phone"
-                                        onChange={handleChange}
-                                        />
+                                            disabled={false}
+                                            maskChar=" "
+                                            onChange={handleChange}
+                                        >
+                                            {() => <TextField
+                                                    sx={{ m: 1, mt: 2, width: '300px' }}
+                                                    label="Numer telefonu"
+                                                    placeholder='Numer telefonu'
+                                                    color='secondary'
+                                                    id="phone"
+                                                />}
+                                        </InputMask>
+
                                     </Typography>
                                     <Typography sx={{
                                         display: "flex",

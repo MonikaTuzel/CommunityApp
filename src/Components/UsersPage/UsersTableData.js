@@ -167,16 +167,16 @@ export default function QuickFilteringGrid() {
   const [rows, setRows] = useState(tableData.rows);
   const [dataTown, setDataTown] = useState()
 
-  const requestSearch = (searchValue) => {
-    setSearchText(searchValue);
-    const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
-    const filteredRows = tableData.rows.filter((row) => {
-      return Object.keys(row).some((field) => {
-        return searchRegex.test(row[field].toString());
-      });
-    });
-    setRows(filteredRows);
-  };
+  // const requestSearch = (searchValue) => {
+  //   setSearchText(searchValue);
+  //   const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
+  //   const filteredRows = tableData.rows.filter((row) => {
+  //     return Object.keys(row).some((field) => {
+  //       return searchRegex.test(row[field].toString());
+  //     });
+  //   });
+  //   setRows(filteredRows);
+  // };
   
   useEffect(() => {
     setRows(tableData.rows);
@@ -245,13 +245,13 @@ export default function QuickFilteringGrid() {
         components={{ Toolbar: QuickSearchToolbar }}
         rows={tableData}
         columns={columns}
-        componentsProps={{
-          toolbar: {
-            value: searchText,
-            onChange: (event) => requestSearch(event.target.value),
-            clearSearch: () => requestSearch(''),
-          },
-        }}
+        // componentsProps={{
+        //   toolbar: {
+        //     value: searchText,
+        //     onChange: (event) => requestSearch(event.target.value),
+        //     clearSearch: () => requestSearch(''),
+        //   },
+        // }}
       />
     </Box>
 

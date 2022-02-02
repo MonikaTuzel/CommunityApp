@@ -72,7 +72,7 @@ export default function Popup(props) {
                     sx={{ width: '150px', height: '35px' }}
                     color="secondary" 
                     variant="outlined" 
-                    // onClick = {deleteClick(message.id)}
+                    onClick = {deleteClick(message?.id)}
                     startIcon={<DeleteOutlinedIcon />}>
                         Usuń
                 </Button>           

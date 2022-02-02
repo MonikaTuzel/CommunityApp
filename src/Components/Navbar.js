@@ -57,9 +57,14 @@ export default function Navbar({children}) {
     <div className={classes.root}>
       
       <AppBar sx={{ width: `calc(100% - ${drawerWidth}px)`, backgroundColor: "white"}}>
-        <Toolbar>
+        <Toolbar sx={{    display:"flex",     justifyContent: "center" 
+}}>
           <Typography>
-            Dzisiejsza data: { format(new Date(), 'do MMMM Y') }
+            Dzisiejsza data: { format(new Date(), 'd MM Y') }
+          </Typography>    
+
+          <Typography>
+            Avatar
           </Typography>          
         </Toolbar>
       </AppBar>
