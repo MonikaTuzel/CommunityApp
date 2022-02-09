@@ -61,6 +61,17 @@ export default function Popup(props) {
     const [values, setValues] = useState({
         password: '',
         showPassword: false,
+
+        fullName:'',
+        shortName: '',
+        studentScore: '',
+        street: '',
+        number: '',
+        code: '',
+        phone:'',
+        email: '',      
+        townId:'',
+        
     });
 
     const handleChangePass = (prop) => (event) => {
@@ -100,13 +111,25 @@ export default function Popup(props) {
 
         });
 
+        values.townId = 'townId'
+
     };
     console.log(user, "newUser")
 
     const save = async () => {
+        const registy = {
+            fullName: values.fullName,
+            shortName: values.shortName,
+            studentScore: values.studentScore,
+            street: values.street,
+            number: values.number,
+            code: values.code,
+            phone: values.phone,
+            email: values.email,    
+        }
         const options = {
             method: 'POST',
-            body: JSON.stringify({user, password:values.password }),
+            body: JSON.stringify(registy),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -115,6 +138,7 @@ export default function Popup(props) {
         fetch(variables.API_URL_USERS_REGISTER, options).then(()=>{
             setNewUser()
         });
+
         console.log(user, "nowyUser")
 
     };    
@@ -157,8 +181,9 @@ export default function Popup(props) {
 
                         <TextField
                         id="fullName"
-                        value={user?.fullName??""}
-                        onChange={handleChange}
+                        // value={user?.fullName??""}
+                        value={values.fullName}
+                        onChange={handleChangePass('fullName')}
 
                             sx={{ m: 1, width: '350px' }}
                             label="Pełna nazwa szkoły"
@@ -173,8 +198,10 @@ export default function Popup(props) {
                             color='secondary' />
                         <TextField
                         id="shortName"
-                        value={user?.shortName??""}
-                        onChange={handleChange}
+                        //value={user?.shortName??""}
+                        value={values.shortName}
+
+                        onChange={handleChangePass('shortName')}
 
                             sx={{ m: 1, width: '350px' }}
                             label="Skrócona nazwa szkoły"
@@ -189,8 +216,10 @@ export default function Popup(props) {
                             color='secondary' />
                         <TextField
                         id="studentScore"
-                        value={user?.studentScore??""}
-                        onChange={handleChange}
+                        //value={user?.studentScore??""}
+                        value={values.studentScore}
+
+                        onChange={handleChangePass('studentScore')}
 
                             sx={{ m: 1, width: '350px' }}
                             label="Ilość uczniów"
@@ -208,8 +237,10 @@ export default function Popup(props) {
                     <Typography>
                     <TextField
                     id="street"
-                    value={user?.street??""}
-                    onChange={handleChange}
+                    //value={user?.street??""}
+                    value={values.street}
+
+                    onChange={handleChangePass('street')}
 
                             sx={{ m: 1, width: '320px' }}
                             label="Nazwa ulicy"
@@ -226,8 +257,10 @@ export default function Popup(props) {
 
                         <TextField
                         id="number"
-                        value={user?.number??""}
-                        onChange={handleChange}
+                        //value={user?.number??""}
+                        value={values.number}
+
+                        onChange={handleChangePass('number')}
 
                             sx={{ m: 1, mt:2, width: '150px' }}
                             label="Numer budynku"
@@ -243,8 +276,10 @@ export default function Popup(props) {
 
                         <TextField
                         id="code"
-                        value={user?.code??""}
-                        onChange={handleChange}
+                        //value={user?.code??""}
+                        value={values.code}
+
+                        onChange={handleChangePass('code')}
 
                             sx={{ m: 1, mt:2, width: '150px' }}
                             label="Kod pocztowy"
@@ -259,8 +294,9 @@ export default function Popup(props) {
                             color='secondary' />
                             <Typography className={classes.autocom}>
                             <Autocomplete
-                            value={value}
-                            onChange={handleChange}
+                            value={values.code}
+
+                            onChange={handleChangePass('code')}
 
                                 id="clear-on-escape"
                                 clearOnEscape
@@ -279,7 +315,7 @@ export default function Popup(props) {
                             <Button
                                 sx={{ width: '120px', height: '40px' }}
                                 type="submit" color="secondary" variant="contained"
-                                // disabled={!validateForm()}
+                                //disabled = {!validateForm()}
                                 onClick={save}
 
                             >Utwórz</Button>
@@ -290,8 +326,10 @@ export default function Popup(props) {
 
                         <TextField
                         id="phone"
-                        value={user?.phone??""}
-                        onChange={handleChange}
+                        //value={user?.phone??""}
+                        value={values.phone}
+
+                        onChange={handleChangePass('phone')}
 
                             sx={{ m: 1, width: '350px' }}
                             label="Telefon kontaktowy"
@@ -306,8 +344,10 @@ export default function Popup(props) {
                             color='secondary' />
                         <TextField
                         id="email"
-                        value={user?.email??""}
-                        onChange={handleChange}
+                        //value={user?.email??""}
+                        value={values.email}
+
+                        onChange={handleChangePass('email')}
                         
                             sx={{ m: 1, width: '350px' }}
                             label="Adres e-mail"
@@ -322,8 +362,7 @@ export default function Popup(props) {
                             color='secondary' />
                         <TextField
                         id="password"
-                        value={user?.password??""}
-                        onChange={handleChange}
+                        value={values.password}
                         
                             sx={{ m: 1, width: '350px' }}
                             label="Hasło"
@@ -331,13 +370,7 @@ export default function Popup(props) {
 
                             value={values.password}
                             onChange={handleChangePass('password')}
-
-                            // onChange = {async () => {
-                            //     await handleChangePass('password').then(() => {
-                            //         handleChange();
-                            //     })
-                            //   }}
-
+                        
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">

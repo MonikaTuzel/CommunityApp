@@ -32,18 +32,32 @@ const useStyles = makeStyles({
     }
 })
 
-export default function Contacts() {
+export default function PlaningDeliveryTable({id}) {
     const [tableData, setTableData] = useState([])
+    const [user, setUser] = useState([])
+
     const classes = useStyles()
     const [future, setFuture] = useState()
     const [openPopupDelivery, setOpenPopupDelivery] = useState(false)
 
-    
     useEffect(() => {
-       fetch(variables.API_URL_DELIVERY_BROWSE + "/future")
-       .then((data) => data.json())
-       .then((data) => setTableData(data))
-      },[]);
+      fetch(variables.API_URL_USERS + `/${id}`)
+      .then((data) => data.json())
+      .then((data) => setUser(data))
+      .then(() => {
+
+       if(user.roleId === 2){
+          fetch(variables.API_URL_DELIVERY_BROWSE + `/future/${user.id}`)
+          .then((data) => data.json())
+          .then((data) => setTableData(data))
+      }
+      if(user.roleId === 1){
+          fetch(variables.API_URL_DELIVERY_BROWSE + "/future")
+              .then((data) => data.json())
+              .then((data) => setTableData(data))
+      }  
+      },[]); })
+  
 
     const getInfo = async (id) => {
         let element = tableData.find(el => el.id == id)
@@ -63,7 +77,7 @@ export default function Contacts() {
           cellClassName: 'actions',
           getActions: (params) => {
             return [
-              <GridActionsCellItem
+                <GridActionsCellItem
                 icon={<InfoOutlinedIcon />}
                 label="Info"
                 onClick={async () => {
@@ -72,7 +86,7 @@ export default function Contacts() {
                     })
                   }}
                 color="inherit"
-              />,              
+              />,                                                
             ];
           },
         },

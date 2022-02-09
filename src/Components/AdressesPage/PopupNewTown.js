@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     }
 })
 
-export default function PopupMessage(props) {
+export default function PopupNewTown(props) {
     const classes = useStyles()
     const {openPopupTown, setOpenPopupTown } = props;
     const [town, setNewTown] = useState({province:"dolnośląskie"});

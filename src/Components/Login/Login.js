@@ -8,6 +8,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles({
 
@@ -43,14 +44,17 @@ const useStyles = makeStyles({
 
 export default function Contacts() {
     const classes = useStyles()
+    const navigate = useNavigate();
 
     const [values, setValues] = useState({
         password: '',
+        email:'',
         showPassword: false,
     });
 
     const handleChangePass = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
+
     };
 
     const handleClickShowPassword = () => {
@@ -64,7 +68,30 @@ export default function Contacts() {
         event.preventDefault();
     };
 
+    const login = async () => {
+        const loginDto = 
+            {
+                email : values.email,
+                password : values.password
+            }
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(loginDto),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
 
+        fetch(variables.API_URL_USERS_LOGIN, options)      
+        .then((data) => data.json())
+        .then(data=>{
+            if(data){
+                navigate(`/home/${data.id}`)
+            }
+        })
+    }
+   
+    console.log(values.password, "hasło");
     return (
         <Container sx={{ padding: 2 }}  >
 
@@ -94,7 +121,10 @@ export default function Contacts() {
                                 placeholder='E-mail'
                                 color='secondary'
                                 id="email"
-                            />
+                                value={values.email}
+                                onChange={handleChangePass('email')}
+
+                                />
 
                         <TextField
                             id="currentPassword"
@@ -129,7 +159,7 @@ export default function Contacts() {
                             <Button
                                 sx={{ width: '150px', height: '40px', mt: 2 }}
                                 type="submit" color="secondary" variant="contained"
-                            //onClick={login}
+                            onClick={login}
                             //disabled={!validateForm()}
                             >Zaloguj</Button>
                         </Typography>

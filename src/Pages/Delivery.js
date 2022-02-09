@@ -5,6 +5,7 @@ import { makeStyles } from '@mui/styles';
 import PlaningDeliveryTable from '../Components/DeliveryPage/PlaningDeliveryTable';
 import HistoryDeliveryTable from '../Components/DeliveryPage/HistoryDeliveryTable';
 import AllDeliveryTable from '../Components/DeliveryPage/AllDeliveryTable';
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles({
     mess: {    
@@ -24,27 +25,20 @@ const useStyles = makeStyles({
     
 })
 
-export default function Contacts() {
+export default function Delivery({props}) {
     const classes = useStyles()
+    const {id} = useParams(props);
 
     return (
         <Container>
-            {/* <Typography
-                variant='h3'
-                color='textSecondary'
-                component='h2'
-                align="center"
-                gutterBottom>
-                Dostawy                
-            </Typography> */}
 
             <Typography sx={{mt:3}}>
                 <Typography className={classes.hist}>
-                    <HistoryDeliveryTable />
-                    <PlaningDeliveryTable />
+                    <HistoryDeliveryTable id={id} />
+                    <PlaningDeliveryTable id={id} />
                 </Typography>
 
-                    <AllDeliveryTable />
+                    <AllDeliveryTable id={id} />
 
             </Typography>
 

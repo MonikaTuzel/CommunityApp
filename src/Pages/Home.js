@@ -1,11 +1,22 @@
-import React,{Component} from 'react';
+import React from 'react';
+import { Typography } from '@mui/material';
+import { Container } from '@mui/material';
+import HomePage from '../Components/HomePage/HomePage';
+import { useParams } from 'react-router-dom';
 
-export class Home extends Component{
-    render(){
-        return(
-            <div>
-                <h3>Strona domowa</h3>
-            </div>
-        )
-    }
+export default function Home({props}) {
+ 
+const {id} = useParams(props);
+
+ console.log(id, 'props')
+
+    return (
+        <Container>
+
+            <Typography sx={{mt:3}}>
+                <HomePage id={id} />
+            </Typography>
+            
+        </Container>
+    )
 }

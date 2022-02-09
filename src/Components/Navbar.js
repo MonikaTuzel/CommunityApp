@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import {NavLink} from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import { ThemeConsumer } from 'styled-components';
+import Avatar from '@mui/material/Avatar';
 import { format } from 'date-fns';
 
 const drawerWidth = 200
@@ -53,18 +53,21 @@ export default function Navbar({children}) {
   const navigate = useNavigate()
   const location = useLocation()
 
+  console.log(children, "child")
+
   return (
     <div className={classes.root}>
       
       <AppBar sx={{ width: `calc(100% - ${drawerWidth}px)`, backgroundColor: "white"}}>
-        <Toolbar sx={{    display:"flex",     justifyContent: "center" 
-}}>
+        <Toolbar sx={{ display:"flex", justifyContent: "space-around" }}>
           <Typography>
             Dzisiejsza data: { format(new Date(), 'd MM Y') }
           </Typography>    
 
-          <Typography>
-            Avatar
+          <Typography >
+            <NavLink  to="/settings" >
+              <Avatar alt="szkola" src="logo_szkoła.png" sx={{ width: 50, height: 50 }} />
+            </NavLink>
           </Typography>          
         </Toolbar>
       </AppBar>

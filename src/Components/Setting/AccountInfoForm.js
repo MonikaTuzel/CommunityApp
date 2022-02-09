@@ -39,7 +39,7 @@ const useStyles = makeStyles({
     }
 })
 
-export default function Contacts() {
+export default function AccountInfoForm({id}) {
     const classes = useStyles()
     const [tableData, setTableData] = useState([])
     const [adressData, setAdressData] = useState([])
@@ -50,13 +50,13 @@ export default function Contacts() {
       }
 
     useEffect(() => {
-        fetch(variables.API_URL_USERS + "/1006")
+        fetch(variables.API_URL_USERS + `/${id}`)
             .then((data) => data.json())
             .then((data) => setTableData(data))
     },[]);
 
     useEffect(() => {
-        fetch(variables.API_URL_ADRESS + "/1006")
+        fetch(variables.API_URL_ADRESS + `/${id}`)
             .then((data) => data.json())
             .then((data) => setAdressData(data))
     },[]);
@@ -134,7 +134,7 @@ export default function Contacts() {
                                                 color='secondary'
                                                 value={newUser?.street}
                                                 id="street"
-                                            onChange={handleChange}
+                                                onChange={handleChange}
                                             />
                                             <TextField
                                                 sx={{ m: 1, mt: 2, width: '90px' }}

@@ -30,14 +30,13 @@ const useStyles = makeStyles({
     }
 })
 
-export default function Contacts() {
+export default function ContactsForm({id}) {
     const classes = useStyles()
     const [tableDataUsers, setTableDataUsers] = useState([])
     const [value, setValue] = useState(tableDataUsers[0]);
     const [message, setMessage] = useState({
-        senderId: '3010'
+        senderId:id
     })
-
 
     function validateForm() {
 

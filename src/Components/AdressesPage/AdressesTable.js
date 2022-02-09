@@ -12,7 +12,7 @@ import {
 import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
 import PopupNewTown from './PopupNewTown';
-import { Button, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
 
@@ -107,7 +107,7 @@ export default function QuickFilteringGrid() {
     { field: 'street', headerName: 'Ulica', width: 100 },
     { field: 'number', headerName: 'Numer', width: 70 },
     { field: 'userName', headerName: 'Nazwa szkoły', width: 180 },
-    { field: 'email', headerName: 'E-mail', width: 160 },
+    { field: 'userEmail', headerName: 'E-mail', width: 160 },
   ];
 
   useEffect(() => {

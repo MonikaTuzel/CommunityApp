@@ -1,5 +1,6 @@
 export const variables={
     API_URL_USERS:"https://localhost:5021/users",
+    API_URL_USERS_LOGIN:"https://localhost:5021/users/account/login",
     API_URL_USERS_REGISTER:"https://localhost:5021/users/account/register",
 
 
@@ -25,6 +26,10 @@ export const variables={
     API_URL_DOCUMENTS_USER:"https://localhost:5021/files/browse",
     API_URL_DOCUMENTS_BROWSE:"https://localhost:5021/files",
     API_URL_DOCUMENTS_DOWNLOAD:"https://localhost:5021/files/download",
+    API_URL_DOCUMENTS_NEWUPLOAD:"https://localhost:5021/files/newUpload",
+    API_URL_DOCUMENTS_UPDATE:"https://localhost:5021/files/upload",
+
+
 
 
 

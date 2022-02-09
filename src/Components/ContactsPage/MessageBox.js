@@ -37,14 +37,14 @@ const useStyles = makeStyles({
     }
 })
 
-export default function Contacts() {
+export default function MessageBox({id}) {
     const classes = useStyles()
     const [tableData, setTableData] = useState([])
     const [message, setMessage] = useState()
     const [openPopup, setOpenPopup] = useState(false)
 
     useEffect(() => {
-        fetch(variables.API_URL_MESSAGE+"/1006")
+        fetch(variables.API_URL_MESSAGE+`/${id}`)
             .then((data) => data.json())
             .then((data) => setTableData(data))
             .then(response => console.log(response))

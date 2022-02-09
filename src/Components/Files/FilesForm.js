@@ -4,6 +4,9 @@ import { Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { variables } from '../../Variables';
 import Avatar from '@mui/material/Avatar';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import { styled } from '@mui/material/styles';
+import PopupNewFile from './PopupNewFile';
 
 
 const useStyles = makeStyles({
@@ -18,23 +21,61 @@ const useStyles = makeStyles({
     }
 })
 
-export default function FilesForm() {
+export default function FilesForm({id}) {
     const [filesData, setFilesData] = useState([])
+    const [tableData, setTableData] = useState([])
 
     const classes = useStyles()
+    const [user, setUser] = useState([])
+    const [openPopupFile, setOpenPopupFile] = useState(false)
 
-    useEffect(() => {
-        fetch(variables.API_URL_DOCUMENTS_USER + "/1006")
+    const Input = styled('input')({
+        display: 'none',
+      });
+
+      useEffect(() => {
+        fetch(variables.API_URL_USERS + `/${id}`)
+        .then((data) => data.json())
+        .then((data) => setUser(data))
+        .then(() => {
+  
+         if(user.roleId === 2){
+            fetch(variables.API_URL_DOCUMENTS_USER + `/${user.id}`)
             .then((data) => data.json())
             .then((data) => setFilesData(data))
-    }, []);
+        }
+        if(user.roleId === 1){
+            fetch(variables.API_URL_DOCUMENTS_USER)
+                .then((data) => data.json())
+                .then((data) => setFilesData(data))
+        }  
+        },[]); })
+
+    function roleForm() {
+        if(user.roleId === 1)
+        return 1;    
+      }
+  
+    const update = React.useCallback(
+        (id) => () => {
+        const options = {
+            method: 'PUT',
+
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        fetch(variables.API_URL_DOCUMENTS_UPDATE, options)
+        });
+
+    
 
     const download = React.useCallback(
         (id) => () => {
 
             const options = {
             method: 'GET',
-
             headers: {
               'Content-Type': 'application/json'
             }
@@ -58,15 +99,24 @@ export default function FilesForm() {
             link.click();
         
             link.parentNode.removeChild(link);              
-
           })
         },
       );
     
     return (
         <Container sx={{ padding: 3 }}  >
-            <Typography component="span" sx={{ display:"flex", justifyContent: 'space-around', alignItems:'stretch', flexDirection: 'row', flexWrap:"wrap"}}>                            
+            <Typography>
+                <Button sx={{ borderRadius: '55px', m: 1 }}
+                    component="span" type="submit" color="secondary" variant="contained"
+                    onClick={() => setOpenPopupFile(true)}
+                    disabled={!roleForm()}>
+                    <AddCircleOutlineOutlinedIcon sx={{ fontSize: 25, mr: 1 }} />
+                    Dodaj
+                </Button>
+            </Typography>                        
 
+            <Typography component="span" sx={{ display:"flex", justifyContent: 'space-around', alignItems:'stretch', flexDirection: 'row', flexWrap:"wrap"}}>    
+            
                 {filesData.map((file) => {
                     return (
                         <Typography component="span" sx={{ padding: 3 }} >
@@ -90,11 +140,17 @@ export default function FilesForm() {
                                             >
                                             Pobierz
                                         </Button>
-                                        <Button sx={{ width: '80px', height: '25px'}}
-                                            type="submit" color="success" variant="contained"
-                                            disabled={file.statusName == "Zrealizowano"}>
+                                        <label htmlFor="contained-button-file">
+                                            <Input accept="pdf/*" id="contained-button-file" multiple type="file" />
+                                            <Button sx={{ width: '80px', height: '25px'}}
+                                            type="submit" color="success" variant="contained" component="span"
+                                            disabled={file.statusName == "Zrealizowano"}
+                                            onClick={async () => {update(file.id)}}
+                                            >
                                             Odeślij
                                         </Button>
+                                        </label>
+                                        
                                     </Typography>
                                 </Typography>
 
@@ -107,6 +163,11 @@ export default function FilesForm() {
                 })}
 
         </Typography>
+
+        <PopupNewFile
+          openPopupFile={openPopupFile}
+          setOpenPopupFile={setOpenPopupFile}>
+        </PopupNewFile>
 
         </Container >
     )

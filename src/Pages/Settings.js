@@ -4,6 +4,7 @@ import { Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import AccountInfoForm from '../Components/Setting/AccountInfoForm';
 import ChangePasswordForm from '../Components/Setting/ChangePasswordForm';
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles({
     mess: {
@@ -21,8 +22,9 @@ const useStyles = makeStyles({
 
 })
 
-export default function Settings() {
+export default function Settings(props) {
     const classes = useStyles()
+    const {id} = useParams(props);
 
     return (
         <Container>
@@ -31,13 +33,13 @@ export default function Settings() {
 
                 <Typography className={classes.hist}>
 
-                    <AccountInfoForm />
+                    <AccountInfoForm id={id} />
 
                 </Typography>
 
                 <Typography className={classes.hist}>
 
-                    <ChangePasswordForm />
+                    <ChangePasswordForm id={id} />
 
                 </Typography>
 

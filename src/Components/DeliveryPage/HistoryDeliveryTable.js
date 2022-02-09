@@ -34,18 +34,33 @@ const useStyles = makeStyles({
     }
 })
 
-export default function Contacts() {
+export default function HistoryDeliveryTable({id}) {
     const [tableData, setTableData] = useState([])
+    const [user, setUser] = useState([])
+
     const classes = useStyles()
     const [history, setHistory] = useState([])
     const [openPopupDelivery, setOpenPopupDelivery] = useState(false)
 
-    
     useEffect(() => {
-       fetch(variables.API_URL_DELIVERY_BROWSE + "/history")
-       .then((data) => data.json())
-       .then((data) => setTableData(data))
-    },[]);
+        fetch(variables.API_URL_USERS + `/${id}`)
+        .then((data) => data.json())
+        .then((data) => setUser(data))
+        .then(() => {
+
+         if(user.roleId === 2){
+            fetch(variables. API_URL_DELIVERY_HISTORY + `/${user.id}`)
+            .then((data) => data.json())
+            .then((data) => setTableData(data))
+        }
+        if(user.roleId === 1){
+            fetch(variables. API_URL_DELIVERY_HISTORY)
+                .then((data) => data.json())
+                .then((data) => setTableData(data))
+        }  
+        },[]); })
+    
+    
 
     const getInfo = async (id) => {
         let element = tableData.find(el => el.id == id)

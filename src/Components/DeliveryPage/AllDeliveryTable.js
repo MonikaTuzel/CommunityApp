@@ -33,18 +33,39 @@ const useStyles = makeStyles({
     }
 })
 
-export default function Contacts() {
+export default function AllDeliveryTable({id}) {
     const classes = useStyles()
     const [tableData, setTableData] = useState([])
+    const [user, setUser] = useState([])
     const [delivery, setDelivery] = useState([])
     const [openPopupDelivery, setOpenPopupDelivery] = useState(false)
     const [openPopupAddDelivery, setOpenPopupAddDelivery] = useState(false)
 
     useEffect(() => {
-        fetch(variables.API_URL_DELIVERY_BROWSE)
+        fetch(variables.API_URL_USERS + `/${id}`)
+        .then((data) => data.json())
+        .then((data) => setUser(data))
+        .then(() => {
+
+        if(user.roleId === 2){
+            fetch(variables.API_URL_DELIVERY_BROWSE + `/${user.id}`)
             .then((data) => data.json())
             .then((data) => setTableData(data))
-        },[]);
+        }
+        if(user.roleId === 1){
+            fetch(variables.API_URL_DELIVERY_BROWSE)
+                .then((data) => data.json())
+                .then((data) => setTableData(data))
+        }  
+        console.log(user.roleId, "role")      
+    },[]); })
+
+    function roleForm() {
+        if(user.roleId === 1)
+        return 1;    
+      }
+  
+    
 
     const getInfo = async (id) => {
         let element = tableData.find(el => el.id == id)
@@ -99,7 +120,8 @@ export default function Contacts() {
                         width: "80%",
                     }}>
                     Wszystkie dostawy
-                    <Button>
+                                   
+                   <Button disabled={!roleForm()}>
                         <AddCircleOutlineOutlinedIcon onClick={() => setOpenPopupAddDelivery(true)} />                    
                     </Button>
                     
@@ -121,8 +143,6 @@ export default function Contacts() {
 
                 <PopupAddDelivery openPopupAddDelivery={openPopupAddDelivery}
                     setOpenPopupAddDelivery={setOpenPopupAddDelivery}  />
-
-
 
             </Typography>
 
