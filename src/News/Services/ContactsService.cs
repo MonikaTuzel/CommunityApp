@@ -27,26 +27,7 @@ namespace Contacts.Services
         {
             var adresses = _dbContext.Adress.ToList();
             return adresses;
-        }
-
-        public IEnumerable<AdressDetailsDto> BrowseAdressByTown(string townName)
-        {
-            var adresses = _dbContext.Adress
-                .Include(x => x.Town)
-                .Include(x => x.User)
-                .Where(x=>x.Town.Name == townName)
-                .ToList();
-
-            //if (!adresses.Any())
-            //{
-            //    throw new NotFoundException($"Adres o podanej nazwie miasta: {townName} nie istnieje!");
-            //}
-
-            var adressesDto = _mapper.Map<List<AdressDetailsDto>>(adresses);
-
-            return adressesDto;
-
-        }
+        }       
 
         public IEnumerable<Town> BrowseAllTown()
         {

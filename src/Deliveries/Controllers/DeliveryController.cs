@@ -49,6 +49,25 @@ namespace Deliveries.Controllers
         {
             return _deliveryService.BrowseFutureDelivery();
         }
+        /// <summary>
+        /// Pobieranie listy historii dostaw użytkownika
+        /// </summary>
+        [HttpGet("history/{userId}")]
+        //[Authorize(Roles = "Admin")]
+        public IEnumerable<DeliveryInformationDto> GetHistoryDeliveryById([FromRoute] int userId)
+        {
+            return _deliveryService.BrowseHistoryDeliveryById(userId);
+        }
+
+        /// <summary>
+        /// Pobieranie listy przyszłych dostaw użytkownika
+        /// </summary>
+        [HttpGet("future/{userId}")]
+        //[Authorize(Roles = "Admin")]
+        public IEnumerable<DeliveryInformationDto> GetFutureDeliveryById([FromRoute] int userId)
+        {
+            return _deliveryService.BrowseFutureDeliveryById(userId);
+        }
 
         /// <summary>
         /// Pobieranie listy dostaw użytkownika o numerze id

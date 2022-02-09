@@ -62,7 +62,7 @@ namespace Users.Service
             _dbContext.Adress.Add(newAdress);
             _dbContext.SaveChanges();
         }
-        public string GenerateJwt(LoginUserDto dto)
+        public LoginInfoDto GenerateJwt(LoginUserDto dto)
         {
             _logger.LogWarning($"Próba logowania adresu email: {dto.Email}");
 
@@ -86,7 +86,14 @@ namespace Users.Service
             var token = new JwtSecurityToken(_authenticationSettings.JwtIssuer, _authenticationSettings.JwtIssuer,
                 claims, expires: expire, signingCredentials: cred);
             var tokenHandler = new JwtSecurityTokenHandler();
-            return tokenHandler.WriteToken(token);
+
+            var info = new LoginInfoDto()
+            {
+                Id = user.Id,
+                RoleName = user.Role.Name,
+                Token = token.ToString()
+            };
+            return info;
         }
 
         public void ChangePassword(int userId, ChangePasswordDto dto)

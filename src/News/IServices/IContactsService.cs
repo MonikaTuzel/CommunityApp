@@ -11,7 +11,6 @@ namespace Contacts.IServices
         IEnumerable<Town> BrowseAllTown();
         IEnumerable<AdressDetailsDto> BrowseAllDetails();
         Task<AdressDetailsDto> GetAdressByUser(int userId);
-        IEnumerable<AdressDetailsDto> BrowseAdressByTown(string townName);
         IEnumerable<AdressDetailsDto> BrowseAdressByDistrict(string district);
         void CreateAdress(CreateAdressDto createAdressDto);
         void AddNewTown(CreateTownDto createTownDto);

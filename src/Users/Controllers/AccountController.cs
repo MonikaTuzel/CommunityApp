@@ -35,10 +35,10 @@ namespace Users.Controllers
         /// Logowanie użytkownika - generowanie tokena
         /// </summary>
         [HttpPost("login")]
-        public ActionResult GenerateJwt([FromBody]LoginUserDto dto )
+        public ActionResult GenerateJwt([FromBody]LoginUserDto dto)
         {
-            string token = _accountService.GenerateJwt(dto);
-            return Ok(token);
+            var infoDto = _accountService.GenerateJwt(dto);
+            return Ok(infoDto);
         }
 
 

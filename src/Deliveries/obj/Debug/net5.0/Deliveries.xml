@@ -19,6 +19,16 @@
             Pobieranie listy przyszłych dostaw
             </summary>
         </member>
+        <member name="M:Deliveries.Controllers.DeliveryController.GetHistoryDeliveryById(System.Int32)">
+            <summary>
+            Pobieranie listy historii dostaw użytkownika
+            </summary>
+        </member>
+        <member name="M:Deliveries.Controllers.DeliveryController.GetFutureDeliveryById(System.Int32)">
+            <summary>
+            Pobieranie listy przyszłych dostaw użytkownika
+            </summary>
+        </member>
         <member name="M:Deliveries.Controllers.DeliveryController.GetByUser(System.Int32)">
             <summary>
             Pobieranie listy dostaw użytkownika o numerze id

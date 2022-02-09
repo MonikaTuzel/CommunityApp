@@ -10,5 +10,7 @@
         public int Code { get; set; }
         public string Street { get; set; }
         public int Number { get; set; }
+        public string UserName { get; set; }
+        public string UserEmail { get; set; }
     }
 }

@@ -8,7 +8,6 @@
         public int? Phone { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-
         public int TownId { get; set; }
         public int Code { get; set; }
         public string Street { get; set; }

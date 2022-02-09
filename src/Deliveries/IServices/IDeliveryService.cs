@@ -9,7 +9,8 @@ namespace Deliveries.IServices
         IEnumerable<DeliveryInformationDto> BrowseAllDeliveries();
         IEnumerable<DeliveryInformationDto> BrowseHistoryDelivery();
         IEnumerable<DeliveryInformationDto> BrowseFutureDelivery();
-
+        IEnumerable<DeliveryInformationDto> BrowseHistoryDeliveryById(int userId);
+        IEnumerable<DeliveryInformationDto> BrowseFutureDeliveryById(int userId);
         IEnumerable<DeliveryInformationDto> GetDeliveryByUserId(int userId);
         IEnumerable<DeliveryInformationDto> GetDeliveryByStatus(int status);
         Task<DeliveryInformationDto> GetDeliveryById(int deliveryId);

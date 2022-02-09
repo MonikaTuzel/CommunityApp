@@ -111,7 +111,7 @@
 
       "UpstreamPathTemplate": "/adresses",
       "UpstreamHttpMethod": [ "GET" ]
-    },
+    },    
     {
       "DownstreamPathTemplate": "/api/Contacts/towns",
       "DownstreamScheme": "https",
@@ -387,7 +387,7 @@
         }
       ],
 
-      "UpstreamPathTemplate": "/files",
+      "UpstreamPathTemplate": "/files/browse",
       "UpstreamHttpMethod": [ "GET" ]
     },
 
