@@ -9,6 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import Popup from './Popup';
 import { variables } from '../../Variables';
+import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles({
 
@@ -37,14 +38,15 @@ const useStyles = makeStyles({
     }
 })
 
-export default function MessageBox({id}) {
+export default function MessageBox() {
     const classes = useStyles()
     const [tableData, setTableData] = useState([])
     const [message, setMessage] = useState()
     const [openPopup, setOpenPopup] = useState(false)
+    const location = useLocation()
 
     useEffect(() => {
-        fetch(variables.API_URL_MESSAGE+`/${id}`)
+        fetch(variables.API_URL_MESSAGE+`/${location.state.id}`)
             .then((data) => data.json())
             .then((data) => setTableData(data))
             .then(response => console.log(response))

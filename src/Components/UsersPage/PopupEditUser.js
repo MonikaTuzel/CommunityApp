@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogTitle} from '@mui/material';
+import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { TextField, Typography } from '@mui/material';
@@ -7,6 +7,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { variables } from '../../Variables';
 import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
 import InputMask from "react-input-mask";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 const useStyles = makeStyles({
@@ -23,11 +24,20 @@ const useStyles = makeStyles({
     }
 })
 
+
 export default function PopupMessage(props) {
     const classes = useStyles()
     const { openPopupEditUser, setOpenPopupEditUser, user } = props;
     const [newUser, setNewUser] = useState();
+    const location = useLocation()
 
+    function refreshPage() {
+        window.location.reload();
+    }
+
+    function validateForm() {
+        return newUser?.studentScore && newUser?.fullName && newUser?.phone;
+    }
 
     useEffect(() => {
         if (user)
@@ -46,6 +56,7 @@ export default function PopupMessage(props) {
 
         });
     };
+    console.log(newUser, "nowyUser")
 
     const handleClose = async () => {
         setOpenPopupEditUser(false);
@@ -58,11 +69,11 @@ export default function PopupMessage(props) {
             headers: {
                 'Content-Type': 'application/json'
             }
-         };
-         
-         fetch(variables.API_URL_USERS + "/edit" +`/${newUser.id}`, options)
-           .then(setOpenPopupEditUser(false))
-       ;
+        };
+
+        fetch(variables.API_URL_USERS + "/edit" + `/${newUser.id}`, options)
+        .then(handleClose()).then(refreshPage);
+            
     }
 
     console.log(newUser, "user")
@@ -143,12 +154,12 @@ export default function PopupMessage(props) {
                             color='secondary' />
 
                         <InputMask
-                            mask="999 999 999"
+                            mask="999999999"
                             value={newUser?.phone}
                             maskChar=" "
                             onChange={handleChange}
-                        >       
-                            {()=><TextField
+                        >
+                            {() => <TextField
                                 sx={{ m: 1, mt: 2, width: '200px' }}
                                 label="Numer telefonu"
                                 placeholder='Numer telefonu'
@@ -173,6 +184,7 @@ export default function PopupMessage(props) {
                                 sx={{ width: '120px', height: '40px', mt: 2 }}
                                 type="submit" color="secondary" variant="contained"
                                 onClick={updateUser}
+                                disabled={!validateForm()}
                             >Akceptuj</Button>
                         </Typography>
 

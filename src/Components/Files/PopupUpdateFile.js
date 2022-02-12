@@ -30,67 +30,38 @@ const useStyles = makeStyles({
     }
 })
 
-export default function PopupNewFile(props) {
+export default function PopupUpdateFile(props) {
 
     const classes = useStyles()
-    const { openPopupFile, setOpenPopupFile } = props;
-    const [tableDataUsers, setTableDataUsers] = useState([])
-    const [valueUser, setValueUser] = useState(tableDataUsers[0]);
-    const [fileDetails, setFileDetails] = useState();
-
-
-    const [file, setFile] = useState(false);
+    const { openPopupFileUpdate, setOpenPopupFileUpdate, file} = props;
+    const [newFile, setFile] = useState(false);
 
     const handleInputChange = (event) => {
         setFile(event.target.files[0]);
     };
-
-    const upload = (e) => {
-        let formData = new FormData();
-        formData.append("files", file);
-
-        formData.append("name", fileDetails.name);
-        formData.append("userId", fileDetails.userId);
-
-        axios({
-            method: "post",
-            url: variables.API_URL_DOCUMENTS_NEWUPLOAD,
-            data: formData
-
-        }).then(({ data }) => {
-            console.log("Succesfully uploaded: ", JSON.stringify(data));
-        }).then(handleClose());            
-
-    };
-
-    const handleChange = (event, newValue) => {
-
-        let name = event.target.id;
-
-        if (name.includes('clear-on-escape-option')) name = 'userId'
-
-        setFileDetails({
-
-            ...fileDetails,
-
-            [name]: newValue?.id ?? event.target.value,
-
-        });
-    };   
+    
+        const upload = (e) => {
+            let formData = new FormData();
+            formData.append("files", newFile);
+        
+            axios({
+                method: "put",
+                url: variables.API_URL_DOCUMENTS_UPDATE+`/${file.id}`,
+                data: formData
+    
+            }).then(({ data }) => {
+                console.log("Succesfully uploaded: ", JSON.stringify(data));
+            }).then(handleClose());            
+    
+        };
+    
 
     const handleClose = () => {
-        setOpenPopupFile(false);
+        setOpenPopupFileUpdate(false);
     };
 
-    useEffect(() => {
-        fetch(variables.API_URL_USERS)
-            .then((data) => data.json())
-            .then((data) => setTableDataUsers(data))
-        }, []);
-
-   
     return (
-        <Dialog open={openPopupFile}
+        <Dialog open={openPopupFileUpdate}
             fullWidth
             maxWidth="sm"
         >
@@ -108,7 +79,7 @@ export default function PopupNewFile(props) {
                 textAlign: 'center',
             }}>
                 <div>
-                    <h2> Dodaj nowy dokument </h2>
+                    <h2> Odeślij dokument </h2>
                 </div>
             </DialogTitle>            
 
@@ -127,41 +98,9 @@ export default function PopupNewFile(props) {
                             <Input
                                 type="file" onChange={handleInputChange}
                                 accept="pdf/*" id="contained-button-file" color='secondary' 
-                                sx={{m:1}}/>
+                                sx={{m:1}}/>    
                         </label>
-
-                        <TextField
-                            id="name"
-                            value={fileDetails?.name?? ""}
-                            onChange={handleChange}
-
-                            sx={{ m: 1, width: '350px' }}
-                            label="Nazwa pliku"
-                            placeholder='Nazwa pliku'
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <ModeEditOutlineOutlinedIcon />
-                                    </InputAdornment>
-                                ),
-                            }}
-                            color='secondary' />
-
-                        <Autocomplete
-
-                            id="clear-on-escape"
-                            value={valueUser}
-
-                            noOptionsText="Nie ma takiego użytkownika"
-                            clearOnEscape
-                            options={tableDataUsers}
-                            getOptionLabel={(option) => option.fullName}
-                            sx={{ m: 1, width: 350 }}
-                            onChange={handleChange}
-                            renderInput={(params) => <TextField
-                                {...params} label="Nazwa szkoły" />} />
-
-
+                       
                         <Typography sx={{
                             display: "flex",
                             justifyContent: 'flex-end'

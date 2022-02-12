@@ -4,6 +4,7 @@ import { Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { variables } from '../../Variables';
 import Avatar from '@mui/material/Avatar';
+import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles({
     
@@ -29,18 +30,18 @@ const useStyles = makeStyles({
     }
 })
 
-export default function HomePage({id}) {
+export default function HomePage() {
     const classes = useStyles()
     const [tableData, setTableData] = useState([])
+    const location = useLocation()
 
     useEffect(() => {
-        fetch(variables.API_URL_USERS + `/${id}`)
+        fetch(variables.API_URL_USERS + `/${location.state.id}`)
             .then((data) => data.json())
             .then((data) => setTableData(data))            
     },[]);
-    console.log(tableData, "HPtabledata")
    
-console.log(id, "HP")
+console.log(location.state, "HP")
 
     return (
         <Container sx={{ padding: 2 }}  >

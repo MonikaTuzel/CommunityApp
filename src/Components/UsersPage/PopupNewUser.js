@@ -17,6 +17,8 @@ import {variables} from '../../Variables';
 import EditRoadOutlinedIcon from '@mui/icons-material/EditRoadOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
+import InputMask from "react-input-mask";
+import { useLocation } from 'react-router-dom';
 
 
 const useStyles = makeStyles({
@@ -46,6 +48,7 @@ export default function Popup(props) {
     const [dataTown, setDataTown] = useState([])
     const [user, setNewUser] = useState();
     const [value, setValue] = useState(dataTown[0]);
+    const location = useLocation()
 
 
     const handleClose = () => {
@@ -86,11 +89,11 @@ export default function Popup(props) {
         });
     };
 
-    // function validateForm() {
+    function validateForm() {
 
-    //     return user.fullName && user.shortName && user.studentScore && user.street && user.number && user.code && user.phone && user.email && user.password  
+        return values.fullName && values.shortName && values.studentScore && values.street && values.number && values.code && values.phone && values.email && values.password  
     
-    // }
+    }
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
@@ -103,18 +106,21 @@ export default function Popup(props) {
         if (name.includes('clear-on-escape-option') ) name = 'townId'
      
 
-        setNewUser({
+        setValues({
 
-            ...user,
-
+            ...values,
             [name]: newValue ?? event.target.value,
 
         });
 
-        values.townId = 'townId'
+     //   values.townId = 'townId'
 
     };
     console.log(user, "newUser")
+
+    function refreshPage(){ 
+        window.location.reload(); 
+    }
 
     const save = async () => {
         const registy = {
@@ -126,6 +132,8 @@ export default function Popup(props) {
             code: values.code,
             phone: values.phone,
             email: values.email,    
+            townId: values.townId.id,
+            password: values.password,
         }
         const options = {
             method: 'POST',
@@ -137,9 +145,9 @@ export default function Popup(props) {
 
         fetch(variables.API_URL_USERS_REGISTER, options).then(()=>{
             setNewUser()
-        });
+        }).then(handleClose()).then(refreshPage);
 
-        console.log(user, "nowyUser")
+        console.log(registy, "nowyUser")
 
     };    
 
@@ -183,7 +191,7 @@ export default function Popup(props) {
                         id="fullName"
                         // value={user?.fullName??""}
                         value={values.fullName}
-                        onChange={handleChangePass('fullName')}
+                        onChange={handleChange}
 
                             sx={{ m: 1, width: '350px' }}
                             label="Pełna nazwa szkoły"
@@ -201,7 +209,7 @@ export default function Popup(props) {
                         //value={user?.shortName??""}
                         value={values.shortName}
 
-                        onChange={handleChangePass('shortName')}
+                        onChange={handleChange}
 
                             sx={{ m: 1, width: '350px' }}
                             label="Skrócona nazwa szkoły"
@@ -218,8 +226,9 @@ export default function Popup(props) {
                         id="studentScore"
                         //value={user?.studentScore??""}
                         value={values.studentScore}
+                        type='number'
 
-                        onChange={handleChangePass('studentScore')}
+                        onChange={handleChange}
 
                             sx={{ m: 1, width: '350px' }}
                             label="Ilość uczniów"
@@ -240,7 +249,7 @@ export default function Popup(props) {
                     //value={user?.street??""}
                     value={values.street}
 
-                    onChange={handleChangePass('street')}
+                    onChange={handleChange}
 
                             sx={{ m: 1, width: '320px' }}
                             label="Nazwa ulicy"
@@ -259,8 +268,9 @@ export default function Popup(props) {
                         id="number"
                         //value={user?.number??""}
                         value={values.number}
+                        type='number'
 
-                        onChange={handleChangePass('number')}
+                        onChange={handleChange}
 
                             sx={{ m: 1, mt:2, width: '150px' }}
                             label="Numer budynku"
@@ -273,30 +283,37 @@ export default function Popup(props) {
                                 ),
                             }}
                             color='secondary' />
+                        <InputMask
+                            mask="99999"
+                            value={values.code}
+                            onChange={handleChange}
+                            maskChar=" "
+                        >
+                            {() =>
+                                <TextField
+                                    id="code"
+                                    //value={user?.code??""}
+                                    // value={values.code}
+                                    // onChange={handleChange}
 
-                        <TextField
-                        id="code"
-                        //value={user?.code??""}
-                        value={values.code}
+                                    sx={{ m: 1, mt: 2, width: '150px' }}
+                                    label="Kod pocztowy"
+                                    placeholder='Kod pocztowy'
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <LocationCityOutlinedIcon />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    color='secondary' />}
+                        </InputMask>
 
-                        onChange={handleChangePass('code')}
-
-                            sx={{ m: 1, mt:2, width: '150px' }}
-                            label="Kod pocztowy"
-                            placeholder='Kod pocztowy'
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <LocationCityOutlinedIcon />
-                                    </InputAdornment>
-                                ),
-                            }}
-                            color='secondary' />
                             <Typography className={classes.autocom}>
                             <Autocomplete
-                            value={values.code}
+                            value={values.townId}
 
-                            onChange={handleChangePass('code')}
+                            onChange={handleChange}
 
                                 id="clear-on-escape"
                                 clearOnEscape
@@ -315,7 +332,7 @@ export default function Popup(props) {
                             <Button
                                 sx={{ width: '120px', height: '40px' }}
                                 type="submit" color="secondary" variant="contained"
-                                //disabled = {!validateForm()}
+                                disabled = {!validateForm()}
                                 onClick={save}
 
                             >Utwórz</Button>
@@ -324,30 +341,39 @@ export default function Popup(props) {
 
                     <Typography ml={2}>
 
-                        <TextField
-                        id="phone"
-                        //value={user?.phone??""}
-                        value={values.phone}
+                        <InputMask
+                            mask="999999999"
+                            value={values.phone}
+                            onChange={handleChange}
+                            maskChar=" "
+                        >
+                            {() =>
+                                <TextField
+                                    id="phone"
+                                    //value={user?.phone??""}
+                                    //value={values.phone}
+                                    //type='number'
+                                    onChange={handleChange}
 
-                        onChange={handleChangePass('phone')}
+                                    sx={{ m: 1, width: '350px' }}
+                                    label="Telefon kontaktowy"
+                                    placeholder='Telefon kontaktowy'
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <PhoneOutlinedIcon />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    color='secondary' />}
+                        </InputMask>
 
-                            sx={{ m: 1, width: '350px' }}
-                            label="Telefon kontaktowy"
-                            placeholder='Telefon kontaktowy'
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <PhoneOutlinedIcon />
-                                    </InputAdornment>
-                                ),
-                            }}
-                            color='secondary' />
                         <TextField
                         id="email"
                         //value={user?.email??""}
                         value={values.email}
 
-                        onChange={handleChangePass('email')}
+                        onChange={handleChange}
                         
                             sx={{ m: 1, width: '350px' }}
                             label="Adres e-mail"
@@ -369,7 +395,7 @@ export default function Popup(props) {
                             type={values.showPassword ? 'text' : 'password'}
 
                             value={values.password}
-                            onChange={handleChangePass('password')}
+                            onChange={handleChange}
                         
                             InputProps={{
                                 endAdornment: (

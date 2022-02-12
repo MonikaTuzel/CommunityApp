@@ -78,8 +78,8 @@ export default function Contacts() {
 
                             sx={{ m: 1, width: '350px' }}
                             label="Aktualne hasło"
-                            type={values.showPassword ? 'text' : 'password'}
-                            value={values.password}
+                            type={values.showPassword1 ? 'text' : 'password'}
+                            value={values.password1}
                             onChange={handleChangePass('password')}
                             InputProps={{
                                 endAdornment: (
@@ -90,7 +90,7 @@ export default function Contacts() {
                                             onMouseDown={handleMouseDownPassword}
                                             edge="end"
                                         >
-                                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                            {values.showPassword1 ? <VisibilityOff /> : <Visibility />}
                                         </IconButton>
                                     </InputAdornment>
                                 ),
@@ -107,8 +107,8 @@ export default function Contacts() {
 
                                 sx={{ m: 1, width: '350px' }}
                                 label="Nowe hasło"
-                                type={values.showPassword ? 'text' : 'password'}
-                                value={values.password}
+                                type={values.showPassword2 ? 'text' : 'password'}
+                                value={values.password2}
                                 onChange={handleChangePass('password')}
                                 InputProps={{
                                     endAdornment: (
@@ -119,7 +119,7 @@ export default function Contacts() {
                                                 onMouseDown={handleMouseDownPassword}
                                                 edge="end"
                                             >
-                                                {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                {values.showPassword2 ? <VisibilityOff /> : <Visibility />}
                                             </IconButton>
                                         </InputAdornment>
                                     ),
@@ -131,9 +131,9 @@ export default function Contacts() {
 
                                 sx={{ m: 1, width: '350px' }}
                                 label="Powtórz nowe hasło"
-                                type={values.showPassword ? 'text' : 'password'}
-                                value={values.password}
-                                onChange={handleChangePass('password')}
+                                type={values.showPassword3 ? 'text' : 'password'}
+                                value={values.password3}
+                                onChange={handleChangePass('password3')}
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
@@ -143,7 +143,7 @@ export default function Contacts() {
                                                 onMouseDown={handleMouseDownPassword}
                                                 edge="end"
                                             >
-                                                {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                {values.showPassword3 ? <VisibilityOff /> : <Visibility />}
                                             </IconButton>
                                         </InputAdornment>
                                     ),

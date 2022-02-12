@@ -46,7 +46,7 @@ function QuickSearchToolbar(props) {
         direction: 'column',
         flexWrap: 'wrap',
       }}>
-        <TextField
+        {/* <TextField
           variant="standard"
           value={props.value}
           onChange={props.onChange}
@@ -79,7 +79,7 @@ function QuickSearchToolbar(props) {
               borderColor: 'divider',
             },
           }}
-        />
+        /> */}
         <div>
           <GridToolbarFilterButton />
         </div>
@@ -182,6 +182,10 @@ export default function QuickFilteringGrid() {
     setRows(tableData.rows);
   }, [tableData.rows]);
 
+  function refreshPage() {
+    window.location.reload();
+}
+
   const getInfo = async (id) => {
     let element = tableData.find(el => el.id == id)
     setUser(element)
@@ -209,7 +213,7 @@ export default function QuickFilteringGrid() {
         setTimeout(() => {
           setTableData((prevRows) => prevRows.filter((row) => row.id !== id));
         });
-      })  
+      }).then(refreshPage)
     },
     [],
   );

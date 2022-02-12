@@ -7,7 +7,8 @@ import Avatar from '@mui/material/Avatar';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { styled } from '@mui/material/styles';
 import PopupNewFile from './PopupNewFile';
-
+import { useLocation } from 'react-router-dom';
+import PopupUpdateFile from './PopupUpdateFile';
 
 const useStyles = makeStyles({
 
@@ -21,56 +22,46 @@ const useStyles = makeStyles({
     }
 })
 
-export default function FilesForm({id}) {
+export default function FilesForm() {
     const [filesData, setFilesData] = useState([])
     const [tableData, setTableData] = useState([])
 
     const classes = useStyles()
     const [user, setUser] = useState([])
     const [openPopupFile, setOpenPopupFile] = useState(false)
+    const [openPopupFileUpdate, setOpenPopupFileUpdate] = useState(false)
+    const [file, setFile] = useState()
+
+
+    const location = useLocation()
 
     const Input = styled('input')({
         display: 'none',
       });
 
-      useEffect(() => {
-        fetch(variables.API_URL_USERS + `/${id}`)
-        .then((data) => data.json())
-        .then((data) => setUser(data))
-        .then(() => {
-  
-         if(user.roleId === 2){
-            fetch(variables.API_URL_DOCUMENTS_USER + `/${user.id}`)
-            .then((data) => data.json())
-            .then((data) => setFilesData(data))
-        }
-        if(user.roleId === 1){
-            fetch(variables.API_URL_DOCUMENTS_USER)
+        useEffect(() => {       
+            if(location.state.role === 'Szkola'){
+                fetch(variables.API_URL_DOCUMENTS_USER + `/${location.state.id}`)
                 .then((data) => data.json())
                 .then((data) => setFilesData(data))
-        }  
-        },[]); })
+            }
+            if(location.state.role === 'Admin'){
+                fetch(variables.API_URL_DOCUMENTS_USER)
+                    .then((data) => data.json())
+                    .then((data) => setFilesData(data))
+            }  
+        },[]); 
 
     function roleForm() {
-        if(user.roleId === 1)
+        if(location.state.role === 'Admin')
         return 1;    
       }
-  
-    const update = React.useCallback(
-        (id) => () => {
-        const options = {
-            method: 'PUT',
 
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-
-        fetch(variables.API_URL_DOCUMENTS_UPDATE, options)
-        });
-
+      const getInfo = async (id) => {
+        let element = filesData.find(el => el.id == id)
+        setFile(element)
+      }
     
-
     const download = React.useCallback(
         (id) => () => {
 
@@ -109,7 +100,8 @@ export default function FilesForm({id}) {
                 <Button sx={{ borderRadius: '55px', m: 1 }}
                     component="span" type="submit" color="secondary" variant="contained"
                     onClick={() => setOpenPopupFile(true)}
-                    disabled={!roleForm()}>
+                    disabled={!roleForm()}
+                    >
                     <AddCircleOutlineOutlinedIcon sx={{ fontSize: 25, mr: 1 }} />
                     Dodaj
                 </Button>
@@ -140,17 +132,17 @@ export default function FilesForm({id}) {
                                             >
                                             Pobierz
                                         </Button>
-                                        <label htmlFor="contained-button-file">
-                                            <Input accept="pdf/*" id="contained-button-file" multiple type="file" />
                                             <Button sx={{ width: '80px', height: '25px'}}
                                             type="submit" color="success" variant="contained" component="span"
                                             disabled={file.statusName == "Zrealizowano"}
-                                            onClick={async () => {update(file.id)}}
+                                            onClick={async () => {
+                                                await getInfo(file.id).then(() => {
+                                                    setOpenPopupFileUpdate(true);                                                    
+                                                })
+                                              }}
                                             >
                                             Odeślij
-                                        </Button>
-                                        </label>
-                                        
+                                        </Button>                                        
                                     </Typography>
                                 </Typography>
 
@@ -168,6 +160,12 @@ export default function FilesForm({id}) {
           openPopupFile={openPopupFile}
           setOpenPopupFile={setOpenPopupFile}>
         </PopupNewFile>
+
+        <PopupUpdateFile
+          openPopupFileUpdate={openPopupFileUpdate}
+          setOpenPopupFileUpdate={setOpenPopupFileUpdate}
+          file={file}>
+        </PopupUpdateFile>
 
         </Container >
     )

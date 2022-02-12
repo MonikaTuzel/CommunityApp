@@ -33,7 +33,7 @@ export const SidebarData = [
   },  
   
   {
-    title: 'Kontakt',
+    title: 'Wiadomości',
     path: '/contacts',
     icon: <CommentOutlinedIcon color="secondary" />,
   },

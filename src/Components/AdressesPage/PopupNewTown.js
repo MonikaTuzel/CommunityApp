@@ -32,9 +32,9 @@ export default function PopupNewTown(props) {
     const {openPopupTown, setOpenPopupTown } = props;
     const [town, setNewTown] = useState({province:"dolnośląskie"});
 
-    // function validateForm() {
-    //     return town.name && town.province && town.district && town.commune;    
-    //   }
+    function validateForm() {
+        return town?.name && town?.province && town?.district && town?.commune;
+      }
       
     const handleClose = () => {
         setOpenPopupTown(false);
@@ -66,10 +66,7 @@ export default function PopupNewTown(props) {
             }
         };
 
-        fetch(variables.API_URL_ADD_TOWN, options).then(() => {
-            setNewTown()
-        });
-
+        fetch(variables.API_URL_ADD_TOWN, options).then(handleClose());
     };
 
 
@@ -193,7 +190,7 @@ export default function PopupNewTown(props) {
                                 sx={{ width: '120px', height: '40px', mt: 2 }}
                                 type="submit" color="secondary" variant="contained"
                                 onClick={save}                                
-                                // disabled={!validateForm()}
+                                disabled={!validateForm()}
                             >Zapisz</Button>
                         </Typography>
                     </Typography>

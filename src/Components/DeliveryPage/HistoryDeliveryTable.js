@@ -7,6 +7,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { GridActionsCellItem } from '@mui/x-data-grid-pro';
 import {DataGrid} from '@mui/x-data-grid';
 import PopupDeliveryInfo from './PopupDeliveryInfo';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -34,31 +35,27 @@ const useStyles = makeStyles({
     }
 })
 
-export default function HistoryDeliveryTable({id}) {
+export default function HistoryDeliveryTable() {
     const [tableData, setTableData] = useState([])
     const [user, setUser] = useState([])
 
     const classes = useStyles()
     const [history, setHistory] = useState([])
     const [openPopupDelivery, setOpenPopupDelivery] = useState(false)
+    const location = useLocation()
 
-    useEffect(() => {
-        fetch(variables.API_URL_USERS + `/${id}`)
-        .then((data) => data.json())
-        .then((data) => setUser(data))
-        .then(() => {
-
-         if(user.roleId === 2){
-            fetch(variables. API_URL_DELIVERY_HISTORY + `/${user.id}`)
-            .then((data) => data.json())
-            .then((data) => setTableData(data))
-        }
-        if(user.roleId === 1){
-            fetch(variables. API_URL_DELIVERY_HISTORY)
+        useEffect(() => {       
+            if(location.state.role === 'Szkola'){
+                fetch(variables.API_URL_DELIVERY_HISTORY + `/${location.state.id}`)
                 .then((data) => data.json())
                 .then((data) => setTableData(data))
-        }  
-        },[]); })
+            }
+            if(location.state.role === 'Admin'){
+                fetch(variables.API_URL_DELIVERY_HISTORY)
+                    .then((data) => data.json())
+                    .then((data) => setTableData(data))
+            }  
+        },[]); 
     
     
 

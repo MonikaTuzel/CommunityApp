@@ -48,13 +48,13 @@ function App() {
     return (
       <Navbar>
         <Routes>
-          <Route path='/home/:id' element={<Home />} />
+          <Route path='/home' element={<Home />} />
           <Route path='/users' element={<Users />} />
-          <Route path='/delivery/:id' element={<Delivery />} />
-          <Route path='/files/:id' element={<Files />} />
+          <Route path='/delivery' element={<Delivery />} />
+          <Route path='/files' element={<Files />} />
           <Route path='/adresses' element={<Adresses />} />
-          <Route path='/contacts/:id' element={<Contacts />} />
-          <Route path='/settings/:id' element={<Settings />} />
+          <Route path='/contacts' element={<Contacts />} />
+          <Route path='/settings' element={<Settings />} />
         </Routes>
       </Navbar>
     )

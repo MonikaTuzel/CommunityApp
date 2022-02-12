@@ -5,6 +5,7 @@ import { Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Autocomplete from '@mui/material/Autocomplete';
 import { variables } from '../../Variables';
+import { useLocation } from 'react-router-dom';
 
 
 const useStyles = makeStyles({
@@ -30,12 +31,13 @@ const useStyles = makeStyles({
     }
 })
 
-export default function ContactsForm({id}) {
+export default function ContactsForm() {
     const classes = useStyles()
     const [tableDataUsers, setTableDataUsers] = useState([])
     const [value, setValue] = useState(tableDataUsers[0]);
-    const [message, setMessage] = useState({
-        senderId:id
+    const location = useLocation()
+   const [message, setMessage] = useState({
+        senderId: location.state.id
     })
 
     function validateForm() {

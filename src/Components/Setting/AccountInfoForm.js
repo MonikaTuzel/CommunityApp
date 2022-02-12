@@ -5,6 +5,7 @@ import { makeStyles } from '@mui/styles';
 import { variables } from '../../Variables';
 import Avatar from '@mui/material/Avatar';
 import InputMask from "react-input-mask";
+import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles({
 
@@ -39,28 +40,29 @@ const useStyles = makeStyles({
     }
 })
 
-export default function AccountInfoForm({id}) {
+export default function AccountInfoForm() {
     const classes = useStyles()
     const [tableData, setTableData] = useState([])
     const [adressData, setAdressData] = useState([])
-    const [newUser, setNewUser] = useState();
+    const [newUser, setNewUser] = useState({tableData, adressData});
+    const location = useLocation()
 
     function validateForm() {
-        return tableData.street && tableData.number && tableData.studentScore && tableData.phone;    
-      }
+        return newUser?.street && newUser?.number && newUser?.studentScore && newUser?.phone;
+    }
 
     useEffect(() => {
-        fetch(variables.API_URL_USERS + `/${id}`)
+        fetch(variables.API_URL_USERS + `/${location.state.id}`)
             .then((data) => data.json())
             .then((data) => setTableData(data))
-    },[]);
+    }, []);
 
     useEffect(() => {
-        fetch(variables.API_URL_ADRESS + `/${id}`)
+        fetch(variables.API_URL_ADRESS + `/${location.state.id}`)
             .then((data) => data.json())
             .then((data) => setAdressData(data))
-    },[]);
-    
+    }, []);
+
     useEffect(() => {
         if (tableData)
             setNewUser(tableData);
@@ -81,20 +83,31 @@ export default function AccountInfoForm({id}) {
 
             [name]: event.target.value,
 
-        });    console.log(newUser, "userChange")
+        }); 
 
     };
-
+    function refreshPage() {
+        window.location.reload();
+    }
     const updateUser = async () => {
+        const editUser = {
+            street: newUser.street,
+            number: newUser.number,
+            studentScore: newUser.studentScore,
+            phone: newUser.phone,
+        }
+
         const options = {
             method: 'PUT',
-            body: JSON.stringify(newUser),
+            body: JSON.stringify(editUser),
             headers: {
                 'Content-Type': 'application/json'
             }
-         };
-         
-         fetch(variables.API_URL_USERS +`/${newUser.id}`, options);
+        };
+
+        fetch(variables.API_URL_USERS + `/${location.state.id}`, options).then(refreshPage);        
+                //console.log(editUser, "userChange")
+
     }
 
     return (
@@ -113,7 +126,7 @@ export default function AccountInfoForm({id}) {
 
                     </Typography>
 
-                    <Typography sx={{ m: 3, width: '95%', height: 'auto'}}>
+                    <Typography sx={{ m: 3, width: '95%', height: 'auto' }}>
                         <Typography sx={{ display: "flex", flexDirection: 'column', alignItems: 'flex-start' }}>
                             <h2>Twój profil</h2>
                             <p>Niekóre z danych możesz aktualizować</p>
@@ -125,9 +138,12 @@ export default function AccountInfoForm({id}) {
                                 <Typography sx={{ display: "flex", flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
 
                                     <Typography>
-                                    
+
                                         <Typography>
                                             <TextField
+                                                InputLabelProps={{
+                                                    shrink: true,
+                                                }}
                                                 sx={{ m: 1, mt: 2, width: '190px' }}
                                                 label="Ulica"
                                                 placeholder='Ulica'
@@ -137,78 +153,84 @@ export default function AccountInfoForm({id}) {
                                                 onChange={handleChange}
                                             />
                                             <TextField
+                                                InputLabelProps={{
+                                                    shrink: true,
+                                                }}
                                                 sx={{ m: 1, mt: 2, width: '90px' }}
                                                 label="Numer"
                                                 placeholder='Numer'
                                                 color='secondary'
                                                 value={newUser?.number}
                                                 id="number"
-                                            onChange={handleChange}
+                                                onChange={handleChange}
                                             />
                                         </Typography>
                                         <Typography>
                                             <TextField
-                                            disabled
+                                                disabled
                                                 sx={{ m: 1, mt: 2, width: '190px' }}
                                                 label="Miasto"
                                                 placeholder='Miasto'
                                                 color='secondary'
-                                                value={adressData?.townName??""}
+                                                value={adressData?.townName ?? ""}
                                                 id="townName"
                                             //onChange={handleChange}
                                             />
-                                        <InputMask
-                                            mask="99-999"
-                                            value={adressData?.code??""}
-                                            disabled = {true}
-                                            maskChar=" "
-                                            onChange={handleChange}
-                                        >
-                                            {() => <TextField
-                                                disabled
-                                                sx={{ m: 1, mt: 2, width: '90px' }}
-                                                label="Kod"
-                                                placeholder='Kod'
-                                                color='secondary'
-                                                value={adressData?.code??""}
-                                                id="code"
-                                            //onChange={handleChange}
-                                            />}
-                                        </InputMask>
+                                            <InputMask
+                                                mask="99-999"
+                                                value={adressData?.code ?? ""}
+                                                disabled={true}
+                                                maskChar=" "
+                                                onChange={handleChange}
+                                            >
+                                                {() => <TextField
+                                                    disabled
+                                                    sx={{ m: 1, mt: 2, width: '90px' }}
+                                                    label="Kod"
+                                                    placeholder='Kod'
+                                                    color='secondary'
+                                                    value={adressData?.code ?? ""}
+                                                    id="code"
+                                                //onChange={handleChange}
+                                                />}
+                                            </InputMask>
 
                                         </Typography>
 
                                         <Typography>
                                             <TextField
+                                                InputLabelProps={{
+                                                    shrink: true,
+                                                }}
                                                 sx={{ m: 1, mt: 2, width: '300px' }}
                                                 label="Ilość uczniów"
                                                 placeholder='Ilość uczniów'
-                                                color='secondary'                                                
+                                                color='secondary'
                                                 value={newUser?.studentScore}
                                                 id="studentScore"
-                                            onChange={handleChange}
+                                                onChange={handleChange}
                                             />
                                         </Typography>
                                     </Typography>
 
                                     <Typography>
                                         <TextField
-                                        disabled
+                                            disabled
                                             sx={{ m: 1, mt: 2, width: '250px' }}
                                             label="Województwo"
                                             placeholder='Województwo'
                                             color='secondary'
-                                            value={adressData?.province??""}
+                                            value={adressData?.province ?? ""}
                                             id="province"
                                         //onChange={handleChange}
                                         />
                                         <TextField
-                                        disabled
+                                            disabled
                                             sx={{ m: 1, mt: 2, width: '250px' }}
                                             label="Gmina"
                                             placeholder='Gmina'
                                             color='secondary'
-                                            value={adressData?.district??""}
+                                            value={adressData?.district ?? ""}
                                             id="district"
                                         //onChange={handleChange}
                                         />
@@ -218,7 +240,7 @@ export default function AccountInfoForm({id}) {
                                             label="Powiat"
                                             placeholder='Powiat'
                                             color='secondary'
-                                            value={adressData?.commune??""}
+                                            value={adressData?.commune ?? ""}
                                             id="commune"
                                         //onChange={handleChange}
                                         />
@@ -241,19 +263,23 @@ export default function AccountInfoForm({id}) {
                                         />
 
                                         <InputMask
-                                            mask="999 999 999"
+                                            mask="999999999"
                                             value={newUser?.phone}
                                             disabled={false}
                                             maskChar=" "
                                             onChange={handleChange}
                                         >
                                             {() => <TextField
-                                                    sx={{ m: 1, mt: 2, width: '300px' }}
-                                                    label="Numer telefonu"
-                                                    placeholder='Numer telefonu'
-                                                    color='secondary'
-                                                    id="phone"
-                                                />}
+                                                InputLabelProps={{
+                                                    shrink: true,
+                                                }}
+                                                sx={{ m: 1, mt: 2, width: '300px' }}
+                                                label="Numer telefonu"
+                                                placeholder='Numer telefonu'
+                                                color='secondary'
+                                                id="phone"
+                                                
+                                            />}
                                         </InputMask>
 
                                     </Typography>
@@ -273,7 +299,7 @@ export default function AccountInfoForm({id}) {
 
                             </Typography>
 
-                            
+
 
                         </Typography>
 

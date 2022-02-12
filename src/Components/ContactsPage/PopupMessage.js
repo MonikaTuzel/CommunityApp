@@ -31,12 +31,16 @@ export default function PopupMessage(props) {
     const classes = useStyles()
     const {date, messageId, userName, topic, content, openPopupMess, setOpenPopupMess} = props;
     const [message, setMessage] = useState({
-        messageId:messageId, senderName:"Szkola Podstawowa nr 12" 
+        messageId:messageId, senderName:"Szkola Podstawowa nr 12", topic, content
     })
     
     const handleClose = () => {
         setOpenPopupMess(false);
       };
+
+      function refreshPage() {
+        window.location.reload();
+    }
 
       const handleChange = (event, newValue) => {
 
@@ -54,6 +58,7 @@ export default function PopupMessage(props) {
         });
 
     };
+        //console.log(message, "odpowiedz")
 
     const send = async () => {
         const options = {
@@ -64,10 +69,7 @@ export default function PopupMessage(props) {
             }
         };
 
-        fetch(variables.API_URL_MESSAGE_REPLY, options).then(()=>{
-            setMessage()
-        });
-        console.log(message, "odpowiedz")
+        fetch(variables.API_URL_MESSAGE_REPLY, options).then(refreshPage)
 
     }
 
@@ -109,7 +111,6 @@ export default function PopupMessage(props) {
                                 label="Temat wiadomości"
                                 multiline
                                 rows={2}
-                                defaultValue={"Re: "+ topic}
                                 color='secondary' 
                                 onChange={handleChange}
                                 />

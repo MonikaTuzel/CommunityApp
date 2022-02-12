@@ -9,6 +9,7 @@ import {DataGrid} from '@mui/x-data-grid';
 import PopupDeliveryInfo from './PopupDeliveryInfo';
 import PopupAddDelivery from './PopupAddDelivery';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles({
 
@@ -33,39 +34,34 @@ const useStyles = makeStyles({
     }
 })
 
-export default function AllDeliveryTable({id}) {
+export default function AllDeliveryTable() {
     const classes = useStyles()
     const [tableData, setTableData] = useState([])
     const [user, setUser] = useState([])
     const [delivery, setDelivery] = useState([])
     const [openPopupDelivery, setOpenPopupDelivery] = useState(false)
     const [openPopupAddDelivery, setOpenPopupAddDelivery] = useState(false)
+    const location = useLocation()
 
-    useEffect(() => {
-        fetch(variables.API_URL_USERS + `/${id}`)
-        .then((data) => data.json())
-        .then((data) => setUser(data))
-        .then(() => {
-
-        if(user.roleId === 2){
-            fetch(variables.API_URL_DELIVERY_BROWSE + `/${user.id}`)
+    useEffect(() => {       
+        if(location.state.role === 'Szkola'){
+            fetch(variables.API_URL_DELIVERY_BROWSE + `/${location.state.id}`)
             .then((data) => data.json())
             .then((data) => setTableData(data))
         }
-        if(user.roleId === 1){
+        if(location.state.role === 'Admin'){
             fetch(variables.API_URL_DELIVERY_BROWSE)
                 .then((data) => data.json())
                 .then((data) => setTableData(data))
         }  
         console.log(user.roleId, "role")      
-    },[]); })
+    },[]); 
 
     function roleForm() {
-        if(user.roleId === 1)
+        if(location.state.role === 'Admin')
         return 1;    
       }
-  
-    
+      
 
     const getInfo = async (id) => {
         let element = tableData.find(el => el.id == id)

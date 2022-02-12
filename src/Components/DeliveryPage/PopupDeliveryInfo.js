@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { variables } from '../../Variables';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 const useStyles = makeStyles({
@@ -31,11 +32,21 @@ export default function PopupDeliveryInfo(props) {
     const classes = useStyles()
     const {openPopupDelivery, setOpenPopupDelivery, delivery} = props;
     const [statusDelivery, setStatusDelivery] = useState()
+    const location = useLocation()
 
     
     const handleClose = () => {
         setOpenPopupDelivery(false);
       };
+
+      function refreshPage(){ 
+        window.location.reload(); 
+    }
+
+    function roleForm() {
+        if(location.state.role === 'Admin')
+        return 1;    
+      }
 
       const setChangeStatus = async (id) => {       
             const options = {
@@ -45,8 +56,7 @@ export default function PopupDeliveryInfo(props) {
                     'Content-Type': 'application/json'
                 }
              };             
-             fetch(variables.API_URL_DELIVERY +`/${id}`, options)
-        
+             fetch(variables.API_URL_DELIVERY +`/${id}`, options)        
       }      
     return(
         <Dialog open={openPopupDelivery}
@@ -100,10 +110,11 @@ export default function PopupDeliveryInfo(props) {
                             sx={{ width: '130px', height: '30px' }}
                             type="submit" color="secondary" variant="contained"   
                             disabled={delivery?.statusName == "Zrealizowano"}
+                            disabled={!roleForm()}
                             onClick={async () => { 
                                 await setChangeStatus(delivery?.id).then(()=>{
                                     handleClose()
-                                })}}
+                                }).then(refreshPage)}}
                         >
                             Zrealizowano
                         </Button>

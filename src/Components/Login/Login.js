@@ -86,12 +86,14 @@ export default function Contacts() {
         .then((data) => data.json())
         .then(data=>{
             if(data){
-                navigate(`/home/${data.id}`)
+                //navigate(`/home/${data.id}`)
+                navigate('/home', { state:{id:data.id, role:data.roleName,}  });
             }
         })
     }
    
     console.log(values.password, "hasło");
+    
     return (
         <Container sx={{ padding: 2 }}  >
 

@@ -13,7 +13,13 @@ export default function Popup(props) {
 
     const handleClose = () => {
         setOpenPopup(false);
-      };
+        window.location.reload();
+
+      }
+
+      function refreshPage() {
+        window.location.reload();
+    }
      
       const deleteClick = React.useCallback(
         (id) => () => {
@@ -28,7 +34,7 @@ export default function Popup(props) {
       
           fetch(variables.API_URL_MESSAGE + `/${id}`, options).then(() => {
             handleClose()
-          })          
+          }).then(refreshPage);        
           console.log(id, "deleteMessage")
         },
         [],

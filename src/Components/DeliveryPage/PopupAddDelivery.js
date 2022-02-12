@@ -11,6 +11,8 @@ import DatePicker from '@mui/lab/DatePicker';
 import Stack from '@mui/material/Stack';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { useLocation, useNavigate } from 'react-router-dom';
+import InputMask from "react-input-mask";
 
 const useStyles = makeStyles({
 
@@ -30,46 +32,48 @@ export default function PopupDeliveryInfo(props) {
     const classes = useStyles()
     const { openPopupAddDelivery, setOpenPopupAddDelivery } = props;
     const [tableDataUsers, setTableDataUsers] = useState([])
-    const [value, setValue] = useState(new Date());
+    //const [value, setValue] = useState(new Date());
     const [valueUser, setValueUser] = useState(tableDataUsers[0]);
-    const [delivery, setDelivery] = useState()
-    const [valueSemestr, setValueSemestr] = useState(semestrOptions[0]);
-
+    const [delivery, setDelivery] = useState();
+    const location = useLocation()
 
 
     // function validateForm() {
 
-    //     return message.userId && message.topic&&message.contents;
-    
+    //     return delivery.year;
+
     //   }
 
     useEffect(() => {
         fetch(variables.API_URL_USERS)
             .then((data) => data.json())
             .then((data) => setTableDataUsers(data))
-        }, []);
+    }, []);
 
     const handleClose = () => {
         setOpenPopupAddDelivery(false);
-    };    
+    };
 
     const handleChange = (event, newValue) => {
 
         let name = event.target.id;
 
-        if (name.includes('clear-on-escape-option') ) name = 'userId'
-     
+
+        if (name.includes('clear-on-escape-option')) name = 'userId'
+
         setDelivery({
 
             ...delivery,
 
             [name]: newValue?.id ?? event.target.value,
 
-        });        
-    console.log(delivery, "newDelivery")
+
+        });
 
     };
-
+    function refreshPage(){ 
+        window.location.reload(); 
+    }
     const save = async () => {
         const options = {
             method: 'POST',
@@ -78,10 +82,10 @@ export default function PopupDeliveryInfo(props) {
                 'Content-Type': 'application/json'
             }
         };
-        fetch(variables.API_URL_DELIVERY_CREATE, options).then(()=>{
-            setDelivery({userId:delivery.userId, semestr:delivery.semestr})
-        });            
+        fetch(variables.API_URL_DELIVERY_CREATE, options).then(handleClose()).then(refreshPage)
     }
+    console.log(delivery, "newDelivery")
+
 
     return (
         <Dialog open={openPopupAddDelivery}
@@ -135,27 +139,40 @@ export default function PopupDeliveryInfo(props) {
 
 
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            <Stack spacing={3} sx={{ m: 1.5, width: '350px' }}> 
+                            <Stack spacing={3} sx={{ m: 1.5, width: '350px' }}>
+<input type="date" id="deliveryDate" name="deliveryDate" 
+                                                     onChange={handleChange}
 
-                            <DatePicker
-                              id="deliveryDate"
-
-                                views={['day']}
-                                label="Termin dostawy"
-                                value={value}
-                                onChange={async (newValue) => {
-                                    await setValue(newValue).then(()=>{
-                                        handleChange(newValue)
-                                    })
-                                }}
-                                renderInput={(params) => <TextField {...params} helperText={null} />}
                             />
+                                {/* <DatePicker
+                                    id="deliveryDate"
+                                    type="datetime-local"
+                                    // mask='__/__/____'
+                                    // views={['day']}
+                                    label="Termin dostawy"
+                                    value={value}
+                                    onChange={async (newValue) => {
+                                        setValue(newValue)
+                                        setDelivery({
+
+                                            ...delivery,
+                                
+                                            date: value,
+                                
+                                        });
+
+                                    }}
+                                    renderInput={(params) => <TextField {...params} helperText={null} />}
+                                /> */}
                             </Stack>
                         </LocalizationProvider>
 
+                        
+
+
                         <TextField
                             id="description"
-                            value={delivery?.description??""}
+                            value={delivery?.description}
                             onChange={handleChange}
 
                             sx={{ m: 1.5, width: '350px' }}
@@ -173,8 +190,69 @@ export default function PopupDeliveryInfo(props) {
                     </Typography>
 
                     <Typography component={'span'}>
+                        <InputMask
+                            mask="9999/9999"
 
-                    <Autocomplete
+                            value={delivery?.year}
+                            maskChar=" "
+                            onChange={handleChange}
+                        >
+                            {() =>  <TextField
+                            id="year"
+                            //value={delivery?.year}
+                            //onChange={handleChange}
+
+                            sx={{ m: 1.5, width: '350px' }}
+                            label="Rok szkolny"
+                            placeholder='Rok szkolny'
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <DescriptionOutlinedIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                            color='secondary' /> }
+
+                            </InputMask>
+
+                        <TextField
+                            id="semestr"
+                            value={delivery?.semestr}
+                            onChange={handleChange}
+                            type='number'
+
+                            sx={{ m: 1.5, width: '350px' }}
+                            label="semestr"
+                            placeholder='semestr'
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <DescriptionOutlinedIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                            color='secondary' />
+
+                             
+                             <TextField
+                            id="week"
+                            value={delivery?.week}
+                            onChange={handleChange}
+                            type='number'
+                            sx={{ m: 1.5, width: '350px' }}
+                            label="Tydzień"
+                            placeholder='Tydzień'
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <DescriptionOutlinedIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                            color='secondary' />
+
+                        {/* <Autocomplete
                             options={yearOptions}
 
                             clearOnEscape
@@ -187,14 +265,15 @@ export default function PopupDeliveryInfo(props) {
                         />
 
                         <Autocomplete
-                        value={valueSemestr}
+                            value={valueSemestr}
+
                             options={semestrOptions}
                             getOptionLabel={(option) => option.semestr}
                             onChange={handleChange}
 
                             clearOnEscape
                             disablePortal
-                            id="semestr"                            
+                            id="semestr"
                             noOptionsText="Nie ma takiego semestru"
                             sx={{ m: 2, width: 350 }}
                             renderInput={(params) => <TextField {...params} label="Semestr" />}
@@ -211,8 +290,8 @@ export default function PopupDeliveryInfo(props) {
                             noOptionsText="Nie ma takiego tygodnia"
                             sx={{ m: 2, width: 350 }}
                             renderInput={(params) => <TextField {...params} label="Tydzień" />}
-                        />
-                        
+                        /> */}
+
                         <Typography sx={{
                             display: "flex",
                             justifyContent: 'flex-end'
@@ -222,9 +301,9 @@ export default function PopupDeliveryInfo(props) {
                                 type="submit" color="secondary" variant="contained"
                                 onClick={save}
                                 // disabled={!validateForm()}
-                                >
-                                    Akceptuj
-                                </Button>
+                            >
+                                Akceptuj
+                            </Button>
                         </Typography>
 
                     </Typography>
@@ -236,23 +315,23 @@ export default function PopupDeliveryInfo(props) {
     )
 }
 
-const yearOptions = [
-    { label: '2020 / 2021'},
-    { label: '2021 / 2022'},
-    { label: '2022 / 2023'},
-    { label: '2023 / 2024'},
-]
+// const yearOptions = [
+//     { label: '2020 / 2021' },
+//     { label: '2021 / 2022' },
+//     { label: '2022 / 2023' },
+//     { label: '2023 / 2024' },
+// ]
 
-const semestrOptions = [
-    { semestr: '1'},
-    { semestr: '2' }
-]
+// const semestrOptions = [
+//     { semestr: '1', id: 1 },
+//     { semestr: '2',  id: 2 }
+// ]
 
-const weekOptions = [
-    { label: '1'},{ label: '2'},{ label: '3'},{ label: '4'},{ label: '5'},{ label: '6'},{ label: '7'},{ label: '8'},{ label: '9'},{ label: '10'},
-    { label: '11'},{ label: '12'},{ label: '13'},{ label: '14'},{ label: '15'},{ label: '16'},{ label: '17'},{ label: '18'},{ label: '19'},{ label: '20'},
-    { label: '21'},{ label: '22'},{ label: '23'},{ label: '24'},{ label: '25'},{ label: '26'},{ label: '27'},{ label: '28'},{ label: '29'},{ label: '30'},
-    { label: '31'},{ label: '32'},{ label: '33'},{ label: '34'},{ label: '35'},{ label: '36'},{ label: '37'},{ label: '38'},{ label: '39'},{ label: '40'},
-    { label: '41'},{ label: '42'},{ label: '43'},{ label: '44'},{ label: '45'},{ label: '46'},{ label: '47'},{ label: '48'},{ label: '49'},{ label: '50'},
-    { label: '51'},{ label: '52'}
-]
+// const weekOptions = [
+//     { label: '1' }, { label: '2' }, { label: '3' }, { label: '4' }, { label: '5' }, { label: '6' }, { label: '7' }, { label: '8' }, { label: '9' }, { label: '10' },
+//     { label: '11' }, { label: '12' }, { label: '13' }, { label: '14' }, { label: '15' }, { label: '16' }, { label: '17' }, { label: '18' }, { label: '19' }, { label: '20' },
+//     { label: '21' }, { label: '22' }, { label: '23' }, { label: '24' }, { label: '25' }, { label: '26' }, { label: '27' }, { label: '28' }, { label: '29' }, { label: '30' },
+//     { label: '31' }, { label: '32' }, { label: '33' }, { label: '34' }, { label: '35' }, { label: '36' }, { label: '37' }, { label: '38' }, { label: '39' }, { label: '40' },
+//     { label: '41' }, { label: '42' }, { label: '43' }, { label: '44' }, { label: '45' }, { label: '46' }, { label: '47' }, { label: '48' }, { label: '49' }, { label: '50' },
+//     { label: '51' }, { label: '52' }
+// ]

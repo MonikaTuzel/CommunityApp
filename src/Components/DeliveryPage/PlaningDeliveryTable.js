@@ -7,6 +7,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { GridActionsCellItem } from '@mui/x-data-grid-pro';
 import {DataGrid} from '@mui/x-data-grid';
 import PopupDeliveryInfo from './PopupDeliveryInfo';
+import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles({
  
@@ -32,31 +33,27 @@ const useStyles = makeStyles({
     }
 })
 
-export default function PlaningDeliveryTable({id}) {
+export default function PlaningDeliveryTable() {
     const [tableData, setTableData] = useState([])
     const [user, setUser] = useState([])
 
     const classes = useStyles()
     const [future, setFuture] = useState()
     const [openPopupDelivery, setOpenPopupDelivery] = useState(false)
+    const location = useLocation()
 
-    useEffect(() => {
-      fetch(variables.API_URL_USERS + `/${id}`)
-      .then((data) => data.json())
-      .then((data) => setUser(data))
-      .then(() => {
-
-       if(user.roleId === 2){
-          fetch(variables.API_URL_DELIVERY_BROWSE + `/future/${user.id}`)
-          .then((data) => data.json())
-          .then((data) => setTableData(data))
-      }
-      if(user.roleId === 1){
-          fetch(variables.API_URL_DELIVERY_BROWSE + "/future")
-              .then((data) => data.json())
-              .then((data) => setTableData(data))
-      }  
-      },[]); })
+      useEffect(() => {       
+        if(location.state.role === 'Szkola'){
+            fetch(variables.API_URL_DELIVERY_BROWSE + `/future/${location.state.id}`)
+            .then((data) => data.json())
+            .then((data) => setTableData(data))
+        }
+        if(location.state.role === 'Admin'){
+            fetch(variables.API_URL_DELIVERY_BROWSE + "/future")
+                .then((data) => data.json())
+                .then((data) => setTableData(data))
+        }  
+    },[]); 
   
 
     const getInfo = async (id) => {
