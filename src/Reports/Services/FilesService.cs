@@ -55,6 +55,7 @@ namespace Files.Services
 
             return _mapper.Map<List<BrowseDocumentsDto>>(docs);
         }
+
         public async Task<UploadDocumentsDto> NewDocumentUpload(UploadDocumentsDto dto, IFormFile files)
         {
             _logger.LogInformation($"Wywołano funkcję wysyłania pliku");
@@ -94,12 +95,13 @@ namespace Files.Services
                     throw new FilesUploadException($"Wymagany załącznik o rozszerzeniu .pdf!");
                 }
 
-                return dto;
             }
             else
             {
                 throw new FilesUploadException($"Dodaj załącznik");
             }
+
+            return dto;
         }
         public async Task Upload(int fileId, IFormFile files)
         {
@@ -109,7 +111,7 @@ namespace Files.Services
             {
                 var document = _dbContext.Documents.SingleOrDefault(x => x.Id == fileId);
 
-                var filesName = Path.GetFileName(document.Name);
+                var filesName = Path.GetFileName(document.Name) + "_reply";
                 var filesExtension = Path.GetExtension(files.FileName);
 
                 if (filesExtension == ".pdf")

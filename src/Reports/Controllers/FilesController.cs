@@ -79,8 +79,9 @@ namespace Files.Controllers
         /// <summary>
         /// Wysyłanie pliku .pdf
         /// </summary>
+        //[Consumes("multipart/form-data")]
         [HttpPost("[action]")]
-        public void NewUpload([FromForm]UploadDocumentsDto dto, IFormFile files)
+        public void NewUpload([FromForm] UploadDocumentsDto dto, IFormFile files)
         {
             _filesService.NewDocumentUpload(dto, files);
         }

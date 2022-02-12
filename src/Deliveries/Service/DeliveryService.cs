@@ -137,7 +137,8 @@ namespace Deliveries.Service
                 Week = creatDeliveryDto.Week,
                 Description = creatDeliveryDto.Description,
                 StatusId = 1,
-                UserId = user.Id
+                UserId = user.Id,
+                UpdateDate = DateTime.Now,
             };
 
             _dbContext.Delivery.Add(newDeliver);
