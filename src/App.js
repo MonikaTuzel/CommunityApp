@@ -64,8 +64,8 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          <Route path='/login' element={<Login />} />
-          <Route path='*' element={<WithNav/>} />      
+          <HashRoute path='/login' element={<Login />} />
+          <HashRoute path='*' element={<WithNav/>} />      
         </Routes>
 
       </Router>
