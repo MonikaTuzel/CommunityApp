@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deliveries", "Deliveries.cs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API Gateway", "..\Gateway\API Gateway.csproj", "{6FBA9119-A80A-44D6-BEB5-ACCFD0E7495D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTestProject1", "..\Messages\XUnitTestProjectMessage\XUnitTestProject1.csproj", "{8BE755F3-93DB-454E-A166-9ED0C94FBCC8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,10 +45,6 @@ Global
 		{6FBA9119-A80A-44D6-BEB5-ACCFD0E7495D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FBA9119-A80A-44D6-BEB5-ACCFD0E7495D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FBA9119-A80A-44D6-BEB5-ACCFD0E7495D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8BE755F3-93DB-454E-A166-9ED0C94FBCC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8BE755F3-93DB-454E-A166-9ED0C94FBCC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8BE755F3-93DB-454E-A166-9ED0C94FBCC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8BE755F3-93DB-454E-A166-9ED0C94FBCC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

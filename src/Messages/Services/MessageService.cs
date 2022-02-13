@@ -59,6 +59,10 @@ namespace Messages.Services
         {
             var message = _dbContext.Message.SingleOrDefault(x => x.Id == dto.MessageId);
             var user = _dbContext.User.SingleOrDefault(x => x.FullName == message.SenderName);
+            if(user is null)
+            {
+                user.Id = 0;
+            }
 
             var newMessage = new Message()
             {
