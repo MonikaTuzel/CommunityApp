@@ -126,7 +126,7 @@ export default function PopupNewFile(props) {
                         <label htmlFor="contained-button-file">
                             <Input
                                 type="file" onChange={handleInputChange}
-                                accept="pdf/*" id="contained-button-file" color='secondary' 
+                                accept="pdf/*" id="contained-button-file" 
                                 sx={{m:1}}/>
                         </label>
 
