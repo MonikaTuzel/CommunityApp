@@ -145,7 +145,8 @@ export default function Popup(props) {
 
         fetch(variables.API_URL_USERS_REGISTER, options).then(()=>{
             setNewUser()
-        }).then(handleClose()).then(refreshPage);
+        }).then(handleClose())
+        //.then(refreshPage);
 
         console.log(registy, "nowyUser")
 

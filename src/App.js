@@ -9,7 +9,7 @@ import Users from './Pages/Users';
 import Adresses from './Pages/Adresses';
 import Settings from './Pages/Settings';
 import Login from './Pages/Login';
-import { Routes, HashRoute } from 'react-router-dom';
+import { Routes, Route, HashRouter, Navigate } from 'react-router-dom';
 import { lightGreen } from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -47,28 +47,30 @@ function App() {
   const WithNav = () => {
     return (
       <Navbar>
+
         <Routes>
-          <HashRoute path='/home' element={<Home />} />
-          <HashRoute path='/users' element={<Users />} />
-          <HashRoute path='/delivery' element={<Delivery />} />
-          <HashRoute path='/files' element={<Files />} />
-          <HashRoute path='/adresses' element={<Adresses />} />
-          <HashRoute path='/contacts' element={<Contacts />} />
-          <HashRoute path='/settings' element={<Settings />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/users' element={<Users />} />
+          <Route path='/delivery' element={<Delivery />} />
+          <Route path='/files' element={<Files />} />
+          <Route path='/adresses' element={<Adresses />} />
+          <Route path='/contacts' element={<Contacts />} />
+          <Route path='/settings' element={<Settings />} />
         </Routes>
+
       </Navbar>
     )
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <Routes>
-          <HashRoute path='/login' element={<Login />} />
-          <HashRoute path='*' element={<WithNav/>} />      
-        </Routes>
+    <ThemeProvider theme={theme}>          
 
-      </Router>
+      <HashRouter>   
+        <Routes>
+          <Route path='/login' element={<Login />} />
+          <Route path='*' element={<WithNav />} />
+        </Routes>
+      </HashRouter>
     </ThemeProvider>
   )
 }
